@@ -32,9 +32,29 @@ class Sessions(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     joinable = models.BooleanField(default=True)
-    status = models.ImageField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=0)
 
     def __str__(self):
         """Sessions model string representation"""
         return self.name + ' ' + self.created_at
 
+class Game(models.Model):
+    STATUS = (
+    (1, 'open'),
+    (2, 'in progress'),
+    (3, 'completed'),
+    )
+    """Game model"""
+    name = models.CharField(max_length=30, unique=True, blank=False)
+    session = models.ForeignKey(
+        Sessions, on_delete=models.CASCADE, related_name='session_games')
+    admin = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, related_name='game_admin')
+    team_1 = models.IntegerField(default=0)
+    team_2 = models.IntegerField(default=0)
+    team_1_score = models.IntegerField(default=0)
+    team_2_score = models.IntegerField(default=0)
+
+    def __str__(self):
+        """Game model string representation"""
+        return self.name
