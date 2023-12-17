@@ -63,8 +63,9 @@ class SessionScore(models.Model):
         return 'Player '+ self.inc
 
     def __str__(self):
-        """Game model string representation"""
+        """Session score model string representation"""
         return self.name
+
 
 class Game(models.Model):
     """Game model"""
@@ -73,14 +74,28 @@ class Game(models.Model):
         Sessions, on_delete=models.CASCADE, related_name='session_games')
     admin = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='game_admin')
-    team_1 = models.IntegerField(default=0)
-    team_2 = models.IntegerField(default=0)
     team_1_score = models.IntegerField(default=0)
     team_2_score = models.IntegerField(default=0)
 
     @property
     def name(self):
         return 'Game '+ self.inc
+    
+    @property
+    def team1_player1(self):
+        return 1
+    
+    @property
+    def team1_player2(self):
+        return 2
+    
+    @property
+    def team2_player1(self):
+        return 3
+    
+    @property
+    def team2_player2(self):
+        return 4
 
     def __str__(self):
         """Game model string representation"""
