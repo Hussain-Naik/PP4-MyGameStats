@@ -55,7 +55,7 @@ class SessionScore(models.Model):
     player_id = models.IntegerField(default=0, null=False, blank=False)
     inc = models.IntegerField(default=0)
     player_score = models.IntegerField(default=0)
-    session = models.OneToOneField(
+    session = models.ForeignKey(
         Sessions, on_delete=models.CASCADE, related_name='session_scores')
     
     @property
