@@ -27,8 +27,8 @@ class Sessions(models.Model):
     """Event session model"""
     name = models.CharField(max_length=30, unique=True, blank=False)
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='session')
-    players = models.ManyToManyField(User, through='PlayerSessions', related_name='sessions')
+        Group, on_delete=models.CASCADE, related_name='sessions')
+    players = models.ManyToManyField(User, through='PlayerSessions', related_name='session')
     admin = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='session_admin')
     created_at = models.DateTimeField(auto_now_add=True)
