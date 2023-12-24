@@ -52,7 +52,6 @@ class PlayerSessions(models.Model):
     session = models.ForeignKey(Sessions, on_delete=models.CASCADE)
     wins = models.IntegerField(default=0)
     loses = models.IntegerField(default=0)
-    updated_on = models.DateTimeField(auto_now=True)
 
 
 class Game(models.Model):
