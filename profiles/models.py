@@ -7,7 +7,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE , related_name='profile')
     first_name = models.CharField(max_length=25,blank=True,null=True)
     last_name = models.CharField(max_length=25,blank=True,null=True)
-    friends = models.ManyToManyField(User ,blank=True,related_name='friends')
+    friends = models.ManyToManyField('self' ,blank=True,related_name='friends')
 
     def __str__(self):
         """Profile model string representation"""
