@@ -72,6 +72,15 @@ class Game(models.Model):
     def name(self):
         return 'Game '+ self.inc
     
+    @property
+    def winning_team(self):
+        if self.team_1_score > self.team_2_score:
+            return 1
+        elif self.team_2_score > self.team_1_score:
+            return 2
+        else:
+            return 0
+    
     def __str__(self):
         """Game model string representation"""
         return self.name
