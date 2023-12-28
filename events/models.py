@@ -6,8 +6,8 @@ class Group(models.Model):
     """Group event model"""
     name = models.CharField(max_length=30, unique=True, blank=False)
     slug = models.SlugField(unique=True, blank=False)
-    admin = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, related_name='group_admin')
+    author = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, related_name='group_author')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     private_group = models.BooleanField(default=False)
@@ -16,7 +16,7 @@ class Group(models.Model):
         """Events model string representation"""
         return self.name
 
-class Sessions(models.Model):
+class Session(models.Model):
     STATUS = (
     (1, 'open'),
     (2, 'in progress'),
@@ -28,7 +28,7 @@ class Sessions(models.Model):
     name = models.CharField(max_length=30, unique=True, blank=False)
     group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name='sessions')
-    players = models.ManyToManyField(User, through='PlayerSessions', related_name='session')
+    players = models.ManyToManyField(User, through='PlayerSession', related_name='session')
     admin = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='session_admin')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,10 +46,10 @@ class Sessions(models.Model):
     def player_count(self):
         return self.players.count()
     
-class PlayerSessions(models.Model):
+class PlayerSession(models.Model):
     """Associated model for group and users"""
     member = models.ForeignKey(User, on_delete=models.CASCADE)
-    session = models.ForeignKey(Sessions, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     wins = models.IntegerField(default=0)
     loses = models.IntegerField(default=0)
 
@@ -58,7 +58,7 @@ class Game(models.Model):
     """Game model"""
     inc = models.IntegerField(default=0)
     session = models.ForeignKey(
-        Sessions, on_delete=models.CASCADE, related_name='session_games')
+        Session, on_delete=models.CASCADE, related_name='session_games')
     admin = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='game_admin')
     team_1_score = models.IntegerField(default=0)
