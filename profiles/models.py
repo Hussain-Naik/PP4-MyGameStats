@@ -12,3 +12,17 @@ class Profile(models.Model):
     def __str__(self):
         """Profile model string representation"""
         return self.user.username
+
+    def add_friend(self, profile):
+        if not profile in self.friends.all():
+            self.friends.add(profile)
+    
+    def remove_friend(self, profile):
+        if not profile in self.friends.all():
+            self.friends.remove(profile)
+
+    def unfriend(self, removee):
+        self.remove_friend(removee)
+
+        removee_profile = Profile.objects.get(user=removee)
+        removee_profile.remove_friend(self)
