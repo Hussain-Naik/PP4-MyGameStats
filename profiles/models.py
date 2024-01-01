@@ -12,6 +12,12 @@ class Profile(models.Model):
     def __str__(self):
         """Profile model string representation"""
         return self.user.username
+    
+    def get_friends(self):
+        return self.friends.all()
+    
+    def get_friends_count(self):
+        return self.friends.all().count()
 
     def add_friend(self, profile):
         if not profile in self.friends.all():
