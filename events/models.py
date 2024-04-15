@@ -1,20 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q, Count, Max
 
 # Create your models here.
 class Group(models.Model):
     """Group event model"""
     name = models.CharField(max_length=30, unique=True, blank=False)
-    slug = models.SlugField(unique=True, blank=False)
     author = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='group_author')
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     private_group = models.BooleanField(default=False)
 
     def __str__(self):
         """Events model string representation"""
         return self.name
+
+    def get_all_participants(self):
+        queryset = User.objects.filter(session__group=self).distinct()
+        queryset = queryset.annotate(session_wins=Count('roster', filter=Q(session__session_roster__is_winner=True)))
+        return queryset
 
 class Session(models.Model):
     STATUS = (
@@ -25,10 +30,11 @@ class Session(models.Model):
     GAME_TYPE = ((1, 'Singles'),(2, 'Doubles'))
     TEAM_TYPE = ((1, 'Random'),(2, 'User Defined'))
     """Event session model"""
-    name = models.CharField(max_length=30, unique=True, blank=False)
+    location = models.CharField(max_length=30, blank=False)
+    time = models.CharField(max_length=30, blank=False)
     group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name='sessions')
-    players = models.ManyToManyField(User, through='PlayerSession', related_name='session')
+    players = models.ManyToManyField(User, through='Roster', related_name='session')
     admin = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='session_admin')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,48 +46,144 @@ class Session(models.Model):
 
     def __str__(self):
         """Sessions model string representation"""
-        return self.name + ' ' + self.created_at
+        return self.name
     
     @property
     def player_count(self):
         return self.players.count()
     
-class PlayerSession(models.Model):
-    """Associated model for group and users"""
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    wins = models.IntegerField(default=0)
-    loses = models.IntegerField(default=0)
+    @property
+    def name(self):
+        return self.location + ' ' + self.time
+    
+    def get_min_player_needed(self):
+        return self.status * 2
+    
+    def add_next_game(self):
+        Game.objects.create(session=self)
 
+    def get_session_games(self):
+        return self.session_games.count()
+    
+    def get_session_roster(self):
+        return self.session_roster.all().order_by('roster')
+    
+    def add_player(self, user):
+        return self.players.add(user, through_defaults={'roster': self.player_count + 1})
+    
+    def set_winner(self):
+        query = User.objects.filter(roster__session=self.id).annotate(games_won=Count('team', filter=Q(team__game_team__is_winner=True) & Q(team__game_team__game__session=self.id)))
+        max_score = query.aggregate(highest_score=Max('games_won'))
+        losers = query.filter(games_won__lt=max_score['highest_score'])
+        winner = query.filter(games_won__exact=max_score['highest_score'])
+        
+        roster_query = Roster.objects.filter(session=self.id, player__in=winner)
+        roster_query.update(is_winner=True)
+        roster_query = Roster.objects.filter(session=self.id, player__in=losers)
+        roster_query.update(is_winner=False)
+        
+        return winner
+    
+    def get_winner(self):
+        return User.objects.filter(roster__session=self.id, roster__is_winner=True)
+
+    
+class Roster(models.Model):
+    """Associated model for group and users"""
+    player = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='roster')
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_roster')
+    roster = models.IntegerField()
+    is_winner = models.BooleanField(default=False)
+
+    def get_session_games_won(self):
+        return User.objects.filter(roster__player=self.player, roster__session=self.session).annotate(games_won=Count('team', filter=Q(team__game_team__is_winner=True) & Q(team__game_team__game__session=self.session)))
+    
+
+    def get_session_wins(self):
+        return User.objects.filter(roster__player=self.player, roster__session__group=self.session.group).distinct()
+
+
+class Team(models.Model):
+    team_players = models.ManyToManyField(User, related_name='team')
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def name(self):
+        return 'Team '+ str(self.pk)
+    
+    @property
+    def players(self):
+        team = ", ".join(str(player.username) for player in self.team_players.all())
+        return team
+    
+    def get_all_games_played(self):
+        return Game.objects.filter(team=self).count()
+    
+    def get_all_games_won(self):
+        return Fixture.objects.filter(team=self, is_winner=True).count()
+    
+    def get_all_games_lost(self):
+        return Fixture.objects.filter(team=self, is_winner=False).count()
+
+class Fixture(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_fixture')
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name='game_fixture')
+    score = models.IntegerField(default=0)
+    is_winner = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{}:{}".format(self.game, self.players)
+    
+    @property
+    def players(self):
+        return self.team.players
 
 class Game(models.Model):
     """Game model"""
+    STATUS_CHOICES = (
+        ('manual', 'manual'),
+        ('sequence', 'sequence'),
+    )
+
     inc = models.IntegerField(default=0)
+    creation_type = models.CharField(max_length=8, choices=STATUS_CHOICES, default='sequence')
     session = models.ForeignKey(
-        Session, on_delete=models.CASCADE, related_name='session_games')
-    admin = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, related_name='game_admin')
-    team_1_score = models.IntegerField(default=0)
-    team_1_player1 = models.IntegerField(blank=False, null=False)
-    team_1_player2 = models.IntegerField(blank=True, null=True)
-    team_2_score = models.IntegerField(default=0)
-    team_2_player1 = models.IntegerField(blank=False, null=False)
-    team_2_player2 = models.IntegerField(blank=True, null=True)
+        Session, on_delete=models.CASCADE, related_name='session_games', null=True)
+    team = models.ManyToManyField(Team, through=Fixture)
 
     @property
     def name(self):
-        return 'Game '+ self.inc
+        return 'Game '+ str(self.inc)
     
     @property
     def winning_team(self):
-        if self.team_1_score > self.team_2_score:
-            return 1
-        elif self.team_2_score > self.team_1_score:
-            return 2
+        t_g_1 = Fixture.objects.get(game=self, team=self.team1)
+        t_g_2 = Fixture.objects.get(game=self, team=self.team2)
+        if ( t_g_1.score > t_g_2.score ):
+            return self.team1
+        elif ( t_g_2.score > t_g_1.score ):
+            return self.team2
         else:
-            return 0
+            return (self.team1, self.team2)
+        
+    @property
+    def team1(self):
+        return self.team.all().order_by('id').first()
+    
+    @property
+    def team2(self):
+        return self.team.all().order_by('-id').first()
     
     def __str__(self):
         """Game model string representation"""
         return self.name
-
+    
+    def save(self, *args, **kwargs):
+        if Game.objects.filter(id=self.id).exists():
+            offset = self.inc - 1
+        else:
+            offset = Game.objects.filter(session=self.session).count()
+        self.inc = offset + 1
+        super().save(*args, **kwargs)
