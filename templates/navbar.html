@@ -1,0 +1,74 @@
+{% load static %}
+<header>
+    <nav class="navbar bg-light">
+        <div class="container">
+            <h1>
+                <a class="navbar-brand" href="{% url 'home' %}">Badminton</a>
+            </h1>
+            <!-- <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+            {% if request.user.is_authenticated %}
+            <div class="dropdown-center">
+                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+                    <img src="{{request.user.avatar.url}}" alt="avatar"
+                      class="img-fluid rounded-circle me-1 mb-1" width="35"></a>
+                <div class="btn-group">
+                    <a class="btn btn-dark btn-md" href="#">
+                        {{request.user.name}}
+                    </a>
+                    <button type="button" class="btn btn-md btn-dark dropdown-toggle dropdown-toggle-split ml-3" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu text-center">
+                        <li>
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-gear"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% else %}
+            <a class="btn btn-dark btn-md" href="#">
+                Login <i class="bi bi-box-arrow-in-right"></i>
+            </a>
+            {% endif %}
+            
+            
+            <!-- <div class="dropdown">
+                <img src="{% static 'images/avatar.svg' %}" height="40"/>
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{request.user}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end text-center">
+                    <li>
+                        <a href="#" class="dropdown-item">
+                            <i class="bi bi-gear"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-item">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </nav>
+</header>

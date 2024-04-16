@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_bootstrap5",
     'events',
     'home',
     'profiles',
@@ -99,7 +100,6 @@ else:
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
-print(DEBUG)
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
