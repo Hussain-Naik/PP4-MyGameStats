@@ -16,21 +16,26 @@
                     {% endif %}
                     <form class="form text-center" action="" method="POST">
                         {% csrf_token %}
+                        {% load add_attr %}
                         {% for field in form%}
                         {% if form.errors %}
-                        <div class="form-floating mb-3">
-                            {{field}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
-                        </div>
+                            {% if field.label != 'Remember Me' %}
+                            <div class="form-floating mb-3">
+                                {{field|add_attr:'is-invalid'}}
+                                <label for="floating{{field.label}}">{{field.label}}</label>
+                            </div>
+                            {% endif %}
                         {% else %}
-                        <div class="form-floating mb-3">
-                            {{field}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
-                        </div>
+                            {% if field.label != 'Remember Me' %}
+                            <div class="form-floating mb-3">
+                                {{field}}
+                                <label for="floating{{field.label}}">{{field.label}}</label>
+                            </div>
+                            {% endif %}
                         {% endif %}
                         {% endfor %}
         
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                 </div>
                 <div class="card-footer text-muted text-center">

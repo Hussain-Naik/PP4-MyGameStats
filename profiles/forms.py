@@ -5,8 +5,12 @@ class MyCustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
         super(MyCustomLoginForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
-            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+            if field != 'remember':
+                form_id = 'floating' + field.capitalize()
+                self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+            else:
+                form_id = field.capitalize()
+                self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
     
     class Meta:
         model = User
