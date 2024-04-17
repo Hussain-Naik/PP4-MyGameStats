@@ -7,7 +7,6 @@
         {% for profile in list_object %}
         <div class="col">
             <div class="card">
-                <!-- <h5 class="card-header">Groups</h5> -->
                 <div class="card-body">
                     <a href="{% url 'user_profile' profile.id %}">{{profile.user}}</a>
                 </div>
