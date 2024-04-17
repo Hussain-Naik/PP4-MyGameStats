@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from events.models import Session
 
 # Create your models here.
 class Profile(models.Model):
@@ -56,3 +57,29 @@ class FriendRequest(models.Model):
     def __str__(self):
         """Friend Request model string representation"""
         return f'{self.sender} to {self.receiver}'
+    
+
+class SessionInvite(models.Model):
+    """Session Invite model"""
+    STATUS_CHOICES = (
+        ('pending', 'pending'),
+        ('accepted', 'accepted'),
+        ('declined', 'declined'),
+    )
+    session = models.ForeignKey(
+        Session,
+        on_delete=models.CASCADE,
+        related_name='session_invite'
+    )
+    receiver = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='session_invite_receiver'
+    )
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='pending')
+    sent_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """Friend Request model string representation"""
+        return f'{self.receiver} invited to {self.session}'
