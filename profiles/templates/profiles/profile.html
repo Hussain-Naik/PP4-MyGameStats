@@ -1,0 +1,102 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3 px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <h5 class="card-header d-flex justify-content-between align-items-center text-light">
+                  </h5>
+                <div class="card-body text-center">
+                    <div class="mt-1 mb-1">
+                    
+                    </div>
+                    <h4 class="mb-2">{{user_object.name}}</h4>
+                    <p class="text-muted mb-2">@{{user_object.username}} 
+                        {% if request.user == user_object %} 
+                        <span class="mx-2">|</span>
+                        <a class="link-secondary btn btn-sm btn-outline-none" role="button" href="#">
+                            <i class="bi bi-pencil-square fa-xl"></i>
+                        </a>
+                        {% elif request.user.is_authenticated and request.user != user_object %}
+                            {% if not sendRequest %}
+                            
+                            <form class="form" method="POST">
+                                {% csrf_token %}
+                                
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    <i class="bi bi-person-plus-fill fa-xl"></i> Add Friend
+                                </button>
+                            </form>
+                            {% else %}
+                            <span class="mx-2">|</span>
+                            <a class="link-light btn btn-sm btn-dark" role="button" href="#">
+                                Status : {{sendRequest.status}}
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-2 order-first mb-3">
+            <div class="card mb-3 position-relative">
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+                </span>
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Upcoming Games
+                  </h5>
+                <div class="card-body">
+                    
+                </div>
+                <div class="card-footer text-muted text-end">
+                    
+                </div>
+            </div>
+            <div class="card position-relative">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Session Invites
+                  </h5>
+                <div class="card-body">
+                    
+                </div>
+                <div class="card-footer text-muted text-end">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-2 order-last mb-3">
+            <div class="card mb-3 position-relative">
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Friend List
+                  </h5>
+                <div class="card-body">
+
+                </div>
+                <div class="card-footer text-muted text-end">
+                    <small>more</small>
+                </div>
+            </div>
+            <div class="card position-relative">
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Pending Invites
+                  </h5>
+                <div class="card-body">
+                    
+                </div>
+                <div class="card-footer text-muted text-end">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
