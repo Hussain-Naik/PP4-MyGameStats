@@ -1,4 +1,5 @@
 from allauth.account.forms import LoginForm, SignupForm
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
 class MyCustomLoginForm(LoginForm):
@@ -45,3 +46,15 @@ class MyCustomSignupForm(SignupForm):
 
         # You must return the original result.
         return user
+
+class CustomUserChangeForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            form_id = 'floating' + field.capitalize()
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+
+    password = None
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
