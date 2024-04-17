@@ -165,3 +165,5 @@ ACCOUNT_FORMS = {
     'signup': 'profiles.forms.MyCustomSignupForm',
     'user_token': 'allauth.account.forms.UserTokenForm',
 }
+
+ACCOUNT_LOGOUT_ON_GET = True

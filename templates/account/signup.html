@@ -1,34 +1,40 @@
-{% extends "account/base_entrance.html" %}
-{% load allauth i18n %}
-{% block head_title %}
-    {% trans "Signup" %}
-{% endblock head_title %}
+{% extends 'main.html' %}
+
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Sign Up" %}
-    {% endelement %}
-    <p>
-        {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
-    </p>
-    {% url 'account_signup' as action_url %}
-    {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button tags="prominent,signup" type="submit" %}
-                {% trans "Sign Up" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% if SOCIALACCOUNT_ENABLED %}
-        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    {% endif %}
-{% endblock content %}
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card mx-auto">
+                <h5 class="card-header">{{page}}</h5>
+                <div class="card-body">
+                    <form class="form text-center" method="POST">
+                        {% csrf_token %}
+                        {% load add_attr %}
+                        {% for field in form%}
+                        {% if field.errors %}
+                        <div class="form-floating mb-3">
+                            {{field|add_attr:'is-invalid'}}
+                            <label for="floating{{field.label}}">{{field.label}}</label>
+                        </div>
+                        <p>{{field.errors}}</p>
+                        {% else %}
+                        <div class="form-floating mb-3">
+                            {{field}}
+                            <label for="floating{{field.label}}">{{field.label}}</label>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+          
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    <p>Already have an account?</p>
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}
