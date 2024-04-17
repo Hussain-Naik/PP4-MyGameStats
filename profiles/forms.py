@@ -1,3 +1,4 @@
+from django.forms import Form
 from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
@@ -58,3 +59,6 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
+
+class FriendRequestForm(Form):
+    pass
