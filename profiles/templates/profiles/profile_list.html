@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+        {% for profile in list_object %}
+        <div class="col">
+            <div class="card">
+                <!-- <h5 class="card-header">Groups</h5> -->
+                <div class="card-body">
+                    <a href="{% url 'user_profile' profile.id %}">{{profile.user}}</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>last online {{profile.user.last_login|timesince}}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+</div>
+
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

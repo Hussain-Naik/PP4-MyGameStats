@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import AccessMixin
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import DetailView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -69,3 +69,9 @@ class UserProfileView(FormMixin, DetailView):
         else:
           context['sendRequest'] = False
         return context
+
+class FriendSearchView(ListView):
+    model = Profile
+    template_name = 'profiles/profile_list.html'
+    context_object_name = 'list_object'
+    paginate_by = 10
