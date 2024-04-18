@@ -18,10 +18,9 @@ class GroupListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['joined_grp'] = Group.objects.filter(Q(sessions__session_roster__player=self.request.user) | Q(host=self.request.user.id)).distinct()
+            context['list_object'] = Group.objects.filter(Q(sessions__session_roster__player=self.request.user) | Q(host=self.request.user.id) | Q(private=False)).distinct()
         else:
-            context['joined_grp'] = {}
-        context['list_object'] = Group.objects.filter(private=False)
+            context['list_object'] = Group.objects.filter(private=False)
         return context
 
 class CreateGroupView(LoginRequiredMixin, CreateView):

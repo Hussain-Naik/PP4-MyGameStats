@@ -5,7 +5,7 @@
     <div class="text-end"><a class="btn btn-outline-dark mb-3" href="{% url 'group_create' %}" role="button">Create Group</a></div>
     
     <div class="row row-cols-2 row-cols-md-4 g-4">
-        {% for group in joined_grp %}
+        {% for group in list_object %}
         <div class="col">
             <div class="card">
                 <!-- <h5 class="card-header">Groups</h5> -->
