@@ -12,7 +12,7 @@ class MyCustomLoginForm(LoginForm):
                 self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
             else:
                 form_id = field.capitalize()
-                self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+                self.fields[field].widget.attrs.update({'class': 'form-check-input float-end', 'role': 'switch','id': form_id})
     
     class Meta:
         model = User

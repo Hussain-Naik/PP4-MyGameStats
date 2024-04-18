@@ -24,12 +24,22 @@
                                 {{field|add_attr:'is-invalid'}}
                                 <label for="floating{{field.label}}">{{field.label}}</label>
                             </div>
+                            {% else %}
+                            <div class="form-check form-switch border border-dark p-2 mb-2 border-opacity-25 rounded">
+                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                {{field}}
+                            </div>
                             {% endif %}
                         {% else %}
                             {% if field.label != 'Remember Me' %}
                             <div class="form-floating mb-3">
                                 {{field}}
                                 <label for="floating{{field.label}}">{{field.label}}</label>
+                            </div>
+                            {% else %}
+                            <div class="form-check form-switch border border-dark p-2 mb-2 border-opacity-25 rounded">
+                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                {{field}}
                             </div>
                             {% endif %}
                         {% endif %}
