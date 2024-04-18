@@ -41,7 +41,7 @@ class CustomModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, game):
         return "%s" % game.name
 
-class GameCreationForm(forms.Form):
+class GameCreationForm(Form):
     def __init__(self, *args, **kwargs):
         """ Grants access to the request object so that only members of the current user
         are given as options"""
@@ -57,3 +57,16 @@ class GameCreationForm(forms.Form):
     choice = CustomModelChoiceField(
         queryset=None,
     )
+
+class TeamScoreForm(Form):
+    def __init__(self, *args, **kwargs):
+        game = Game.objects.get(id=kwargs.pop('pk'))
+        super(TeamScoreForm, self).__init__(*args, **kwargs)
+        self.fields["team1_score"].initial = game.game_fixture.get(team=game.team1).score
+        self.fields["team2_score"].initial = game.game_fixture.get(team=game.team2).score
+        self.fields["team1_score"].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingScore1'})
+        self.fields["team2_score"].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingScore2'})
+
+
+    team1_score = forms.IntegerField()
+    team2_score = forms.IntegerField()

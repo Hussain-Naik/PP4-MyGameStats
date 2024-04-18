@@ -183,3 +183,60 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
             manual_game.team.set([team1, team2])
 
         return super().form_valid(form)
+
+class GameDetailView(AccessMixin, FormMixin, DetailView):
+    template_name = 'events/game_detail.html'
+    model = Game
+    context_object_name = 'detail_object'
+    form_class = TeamScoreForm
+
+    def dispatch(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                # This will redirect to the login view
+                return self.handle_no_permission()
+            if not Game.objects.filter(id=self.get_object().id).filter(session__admin=self.request.user).exists():
+                # Redirect the user to somewhere else - add your URL here
+                return redirect('session', pk=self.get_object().session.id)
+
+            # Checks pass, let http method handlers process the request
+            return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+            game = Game.objects.get(id=self.kwargs['pk'])
+            return reverse_lazy("session", kwargs={"pk": game.session.id})
+    
+    def get_form_kwargs(self):
+            """ Passes the request object to the form class.
+            This is necessary to only display members that belong to a given user"""
+
+            kwargs = super(GameDetailView, self).get_form_kwargs()
+            kwargs['pk'] = self.kwargs['pk']
+            return kwargs
+    
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+        
+    def form_valid(self, form):
+            game = Game.objects.get(id=self.kwargs['pk'])
+            team1 = Fixture.objects.get(game=game, team=game.team1)
+            team1.score = form.data['team1_score']
+            
+            team2 = Fixture.objects.get(game=game, team=game.team2)
+            team2.score = form.data['team2_score']
+            if team1.score > team2.score:
+                team1.is_winner = True
+                team2.is_winner = False
+            elif team2.score > team1.score:
+                team1.is_winner = False
+                team2.is_winner = True
+            else:
+                pass
+                
+            team1.save()
+            team2.save()
+            game.session.set_winner()
+            return super().form_valid(form)

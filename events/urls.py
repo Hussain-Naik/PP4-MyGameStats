@@ -9,4 +9,5 @@ urlpatterns = [
     path('groups/<pk>/create/', views.CreateSessionView.as_view(), name="session_create"),
     path('session/<pk>/', views.SessionDetailView.as_view(), name="session"),
     path('session/<pk>/update/', views.UpdateSessionView.as_view(), name="session_update"),
+    path('session/game/<pk>/', views.GameDetailView.as_view(), name="game"),
 ]

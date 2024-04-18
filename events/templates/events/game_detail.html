@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+  <div class="row justify-content-center">
+      <div class="col-md-4 col-lg-3 order-first mb-3">
+        <div class="card">
+            <h5 class="card-header d-flex justify-content-between align-items-center">
+                Session Standing
+              </h5>
+            <div class="card-body">
+              {% for player in detail_object.session.players.all %}
+              <small>{{player}}</small>
+              {% endfor %}
+            </div>
+            <div class="card-footer text-muted text-end">
+              <a class="link-secondary btn btn-sm btn-light disabled" role="button" href="#">
+                <i class="bi bi-person-fill-add fa-xl"></i>
+              </a>
+              <a class="link-secondary btn btn-sm btn-light disabled" role="button" href="#">
+                <i class="bi bi-sliders2 fa-xl"></i>
+              </a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+          <div class="card">
+              <h5 class="card-header d-flex justify-content-between align-items-center">
+                  {{detail_object.session.name}}
+                  <span class="badge text-bg-secondary rounded-pill">Game in progress</span>
+                </h5>
+              <div class="card-body">
+                <ol class="list-group">
+                  {% for fixture in detail_object.session.session_games.all %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="w-100">
+                        <div class="fw-bold mb-2"><a class="list-group-item-light" href="{% url 'game' fixture.id %}">{{fixture}}</a></div>
+                        {% if fixture == detail_object %}
+                        <form class="form text-right" method="POST">
+                          {% csrf_token %}
+                          <div class="row">
+                            {% for field in form%}
+                            <!-- <label for="{{field.label}}">{{field.label}}</label> -->
+                            <div class="col-md-6 mb-3 text-center">
+                              <label for="{{field.label}}">{% if field.label == 'Team1 score' %} {{fixture.team1.players}} {% else %} {{fixture.team2.players}} {% endif %}</label>
+                              {{field}}
+                            </div>
+                            {% endfor %}
+                          </div>
+                          
+                          <button type="submit" class="btn btn-md btn-outline-dark float-end">Submit</button>
+                        </form>
+                        {% else %}
+                        {{fixture.team1.players}} vs {{fixture.team2.players}}
+                        {% endif %}
+                      </div>
+                      {% if fixture != detail_object %}
+                      <span class="badge text-bg-primary rounded-pill">{{fixture.winning_team.players}}</span>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+              </ol>
+              </div>
+              <div class="card-footer text-muted">
+                  <small>{{detail_object.session.created_at|timesince}}</small>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<h2></h2>
+
+<h3>{{fixture}}</h3>
+
+
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
