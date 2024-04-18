@@ -71,3 +71,21 @@ class UpdateGroupView(LoginRequiredMixin, UpdateView):
     
     def get_object(self):
         return get_object_or_404(Group, id=self.kwargs['pk'])
+
+class CreateSessionView(LoginRequiredMixin, CreateView):
+    form_class = SessionCreationForm
+    template_name = 'home/form.html'
+    success_url = reverse_lazy('groups')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Session Creation Form'
+        return context
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.admin = self.request.user
+        obj.group = Group.objects.get(id=self.kwargs['pk'])
+        obj.save()
+        obj.players.add(self.request.user, through_defaults={'roster': 1})
+        return super().form_valid(form)

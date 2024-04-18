@@ -6,4 +6,5 @@ urlpatterns = [
     path('groups/create/', views.CreateGroupView.as_view(), name="group_create"),
     path('groups/<pk>/', views.GroupDetailView.as_view(), name="group_detail"),
     path('group/<pk>/update/', views.UpdateGroupView.as_view(), name="group_update"),
+    path('group/<pk>/create/', views.CreateSessionView.as_view(), name="session_create"),
 ]

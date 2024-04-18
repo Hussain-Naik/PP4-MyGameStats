@@ -15,3 +15,13 @@ class GroupCreationForm(ModelForm):
     class Meta:
         model = Group
         exclude = ['host']
+
+class SessionCreationForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SessionCreationForm, self).__init__(*args, **kwargs)
+        for field in self.fields: 
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
+
+    class Meta:
+        model = Session
+        exclude = ['status', 'joinable', 'admin', 'players', 'group']

@@ -7,7 +7,7 @@
             <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">
                     {{detail_object.name}} 
-                    <a class="btn btn-sm btn-outline-dark " href="#" role="button">New Session</a>
+                    <a class="btn btn-sm btn-outline-dark " href="{% url 'session_create' detail_object.id %}" role="button">New Session</a>
                   </h5>
                 <div class="card-body">
                     <ol class="list-group">
