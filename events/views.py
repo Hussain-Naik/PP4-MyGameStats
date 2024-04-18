@@ -90,9 +90,21 @@ class CreateSessionView(LoginRequiredMixin, CreateView):
         obj.players.add(self.request.user, through_defaults={'roster': 1})
         return super().form_valid(form)
 
-class UpdateSessionView(LoginRequiredMixin, UpdateView):
+class UpdateSessionView(AccessMixin, UpdateView):
     form_class = SessionUpdateForm
     template_name = 'home/form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+    
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | self.get_object().admin.id == self.request.user.id:
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('group_detail' , pk=self.get_object().group.id)
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('session',  kwargs={"pk": self.get_object().id})
