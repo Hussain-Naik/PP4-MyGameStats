@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-lg-3 order-first mb-3">
+          <div class="card">
+              <h5 class="card-header d-flex justify-content-between align-items-center">
+                  Session Standing
+                </h5>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                {% for roster in detail_object.get_session_roster %}
+                  {% for score in roster.get_session_games_won %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Player {{roster.roster}}:{{roster.player.username}}
+                    <span class="badge text-bg-primary rounded-pill">{{score.games_won}}</span>
+                  </li>
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+              </div>
+              <div class="card-footer text-muted text-end">
+                {% if request.user == detail_object.admin %}
+                <a class="link-secondary btn btn-sm btn-light" role="button" href="#">
+                  <i class="bi bi-person-fill-add fa-xl"></i>
+                </a>
+                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update' detail_object.id %}">
+                  <i class="bi bi-sliders2 fa-xl"></i>
+                </a>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    {{detail_object.name}}
+                    {% if request.user == detail_object.admin %}
+                    {% if detail_object.players.count >= detail_object.get_min_player_needed %}
+                    <button type="button" class="btn btn-md btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      <i class="bi bi-plus-square"></i> New Game
+                    </button>
+                    {% else %}
+                    <a href="#" class="btn btn-md btn-outline-dark">
+                      <i class="bi bi-plus-square"></i> Invite Players
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                  </h5>
+                <div class="card-body">
+                  <ol class="list-group list-group-numbered">
+                    {% for fixture in detail_object.session_games.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold"><a class="list-group-item-light" href="{% url 'game' fixture.id %}">{{fixture}}</a></div>
+                          {{fixture.team1.players}} vs {{fixture.team2.players}}
+                        </div>
+                        <span class="badge text-bg-primary rounded-pill">{{fixture.winning_team.players}}</span>
+                      </li>
+                    {% endfor %}
+                </ol>
+                </div>
+                <div class="card-footer text-muted">
+                  {{detail_object.created_at|timesince}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="form" method="POST">
+            <div class="modal-body">
+                
+                  {% csrf_token %}
+                  {% for field in form%}
+                  {{field}}
+                  {% endfor %}
+                
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-md btn-outline-dark"><i class="bi bi-controller"></i> Play Game</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

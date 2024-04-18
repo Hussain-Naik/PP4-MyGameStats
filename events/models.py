@@ -72,7 +72,7 @@ class Session(models.Model):
         return self.players.add(user, through_defaults={'roster': self.player_count + 1})
     
     def set_winner(self):
-        query = User.objects.filter(roster__session=self.id).annotate(games_won=Count('team', filter=Q(team__game_team__is_winner=True) & Q(team__game_team__game__session=self.id)))
+        query = User.objects.filter(roster__session=self.id).annotate(games_won=Count('team', filter=Q(team__team_fixture__is_winner=True) & Q(team__team_fixture__game__session=self.id)))
         max_score = query.aggregate(highest_score=Max('games_won'))
         losers = query.filter(games_won__lt=max_score['highest_score'])
         winner = query.filter(games_won__exact=max_score['highest_score'])
@@ -96,7 +96,7 @@ class Roster(models.Model):
     is_winner = models.BooleanField(default=False)
 
     def get_session_games_won(self):
-        return User.objects.filter(roster__player=self.player, roster__session=self.session).annotate(games_won=Count('team', filter=Q(team__game_team__is_winner=True) & Q(team__game_team__game__session=self.session)))
+        return User.objects.filter(roster__player=self.player, roster__session=self.session).annotate(games_won=Count('team', filter=Q(team__team_fixture__is_winner=True) & Q(team__team_fixture__game__session=self.session)))
     
 
     def get_session_wins(self):
@@ -187,3 +187,21 @@ class Game(models.Model):
             offset = Game.objects.filter(session=self.session).count()
         self.inc = offset + 1
         super().save(*args, **kwargs)
+
+class Matchup(models.Model):
+    GAME_TYPE = ((1, 'Singles'),(2, 'Doubles'))
+
+    player_count = models.IntegerField()
+    game_index = models.IntegerField()
+    # game_type = models.IntegerField(choices=GAME_TYPE, default=1)
+    team1_player1_index = models.IntegerField()
+    team1_player2_index = models.IntegerField()
+    team2_player1_index = models.IntegerField()
+    team2_player2_index = models.IntegerField()
+
+    def __str__(self):
+        return str(self.player_count) + " " + str(self.game_index)
+    
+    @property
+    def name(self):
+        return f'Player {self.team1_player1_index} & Player {self.team1_player2_index} vs Player {self.team2_player1_index} & Player {self.team2_player2_index}'

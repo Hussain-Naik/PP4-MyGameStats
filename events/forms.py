@@ -1,5 +1,6 @@
+from django import forms
 from django.forms import Form, ModelForm
-from .models import Game, Group ,Session, Fixture
+from .models import Game, Group ,Session, Fixture, Matchup
 
 class GroupCreationForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -35,3 +36,24 @@ class SessionUpdateForm(ModelForm):
     class Meta:
         model = Session
         exclude = ['status', 'joinable', 'players', 'group']
+
+class CustomModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, game):
+        return "%s" % game.name
+
+class GameCreationForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        """ Grants access to the request object so that only members of the current user
+        are given as options"""
+
+        session = Session.objects.get(id=kwargs.pop('pk'))
+        super(GameCreationForm, self).__init__(*args, **kwargs)
+        # self.fields['choice'].queryset = ['Next Match']
+        self.fields['choice'].queryset = Matchup.objects.filter(
+            player_count=session.player_count)
+        self.fields['choice'].required = False
+        self.fields['choice'].widget.attrs.update({'class': 'form-select', 'placeholder': '', 'id': 'floatingChoice'})
+    
+    choice = CustomModelChoiceField(
+        queryset=None,
+    )

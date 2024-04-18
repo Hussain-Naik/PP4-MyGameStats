@@ -104,3 +104,71 @@ class UpdateSessionView(LoginRequiredMixin, UpdateView):
     
     def get_object(self):
         return get_object_or_404(Session, id=self.kwargs['pk'])
+
+class SessionDetailView(AccessMixin, FormMixin, DetailView):
+   template_name = 'events/session_detail.html'
+   model = Session
+   context_object_name = 'detail_object'
+   form_class = GameCreationForm
+
+   def dispatch(self, request, *args, **kwargs):
+    
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        # if not Session.objects.filter(id=self.get_object().id).filter(players=self.request.user).exists():
+        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | User.objects.filter(id=self.get_object().admin.id).exists():
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('group' , pk=self.get_object().group.id)
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+   
+   def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(SessionDetailView, self).get_form_kwargs()
+        kwargs['pk'] = self.kwargs['pk']
+        return kwargs
+   
+   def get_success_url(self):
+        game = Session.objects.get(id=self.kwargs['pk']).session_games.last()
+        return reverse_lazy("game", kwargs={"pk": game.pk})
+   
+   def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+      
+   def form_valid(self, form):
+        if form.data['choice'] == '':
+            Game.objects.create(session=self.get_object())
+        else:
+            roster = self.get_object().session_roster.all().order_by('roster')
+            fixture = Fixture.objects.get(id=form.data['choice'])
+            team1 = Team.objects.filter(team_players=roster[fixture.team1_player1_index -1].player).filter(team_players=roster[fixture.team1_player2_index -1].player)
+            team2 = Team.objects.filter(team_players=roster[fixture.team2_player1_index -1].player).filter(team_players=roster[fixture.team2_player2_index -1].player)
+
+            if not team1.exists():
+                new_team = Team.objects.create()
+                new_team.team_players.set([roster[fixture.team1_player1_index -1].player,
+                                            roster[fixture.team1_player2_index -1].player])
+                team1 = new_team
+            else:
+                team1 = team1.first()
+
+            if not team2.exists():
+                new_team2 = Team.objects.create()
+                new_team2.team_players.set([roster[fixture.team2_player1_index -1].player,
+                                            roster[fixture.team2_player2_index -1].player])
+                team2 = new_team2
+            else:
+                team2 = team2.first()
+
+            manual_game = Game.objects.create(session=self.get_object(), creation_type='manual')
+            manual_game.team.set([team1, team2])
+
+        return super().form_valid(form)
