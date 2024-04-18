@@ -1,6 +1,9 @@
 from django import forms
+from django.db.models import Q
 from django.forms import Form, ModelForm
-from .models import Game, Group ,Session, Fixture, Matchup
+from .models import Game, Group ,Session, Matchup
+from django.contrib.auth.models import User
+from profiles.models import SessionInvite, Profile
 
 class GroupCreationForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -70,3 +73,18 @@ class TeamScoreForm(Form):
 
     team1_score = forms.IntegerField()
     team2_score = forms.IntegerField()
+
+class SessionInviteForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        session = Session.objects.get(id=kwargs.pop('pk'))
+        user = Profile.objects.get(user_id=kwargs.pop('user'))
+        session_invited = User.objects.filter(session_invite_receiver__session=session.id)
+        print(session_invited)
+        super(SessionInviteForm, self).__init__(*args, **kwargs)
+        self.fields['receiver'].queryset = User.objects.filter(Q(id__in=session.group.get_all_participants()) | Q(profile__id__in=user.friends.all())).exclude(Q(id__in=session.players.all()) | Q(id__in=session_invited))
+        for field in self.fields: 
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
+
+    class Meta:
+        model = SessionInvite
+        fields = ['receiver']

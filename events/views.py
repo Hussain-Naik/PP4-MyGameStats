@@ -240,3 +240,29 @@ class GameDetailView(AccessMixin, FormMixin, DetailView):
             team2.save()
             game.session.set_winner()
             return super().form_valid(form)
+
+class CreateSessionInviteView(LoginRequiredMixin, CreateView):
+    form_class = SessionInviteForm
+    template_name = 'home/form.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('session_invite',  kwargs={"pk": self.get_object().id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Session Invite Form'
+        return context
+    
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+        This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(CreateSessionInviteView, self).get_form_kwargs()
+        kwargs['pk'] = self.kwargs['pk']
+        kwargs['user'] = self.request.user.id
+        return kwargs
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.session = Session.objects.get(id=self.kwargs['pk'])
+        return super().form_valid(form)

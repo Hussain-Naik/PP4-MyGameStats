@@ -10,4 +10,5 @@ urlpatterns = [
     path('session/<pk>/', views.SessionDetailView.as_view(), name="session"),
     path('session/<pk>/update/', views.UpdateSessionView.as_view(), name="session_update"),
     path('session/game/<pk>/', views.GameDetailView.as_view(), name="game"),
+    path('session/<pk>/invites/send/', views.CreateSessionInviteView.as_view(), name="send_invite"),
 ]
