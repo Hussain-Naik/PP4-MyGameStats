@@ -10,7 +10,7 @@ class Group(models.Model):
         User, on_delete=models.DO_NOTHING, related_name='group_author')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    private_group = models.BooleanField(default=False)
+    private = models.BooleanField(default=False)
 
     def __str__(self):
         """Events model string representation"""

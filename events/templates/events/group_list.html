@@ -5,12 +5,12 @@
     <div class="text-end"><a class="btn btn-outline-dark mb-3" href="{% url 'group_create' %}" role="button">Create Group</a></div>
     
     <div class="row row-cols-2 row-cols-md-4 g-4">
-        {% for group in list_object %}
+        {% for group in joined_grp %}
         <div class="col">
             <div class="card">
                 <!-- <h5 class="card-header">Groups</h5> -->
                 <div class="card-body">
-                    <a href="{% url 'group_detail' group.id %}">{{group.name}}</a>
+                    <a href="#">{{group.name}}</a>
                 </div>
                 <div class="card-footer text-muted">
                     <small>Created by {{group.host.username}} {{group.created_on|timesince}}</small>
