@@ -116,10 +116,9 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        # if not Session.objects.filter(id=self.get_object().id).filter(players=self.request.user).exists():
-        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | User.objects.filter(id=self.get_object().admin.id).exists():
+        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | self.get_object().admin.id == self.request.user.id:
             # Redirect the user to somewhere else - add your URL here
-            return redirect('group' , pk=self.get_object().group.id)
+            return redirect('group_detail' , pk=self.get_object().group.id)
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
