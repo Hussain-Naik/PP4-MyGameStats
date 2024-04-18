@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card">
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    {{detail_object.name}} 
+                    <a class="btn btn-sm btn-outline-dark " href="#" role="button">New Session</a>
+                  </h5>
+                <div class="card-body">
+                    <ol class="list-group">
+                        {% for session in detail_object.sessions.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold"><a class="list-group-item-light" href="#">{{session.name}}</a></div>
+                                {% for player in session.players.all %}
+                                {% if player in session.get_winner%}
+                                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+                                    <img src="{{player.avatar.url}}" alt="avatar"
+                                    class="img-fluid rounded-circle me-1 mb-1" width="45"></a>
+                                {% else %}
+                                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+                                    <img src="{{player.avatar.url}}" alt="avatar"
+                                    class="img-fluid rounded-circle me-1 mb-1" width="35"></a>
+                                {% endif %}
+                              {% endfor %}
+                            </div>
+                            <span class="badge text-bg-primary rounded-pill">{{session.get_status_display}}</span>
+                          </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                <div class="card-footer text-muted">
+                    {{detail_object.created_on|timesince}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3 order-first mb-3">
+            <div class="card">
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Group Standing
+                  </h5>
+                <div class="card-body">
+
+                </div>
+                <div class="card-footer text-muted text-end">
+                    <a class="link-secondary btn btn-sm btn-light" role="button" href="#">
+                        <i class="bi bi-sliders2 fa-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -38,3 +38,21 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
         obj.host = self.request.user
         obj.save()
         return super().form_valid(form)
+
+class GroupDetailView(AccessMixin, DetailView):
+    model = Group
+    template_name = 'events/group_detail.html'
+    context_object_name = 'detail_object'
+
+    def dispatch(self, request, *args, **kwargs):
+        group = self.get_object()
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if not User.objects.filter(session__group=group.id, id=self.request.user.id).exists() | group.host.id == self.request.user.id:
+            # Redirect the user to somewhere else - add your URL here
+            if group.private:
+                return redirect('groups')
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)

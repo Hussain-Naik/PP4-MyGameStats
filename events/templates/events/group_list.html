@@ -10,7 +10,7 @@
             <div class="card">
                 <!-- <h5 class="card-header">Groups</h5> -->
                 <div class="card-body">
-                    <a href="#">{{group.name}}</a>
+                    <a href="{% url 'group_detail' group.id %}">{{group.name}}</a>
                 </div>
                 <div class="card-footer text-muted">
                     <small>Created by {{group.host.username}} {{group.created_on|timesince}}</small>
