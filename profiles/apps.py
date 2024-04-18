@@ -6,4 +6,4 @@ class ProfilesConfig(AppConfig):
     name = 'profiles'
 
     def ready(self):
-        from profiles.signals import create_profile
+        import profiles.signals

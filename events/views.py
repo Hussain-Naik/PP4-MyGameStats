@@ -159,22 +159,22 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
             Game.objects.create(session=self.get_object())
         else:
             roster = self.get_object().session_roster.all().order_by('roster')
-            fixture = Fixture.objects.get(id=form.data['choice'])
-            team1 = Team.objects.filter(team_players=roster[fixture.team1_player1_index -1].player).filter(team_players=roster[fixture.team1_player2_index -1].player)
-            team2 = Team.objects.filter(team_players=roster[fixture.team2_player1_index -1].player).filter(team_players=roster[fixture.team2_player2_index -1].player)
+            matchup = Matchup.objects.get(id=form.data['choice'])
+            team1 = Team.objects.filter(team_players=roster[matchup.team1_player1_index -1].player).filter(team_players=roster[matchup.team1_player2_index -1].player)
+            team2 = Team.objects.filter(team_players=roster[matchup.team2_player1_index -1].player).filter(team_players=roster[matchup.team2_player2_index -1].player)
 
             if not team1.exists():
                 new_team = Team.objects.create()
-                new_team.team_players.set([roster[fixture.team1_player1_index -1].player,
-                                            roster[fixture.team1_player2_index -1].player])
+                new_team.team_players.set([roster[matchup.team1_player1_index -1].player,
+                                            roster[matchup.team1_player2_index -1].player])
                 team1 = new_team
             else:
                 team1 = team1.first()
 
             if not team2.exists():
                 new_team2 = Team.objects.create()
-                new_team2.team_players.set([roster[fixture.team2_player1_index -1].player,
-                                            roster[fixture.team2_player2_index -1].player])
+                new_team2.team_players.set([roster[matchup.team2_player1_index -1].player,
+                                            roster[matchup.team2_player2_index -1].player])
                 team2 = new_team2
             else:
                 team2 = team2.first()
