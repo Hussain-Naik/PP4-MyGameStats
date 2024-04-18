@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from events.models import Session
+from django.db.models import Q
+from events.models import *
 
 # Create your models here.
 class Profile(models.Model):
@@ -33,6 +34,29 @@ class Profile(models.Model):
 
         removee_profile = Profile.objects.get(user=removee)
         removee_profile.remove_friend(self)
+    
+    def get_pending_requests(self):
+        return FriendRequest.objects.filter(Q(sender=self.id) | Q(receiver=self.id))
+    
+    def get_all_games_played(self):
+        return Game.objects.filter(game_fixture__team__team_players=self.user.id).count()
+    
+    def get_all_games_won(self):
+        return Game.objects.filter(game_fixture__team__team_players=self.user.id, game_fixture__is_winner=True).count()
+    
+    def get_all_games_lost(self):
+        return Game.objects.filter(game_fixture__team__team_players=self.user.id, game_fixture__is_winner=False).count()
+    
+    def get_all_session_wins(self):
+        return Roster.objects.filter(player=self.user.id, is_winner=True).count()
+    
+    def get_session_wins(self, group):
+        print(Roster.objects.filter(player=self.user.id, session__group=group.id, is_winner=True))
+        return Roster.objects.filter(player=self.user.id, session__group=group.id, is_winner=True).count()
+    
+    def get_group_game_wins(self, group):
+        return Game.objects.filter(game_fixture__team__team_players=self.user.id, session__group=group, game_fixture__is_winner=True).count()
+    
 
 class FriendRequest(models.Model):
     """Friend Request model"""
