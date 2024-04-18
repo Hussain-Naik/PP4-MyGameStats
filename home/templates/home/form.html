@@ -8,23 +8,37 @@
             <div class="card mx-auto">
                 <h5 class="card-header">{{page}}</h5>
                 <div class="card-body">
-                    <form class="form text-center" method="POST">
+                    <form class="form" method="POST">
                         {% csrf_token %}
                         {% load add_attr %}
                         {% for field in form%}
                         {% if field.errors %}
                         
-                        <div class="form-floating mb-3">
-                            {{field|add_attr:'is-invalid'}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
-                        </div>
+                            {% if field.label != 'Private' %}
+                            <div class="form-floating mb-3">
+                                {{field|add_attr:'is-invalid'}}
+                                <label for="floating{{field.label}}">{{field.label}}</label>
+                            </div>
+                            {% else %}
+                            <div class="form-check form-switch border-secondary">
+                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                {{field}}
+                            </div>
+                            {% endif %}
                         <p>{{field.errors}}</p>
                         
                         {% else %}
-                        <div class="form-floating mb-3">
-                            {{field}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
-                        </div>
+                            {% if field.label != 'Private' %}
+                            <div class="form-floating mb-3">
+                                {{field}}
+                                <label for="floating{{field.label}}">{{field.label}}</label>
+                            </div>
+                            {% else %}
+                            <div class="form-check form-switch border border-secondary p-2 border-opacity-25 rounded">
+                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                {{field}}
+                            </div>
+                            {% endif %}
                         {% endif %}
                         {% endfor %}
           

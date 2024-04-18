@@ -21,7 +21,7 @@ class GroupListView(ListView):
             context['joined_grp'] = Group.objects.filter(Q(sessions__session_roster__player=self.request.user) | Q(host=self.request.user.id)).distinct()
         else:
             context['joined_grp'] = {}
-        context['list_object'] = Group.objects.filter(private_group=False)
+        context['list_object'] = Group.objects.filter(private=False)
         return context
 
 class CreateGroupView(LoginRequiredMixin, CreateView):
