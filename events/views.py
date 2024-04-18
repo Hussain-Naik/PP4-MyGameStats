@@ -56,3 +56,18 @@ class GroupDetailView(AccessMixin, DetailView):
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
+
+class UpdateGroupView(LoginRequiredMixin, UpdateView):
+    form_class = GroupCreationForm
+    template_name = 'home/form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('group_detail',  kwargs={"pk": self.get_object().id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Group Update Form'
+        return context
+    
+    def get_object(self):
+        return get_object_or_404(Group, id=self.kwargs['pk'])
