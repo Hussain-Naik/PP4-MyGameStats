@@ -25,3 +25,13 @@ class SessionCreationForm(ModelForm):
     class Meta:
         model = Session
         exclude = ['status', 'joinable', 'admin', 'players', 'group']
+
+class SessionUpdateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SessionUpdateForm, self).__init__(*args, **kwargs)
+        for field in self.fields: 
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
+
+    class Meta:
+        model = Session
+        exclude = ['status', 'joinable', 'players', 'group']
