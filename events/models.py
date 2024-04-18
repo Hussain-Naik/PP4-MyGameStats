@@ -6,7 +6,7 @@ from django.db.models import Q, Count, Max
 class Group(models.Model):
     """Group event model"""
     name = models.CharField(max_length=30, unique=True, blank=False)
-    author = models.ForeignKey(
+    host = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='group_author')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

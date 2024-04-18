@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="text-end"><a class="btn btn-outline-dark mb-3" href="{% url 'group_create' %}" role="button">Create Group</a></div>
+    
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+        {% for group in list_object %}
+        <div class="col">
+            <div class="card">
+                <!-- <h5 class="card-header">Groups</h5> -->
+                <div class="card-body">
+                    <a href="{% url 'group_detail' group.id %}">{{group.name}}</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>Created by {{group.host.username}} {{group.created_on|timesince}}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    {{ page_obj.previous_page_number }}
+                </a>
+            </li>
+            
+            {% endif %}
+
+            <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ page_obj.number }}</a></li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    {{ page_obj.next_page_number }}
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            
+            {% endif %}
+            
+        </ul>
+    </nav>
+</div>
+{% endblock %}
