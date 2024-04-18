@@ -1,6 +1,14 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from .models import Game, Team, Matchup
+from .models import Game, Team, Matchup, Session
+
+@receiver(pre_save, sender=Session)
+def pre_save_session(sender, instance, **kwargs):
+    print(instance.status)
+    if instance.status == 1:
+        instance.joinable = True
+    else:
+        instance.joinable = False
 
 @receiver(post_save, sender=Game)
 def post_save_game(sender, created, instance, **kwargs):
