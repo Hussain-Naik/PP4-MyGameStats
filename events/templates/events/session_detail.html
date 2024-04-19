@@ -22,7 +22,7 @@
               </div>
               <div class="card-footer text-muted text-end">
                 {% if request.user == detail_object.admin %}
-                <a class="link-secondary btn btn-sm btn-light" role="button" href="#">
+                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_invite' detail_object.id %}">
                   <i class="bi bi-person-fill-add fa-xl"></i>
                 </a>
                 <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update' detail_object.id %}">
