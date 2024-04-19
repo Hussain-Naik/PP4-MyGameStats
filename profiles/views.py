@@ -20,13 +20,13 @@ class MyProfileView(LoginRequiredMixin, DetailView):
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
-    model = User
+    model = Profile
     form_class = CustomUserChangeForm
     template_name = 'home/form.html'
     success_url = reverse_lazy('profile')
 
     def get_object(self):
-        return get_object_or_404(User, id=self.request.user.id)
+        return get_object_or_404(Profile, user__id=self.request.user.id)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,4 +74,5 @@ class FriendSearchView(ListView):
     model = Profile
     template_name = 'profiles/profile_list.html'
     context_object_name = 'list_object'
-    paginate_by = 1
+    paginate_by = 12
+

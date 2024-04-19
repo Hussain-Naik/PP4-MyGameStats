@@ -2,6 +2,7 @@ from django.forms import Form
 from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 class MyCustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
@@ -57,8 +58,8 @@ class CustomUserChangeForm(UserChangeForm):
 
     password = None
     class Meta:
-        model = User
-        fields = ["first_name", "last_name", "email"]
+        model = Profile
+        exclude = ['user', 'friends']
 
 class FriendRequestForm(Form):
     pass
