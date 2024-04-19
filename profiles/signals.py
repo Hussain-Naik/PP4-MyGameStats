@@ -23,8 +23,9 @@ def post_save_add_friend(sender, created, instance, **kwargs):
 @receiver(post_save, sender=SessionInvite)
 def post_save_accept_session_invite(sender, created, instance, **kwargs):
     session_ = instance.session
-    receiver_ = instance.receiver
+    receiver_ = instance.receiver.user
     if instance.status == 'accepted':
         session_.add_player(receiver_)
+        instance.delete()
     elif instance.status == 'declined':
         session_.players.remove(receiver_)
