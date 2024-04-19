@@ -193,20 +193,20 @@ class UpdateGroupAdminView(AccessMixin, UpdateView):
         return get_object_or_404(Group, id=self.kwargs['pk'])
 
 class SessionDetailView(AccessMixin, FormMixin, DetailView):
-   template_name = 'events/session_detail.html'
-   model = Session
-   context_object_name = 'detail_object'
-   form_class = GameCreationForm
+    template_name = 'events/session_detail.html'
+    model = Session
+    context_object_name = 'detail_object'
+    form_class = GameCreationForm
 
-   def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         invited_profiles = Profile.objects.filter(session_invite_receiver__session=self.get_object())
         invited_users = User.objects.filter(profile__id__in=invited_profiles)
         context['session_invites'] = invited_users
         return context
 
-   def dispatch(self, request, *args, **kwargs):
-    
+    def dispatch(self, request, *args, **kwargs):
+        
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
@@ -219,27 +219,27 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
-   
-   def get_form_kwargs(self):
+    
+    def get_form_kwargs(self):
         """ Passes the request object to the form class.
-         This is necessary to only display members that belong to a given user"""
+        This is necessary to only display members that belong to a given user"""
 
         kwargs = super(SessionDetailView, self).get_form_kwargs()
         kwargs['pk'] = self.kwargs['pk']
         return kwargs
-   
-   def get_success_url(self):
+    
+    def get_success_url(self):
         game = Session.objects.get(id=self.kwargs['pk']).session_games.last()
         return reverse_lazy("game", kwargs={"pk": game.pk})
-   
-   def post(self, request, *args, **kwargs):
+    
+    def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-      
-   def form_valid(self, form):
+        
+    def form_valid(self, form):
         if form.data['choice'] == '':
             Game.objects.create(session=self.get_object())
         else:
