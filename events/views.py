@@ -323,7 +323,7 @@ class SessionInviteView(LoginRequiredMixin, ListView):
     model = SessionInvite
     template_name = 'events/session_invites.html'
     context_object_name = 'list_object'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = SessionInvite.objects.filter(session=self.kwargs['pk'], status='pending')
