@@ -343,3 +343,21 @@ class DeleteSession(AccessMixin, DeleteView):
             return redirect('session', pk=self.get_object().session.id)
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
+    
+
+class DeleteGroup(AccessMixin, DeleteView):
+    model = Group
+    template_name = 'home/delete.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('groups')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if not User.objects.filter(group_author__host=self.request.user, group_author__id=self.get_object().id).exists():
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('groups')
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
