@@ -251,10 +251,15 @@ class SessionInviteView(LoginRequiredMixin, ListView):
     model = SessionInvite
     template_name = 'events/session_invites.html'
     context_object_name = 'list_object'
+    paginate_by = 1
+
+    def get_queryset(self):
+        queryset = SessionInvite.objects.filter(session=self.kwargs['pk'], status='pending')
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['list_object'] = SessionInvite.objects.filter(session=self.kwargs['pk'], status='pending')
+       
         context['session_pk'] = self.kwargs['pk']
         context['roster'] = Roster.objects.filter(session=self.kwargs['pk'])
         context['page'] = 'Session Invites'
