@@ -99,9 +99,12 @@ class UpdateSessionView(AccessMixin, UpdateView):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | self.get_object().admin.id == self.request.user.id:
-            # Redirect the user to somewhere else - add your URL here
-            return redirect('group_detail' , pk=self.get_object().group.id)
+        if User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() != True:
+            if self.get_object().admin.id != self.request.user.id:
+                # Redirect the user to somewhere else - add your URL here
+                return redirect('group_detail' , pk=self.get_object().group.id)
+            else:
+                pass
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
@@ -128,9 +131,12 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        if not User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() | self.get_object().admin.id == self.request.user.id:
-            # Redirect the user to somewhere else - add your URL here
-            return redirect('group_detail' , pk=self.get_object().group.id)
+        if User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() != True:
+            if self.get_object().admin.id != self.request.user.id:
+                # Redirect the user to somewhere else - add your URL here
+                return redirect('group_detail' , pk=self.get_object().group.id)
+            else:
+                pass
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
