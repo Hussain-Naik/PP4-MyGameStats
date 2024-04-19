@@ -101,6 +101,7 @@ class SessionInvite(models.Model):
         related_name='session_invite_receiver'
     )
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='pending')
+    inbound = models.BooleanField(default=False)
     sent_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
