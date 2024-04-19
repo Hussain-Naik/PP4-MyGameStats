@@ -120,6 +120,44 @@ class UpdateSessionView(AccessMixin, UpdateView):
     def get_object(self):
         return get_object_or_404(Session, id=self.kwargs['pk'])
 
+class UpdateSessionAdminView(AccessMixin, UpdateView):
+    form_class = SessionUpdateAdminForm
+    template_name = 'home/form.html'
+
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(UpdateSessionAdminView, self).get_form_kwargs()
+        kwargs['pk'] = self.kwargs['pk']
+        return kwargs
+    
+    def dispatch(self, request, *args, **kwargs):
+    
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if User.objects.filter(session__group=self.get_object().group.id, id=self.request.user.id).exists() != True:
+            if self.get_object().admin.id != self.request.user.id:
+                # Redirect the user to somewhere else - add your URL here
+                return redirect('group_detail' , pk=self.get_object().group.id)
+            else:
+                pass
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('session',  kwargs={"pk": self.get_object().id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Change Session Admin'
+        return context
+    
+    def get_object(self):
+        return get_object_or_404(Session, id=self.kwargs['pk'])
+
 class SessionDetailView(AccessMixin, FormMixin, DetailView):
    template_name = 'events/session_detail.html'
    model = Session

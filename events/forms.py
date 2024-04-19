@@ -40,6 +40,18 @@ class SessionUpdateForm(ModelForm):
         model = Session
         exclude = ['status', 'joinable', 'players', 'group']
 
+class SessionUpdateAdminForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        session = Session.objects.get(id=kwargs.pop('pk'))
+        super(SessionUpdateAdminForm, self).__init__(*args, **kwargs)
+        self.fields['admin'].queryset = User.objects.filter(id__in=session.players.all())
+        for field in self.fields: 
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
+
+    class Meta:
+        model = Session
+        fields = ['admin']
+
 class CustomModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, game):
         return "%s" % game.name
