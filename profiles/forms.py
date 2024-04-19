@@ -1,8 +1,8 @@
-from django.forms import Form
+from django.forms import Form, ModelForm
 from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import *
 
 class MyCustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
@@ -49,7 +49,7 @@ class MyCustomSignupForm(SignupForm):
         # You must return the original result.
         return user
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -63,3 +63,20 @@ class CustomUserChangeForm(UserChangeForm):
 
 class FriendRequestForm(Form):
     pass
+
+class UpdateFriendRequestForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateFriendRequestForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            if field != 'status':
+                form_id = 'floating' + field.capitalize()
+                self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+                self.fields[field].widget.attrs['disabled'] = True
+            else:
+                form_id = 'floating' + field.capitalize()
+                self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+
+    password = None
+    class Meta:
+        model = FriendRequest
+        fields = '__all__'
