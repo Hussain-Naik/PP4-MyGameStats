@@ -433,3 +433,42 @@ class DeleteGroup(AccessMixin, DeleteView):
             return redirect('groups')
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
+
+
+class UpdateSessionInviteView(AccessMixin, UpdateView):
+    form_class = SessionInviteUpdateForm
+    template_name = 'home/form.html'
+    default_redirect = '/'
+
+    def get(self, request, *args, **kwargs):
+        request.session['previous_page'] = request.META.get('HTTP_REFERER', self.default_redirect)
+        return super().get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return self.request.session['previous_page']
+    
+    def dispatch(self, request, *args, **kwargs):
+    
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if self.get_object().inbound == True:
+            print(self.get_object().inbound)
+            if self.get_object().session.admin.id != self.request.user.id:
+                return redirect('session_invite' , pk=self.get_object().session.id)
+        else:
+            print(self.get_object().inbound)
+            print(self.get_object().receiver.user.id != self.request.user.id)
+            if self.get_object().receiver.user.id != self.request.user.id:
+                return redirect('session_invite' , pk=self.get_object().session.id)
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Update Session Invite Form'
+        return context
+    
+    def get_object(self):
+        return get_object_or_404(SessionInvite, id=self.kwargs['pk'])
