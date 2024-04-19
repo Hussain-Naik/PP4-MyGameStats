@@ -1,13 +1,11 @@
 from django.contrib.auth.mixins import AccessMixin
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
 from django.views.generic import DetailView, ListView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import *
 from .models import *
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 
 # Create your views here.
 class MyProfileView(LoginRequiredMixin, DetailView):
@@ -76,3 +74,28 @@ class FriendSearchView(ListView):
     context_object_name = 'list_object'
     paginate_by = 12
 
+class UpdateFriendRequest(AccessMixin, UpdateView):
+    model = FriendRequest
+    form_class = UpdateFriendRequestForm
+    template_name = 'home/form.html'
+    success_url = reverse_lazy('profile')
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user__id=self.request.user.id)
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if self.get_object().receiver != profile:
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('profile')
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        return get_object_or_404(FriendRequest, id=self.kwargs['pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Update Friend Request'
+        return context
