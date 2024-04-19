@@ -17,11 +17,11 @@
                                 <div class="fw-bold"><a class="list-group-item-light" href="{% url 'session' session.id %}">{{session.name}}</a></div>
                                 {% for player in session.players.all %}
                                 {% if player in session.get_winner%}
-                                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+                                <a href="#!" class="link-offset-2 link-underline link-underline-opacity-0">
                                     <img src="{{player.avatar.url}}" alt="avatar"
                                     class="img-fluid rounded-circle me-1 mb-1" width="45"></a>
                                 {% else %}
-                                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+                                <a href="#!" class="link-offset-2 link-underline link-underline-opacity-0">
                                     <img src="{{player.avatar.url}}" alt="avatar"
                                     class="img-fluid rounded-circle me-1 mb-1" width="35"></a>
                                 {% endif %}
@@ -43,7 +43,10 @@
                     Group Standing
                   </h5>
                 <div class="card-body">
-
+                    {% load model_method %}
+                    {% for player in detail_object.get_all_participants %}
+                    <small>{{player}} : {{player|grp_session_wins:detail_object}} {{player|grp_game_wins:detail_object}}</small>
+                    {% endfor %}
                 </div>
                 <div class="card-footer text-muted text-end">
                     <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'group_update' detail_object.id %}">

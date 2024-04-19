@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE , related_name='profile')
     first_name = models.CharField(max_length=25,blank=True,null=True)
     last_name = models.CharField(max_length=25,blank=True,null=True)
-    friends = models.ManyToManyField('self' ,blank=True,related_name='friends')
+    friends = models.ManyToManyField('Profile' ,blank=True)
 
     def __str__(self):
         """Profile model string representation"""
@@ -96,7 +96,7 @@ class SessionInvite(models.Model):
         related_name='session_invite'
     )
     receiver = models.ForeignKey(
-        User,
+        Profile,
         on_delete=models.CASCADE,
         related_name='session_invite_receiver'
     )
