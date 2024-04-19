@@ -472,3 +472,25 @@ class UpdateSessionInviteView(AccessMixin, UpdateView):
     
     def get_object(self):
         return get_object_or_404(SessionInvite, id=self.kwargs['pk'])
+
+
+class CreateSessionJoinView(LoginRequiredMixin, CreateView):
+    model = SessionInvite
+    form_class = SessionJoinForm
+    template_name = 'events/session_join.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('session',  kwargs={"pk": self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Session Join Request'
+        context['session'] = Session.objects.get(id=self.kwargs['pk'])
+        return context
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.session = Session.objects.get(id=self.kwargs['pk'])
+        obj.receiver = Profile.objects.get(user__id=self.request.user.id)
+        obj.inbound = True
+        return super().form_valid(form)
