@@ -32,7 +32,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <small>Player {{roster.roster}} : {{roster.player.username}}
                             </small>
-                            <span class="badge text-bg-transparent rounded-pill"><a class="link-danger link-offset-2" href="#"><i class="bi bi-x fa-xl"></i></a></span>
+                            <span class="badge text-bg-transparent rounded-pill"><a class="link-danger link-offset-2" href="{% url 'remove_player' roster.id %}"><i class="bi bi-x fa-xl"></i></a></span>
                         </li>
                         {% endfor %}
                     </ul>
