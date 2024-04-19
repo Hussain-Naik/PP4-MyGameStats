@@ -36,7 +36,7 @@ class Profile(models.Model):
         removee_profile.remove_friend(self)
     
     def get_pending_requests(self):
-        return FriendRequest.objects.filter(Q(sender=self.id) | Q(receiver=self.id))
+        return FriendRequest.objects.filter(Q(sender=self.id) | Q(receiver=self.id))[:5]
     
     def get_all_games_played(self):
         return Game.objects.filter(game_fixture__team__team_players=self.user.id).count()

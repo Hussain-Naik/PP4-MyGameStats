@@ -80,7 +80,11 @@
                     Friend List
                   </h5>
                 <div class="card-body">
-
+                    {% for friend in user_object.friends.all %}
+                    <a href="{% url 'user_profile' friend.id %}" class="link-offset-2 link-underline link-underline-opacity-0">
+                        <img src="{{friend.avatar.url}}" alt="avatar"
+                          class="img-fluid rounded-circle me-1 mb-1" width="35">{{friend}}</a>
+                    {% endfor %}
                 </div>
                 <div class="card-footer text-muted text-end">
                     <small>more</small>
@@ -91,10 +95,22 @@
                     Pending Invites
                   </h5>
                 <div class="card-body">
-                    
+                    <ul class="list-group list-group-flush">
+                    {% for invite in user_object.get_pending_requests %}
+                        {% if invite.sender == user_object %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.receiver}}
+                            <span class="text-primary"><i class="bi bi-envelope-arrow-down-fill fa-xl"></i></span></li>
+                        {% else %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.sender}}
+                            <span class="text-success"><i class="bi bi-envelope-arrow-up-fill fa-xl"></i></span></li></li>
+                        {% endif %}
+                    {% empty %}
+                    <small>No Invites</small>
+                    {% endfor %}
+                    </ul>
                 </div>
                 <div class="card-footer text-muted text-end">
-
+                    <small>{{user_object.get_pending_requests.count}}</small>
                 </div>
             </div>
         </div>
