@@ -16,6 +16,7 @@ urlpatterns = [
     path('session/game/<pk>/', views.GameDetailView.as_view(), name="game"),
     path('session/<pk>/invites/', views.SessionInviteView.as_view(), name="session_invite"),
     path('session/<pk>/invites/send/', views.CreateSessionInviteView.as_view(), name="send_invite"),
+    path('session/<pk>/invites/join/', views.CreateSessionJoinView.as_view(), name="session_join"),
     path('session/invites/update/<pk>/', views.UpdateSessionInviteView.as_view(), name="update_session_invite"),
     path('session/<pk>/invites/delete/', views.DeleteSessionInvite.as_view(), name="delete_session_invite"),
     path('session/roster/delete/<pk>/', views.RosterPlayerRemoveView.as_view(), name="remove_player"),
