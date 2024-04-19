@@ -17,7 +17,7 @@
                             </small>
                             
                             <span class="badge text-bg-transparent rounded-pill">{% if invites.inbound == True%}
-                                <a class="link-success link-offset-2" href="#"><i class="bi bi-check fa-xl"></i></a>
+                                <a class="link-success link-offset-2" href="{% url 'update_session_invite' invites.id %}"><i class="bi bi-check fa-xl"></i></a>
                                 {% endif %}
                                 <a class="link-danger link-offset-2" href="{% url 'delete_session_invite' invites.id %}"><i class="bi bi-x fa-xl"></i></a>
                             </span>
