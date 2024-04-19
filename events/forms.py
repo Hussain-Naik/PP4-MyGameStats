@@ -56,12 +56,12 @@ class GroupUpdateAdminForm(ModelForm):
     def __init__(self, *args, **kwargs):
         group = Group.objects.get(id=kwargs.pop('pk'))
         super(GroupUpdateAdminForm, self).__init__(*args, **kwargs)
-        self.fields['admin'].queryset = User.objects.filter(id__in=group.get_all_participants())
+        self.fields['host'].queryset = User.objects.filter(id__in=group.get_all_participants())
         for field in self.fields: 
             self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
 
     class Meta:
-        model = Session
+        model = Group
         fields = ['host']
 
 class CustomModelChoiceField(forms.ModelChoiceField):
