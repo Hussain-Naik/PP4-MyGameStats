@@ -38,6 +38,15 @@ class Profile(models.Model):
     def get_pending_requests(self):
         return FriendRequest.objects.filter(Q(sender=self.id) | Q(receiver=self.id))[:5]
     
+    def all_pending_requests(self):
+        return FriendRequest.objects.filter(Q(sender=self.id) | Q(receiver=self.id))
+    
+    def get_session_invites(self):
+        return SessionInvite.objects.filter(Q(receiver=self.id))[:5]
+    
+    def all_session_invites(self):
+        return SessionInvite.objects.filter(Q(receiver=self.id))
+    
     def get_all_games_played(self):
         return Game.objects.filter(game_fixture__team__team_players=self.user.id).count()
     
@@ -107,4 +116,6 @@ class SessionInvite(models.Model):
 
     def __str__(self):
         """Friend Request model string representation"""
+        if self.inbound == True:
+            return f'{self.receiver} requested to join {self.session}'
         return f'{self.receiver} invited to {self.session}'
