@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import Q
-from django.forms import Form, ModelForm
+from django.forms import Form, ModelForm, HiddenInput
 from .models import Game, Group ,Session, Matchup
 from django.contrib.auth.models import User
 from profiles.models import SessionInvite, Profile
@@ -121,3 +121,10 @@ class SessionInviteUpdateForm(ModelForm):
     class Meta:
         model = SessionInvite
         fields = ['status']
+
+class SessionJoinForm(ModelForm):
+
+    class Meta:
+        model = SessionInvite
+        fields = ['inbound']
+        widgets = {'inbound': HiddenInput(),}
