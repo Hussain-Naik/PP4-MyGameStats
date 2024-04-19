@@ -65,16 +65,28 @@ class FriendRequestForm(Form):
     pass
 
 class UpdateFriendRequestForm(ModelForm):
+    readonly = ("sender", "receiver")
+
     def __init__(self, *args, **kwargs):
         super(UpdateFriendRequestForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             if field != 'status':
                 form_id = 'floating' + field.capitalize()
                 self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
-                self.fields[field].widget.attrs['disabled'] = True
+                self.fields[field].required = False
             else:
                 form_id = 'floating' + field.capitalize()
                 self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+        
+        for x in self.readonly:
+            self.fields[x].widget.attrs['disabled'] = True
+
+    
+    def clean(self):
+        data = super(UpdateFriendRequestForm, self).clean()
+        for x in self.readonly:
+            data[x] = getattr(self.instance, x)
+        return data
 
     password = None
     class Meta:
