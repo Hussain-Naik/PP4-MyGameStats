@@ -19,6 +19,7 @@ def post_save_add_friend(sender, created, instance, **kwargs):
         receiver_.add_friend(sender_)
         sender_.save()
         receiver_.save()
+        instance.delete()
 
 @receiver(post_save, sender=SessionInvite)
 def post_save_accept_session_invite(sender, created, instance, **kwargs):
