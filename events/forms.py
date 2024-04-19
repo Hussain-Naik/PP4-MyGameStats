@@ -78,10 +78,10 @@ class SessionInviteForm(ModelForm):
     def __init__(self, *args, **kwargs):
         session = Session.objects.get(id=kwargs.pop('pk'))
         user = Profile.objects.get(user_id=kwargs.pop('user'))
-        session_invited = User.objects.filter(session_invite_receiver__session=session.id)
-        print(session_invited)
+        session_invited = Profile.objects.filter(session_invite_receiver__session=session.id)
+        print(Profile.objects.filter(Q(user__id__in=session.group.get_all_participants()) | Q(id__in=user.friends.all())) )
         super(SessionInviteForm, self).__init__(*args, **kwargs)
-        self.fields['receiver'].queryset = User.objects.filter(Q(id__in=session.group.get_all_participants()) | Q(profile__id__in=user.friends.all())).exclude(Q(id__in=session.players.all()) | Q(id__in=session_invited))
+        self.fields['receiver'].queryset = Profile.objects.filter(Q(user__id__in=session.group.get_all_participants()) | Q(id__in=user.friends.all())).exclude(Q(user__id__in=session.players.all()) | Q(id__in=session_invited))
         for field in self.fields: 
             self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
 

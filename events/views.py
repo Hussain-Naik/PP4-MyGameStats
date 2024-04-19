@@ -266,7 +266,7 @@ class CreateSessionInviteView(LoginRequiredMixin, CreateView):
     template_name = 'home/form.html'
     
     def get_success_url(self):
-        return reverse_lazy('session_invite',  kwargs={"pk": self.get_object().id})
+        return reverse_lazy('session_invite',  kwargs={"pk": self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -295,7 +295,24 @@ class RosterPlayerRemoveView(AccessMixin, DeleteView):
         return reverse_lazy('session_invite',  kwargs={"pk": self.get_object().session.id})
     
     def dispatch(self, request, *args, **kwargs):
-        print(self.kwargs['pk'], self.get_object().session.admin)
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if not User.objects.filter(session__admin=self.request.user, session__id=self.get_object().session.id).exists():
+            # Redirect the user to somewhere else - add your URL here
+            print('hello')
+            return redirect('session', pk=self.get_object().session.id)
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+
+class DeleteSessionInvite(AccessMixin, DeleteView):
+    model = SessionInvite
+    template_name = 'home/delete.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('session_invite',  kwargs={"pk": self.get_object().session.id})
+    
+    def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
