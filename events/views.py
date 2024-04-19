@@ -198,6 +198,13 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
    context_object_name = 'detail_object'
    form_class = GameCreationForm
 
+   def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        invited_profiles = Profile.objects.filter(session_invite_receiver__session=self.get_object())
+        invited_users = User.objects.filter(profile__id__in=invited_profiles)
+        context['session_invites'] = invited_users
+        return context
+
    def dispatch(self, request, *args, **kwargs):
     
         if not request.user.is_authenticated:

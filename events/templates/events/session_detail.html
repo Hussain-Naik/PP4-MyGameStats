@@ -43,15 +43,21 @@
                 <h5 class="card-header d-flex justify-content-between align-items-center">
                     {{detail_object.name}}
                     {% if request.user == detail_object.admin %}
-                    {% if detail_object.players.count >= detail_object.get_min_player_needed %}
-                    <button type="button" class="btn btn-md btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                      <i class="bi bi-plus-square"></i> New Game
-                    </button>
+                      {% if detail_object.players.count >= detail_object.get_min_player_needed %}
+                      <button type="button" class="btn btn-md btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <i class="bi bi-plus-square"></i> New Game
+                      </button>
+                      {% else %}
+                      <a href="{% url 'send_invite' detail_object.id %}" class="btn btn-md btn-outline-dark">
+                        <i class="bi bi-plus-square"></i> Invite Players
+                      </a>
+                      {% endif %}
                     {% else %}
-                    <a href="#" class="btn btn-md btn-outline-dark">
-                      <i class="bi bi-plus-square"></i> Invite Players
-                    </a>
-                    {% endif %}
+                      {% if detail_object.status == 1 and request.user not in detail_object.players.all and request.user not in session_invites %}
+                      <a href="{% url 'session_join' detail_object.id %}" class="btn btn-md btn-outline-dark">
+                        <i class="bi bi-send"></i> Join Session
+                      </a>
+                      {% endif %}
                     {% endif %}
                   </h5>
                 <div class="card-body">
