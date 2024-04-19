@@ -241,7 +241,21 @@ class GameDetailView(AccessMixin, FormMixin, DetailView):
             game.session.set_winner()
             return super().form_valid(form)
 
+class SessionInviteView(LoginRequiredMixin, ListView):
+    model = SessionInvite
+    template_name = 'events/session_invites.html'
+    context_object_name = 'list_object'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['list_object'] = SessionInvite.objects.filter(session=self.kwargs['pk'], status='pending')
+        context['session_pk'] = self.kwargs['pk']
+        context['roster'] = Roster.objects.filter(session=self.kwargs['pk'])
+        context['page'] = 'Session Invites'
+        return context
+
 class CreateSessionInviteView(LoginRequiredMixin, CreateView):
+    model = SessionInvite
     form_class = SessionInviteForm
     template_name = 'home/form.html'
     
