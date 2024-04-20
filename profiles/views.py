@@ -98,4 +98,22 @@ class UpdateFriendRequestView(AccessMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Update Friend Request'
+        context['delete_link'] = True
         return context
+
+class DeleteFriendRequestView(AccessMixin, DeleteView):
+    model = FriendRequest
+    template_name = 'home/delete.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('profile')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if self.get_object().sender.user != self.request.user:
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('profile')
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)

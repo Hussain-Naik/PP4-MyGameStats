@@ -7,4 +7,5 @@ urlpatterns = [
     path('search/', views.FriendSearchView.as_view(), name="search_profile"),
     path('<pk>/', views.UserProfileView.as_view(), name="user_profile"),
     path('request/<pk>/update/', views.UpdateFriendRequestView.as_view(), name="update_request"),
+    path('request/<pk>/delete/', views.DeleteFriendRequestView.as_view(), name="delete_request"),
 ]
