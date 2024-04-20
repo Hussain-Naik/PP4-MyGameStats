@@ -74,7 +74,7 @@ class FriendSearchView(ListView):
     context_object_name = 'list_object'
     paginate_by = 12
 
-class UpdateFriendRequest(AccessMixin, UpdateView):
+class UpdateFriendRequestView(AccessMixin, UpdateView):
     model = FriendRequest
     form_class = UpdateFriendRequestForm
     template_name = 'home/form.html'
