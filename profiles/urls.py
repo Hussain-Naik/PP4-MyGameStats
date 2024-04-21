@@ -12,4 +12,5 @@ urlpatterns = [
     path('request/<pk>/delete/', views.DeleteFriendRequestView.as_view(), name="delete_request"),
     path('session/search/', views.SessionRequestListView.as_view(), name="list_invites"),
     path('session/<pk>/update/', views.UserSessionInviteView.as_view(), name="update_invites"),
+    path('session/<pk>/delete/', views.DeleteUserSessionInviteView.as_view(), name="delete_invites"),
 ]

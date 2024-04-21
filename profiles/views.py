@@ -227,3 +227,20 @@ class UserSessionInviteView(AccessMixin, UpdateView):
             context['delete_pk'] = self.kwargs['pk']
 
         return context
+
+class DeleteUserSessionInviteView(AccessMixin, DeleteView):
+    model = SessionInvite
+    template_name = 'home/delete.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('profile')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if self.get_object().receiver.user != self.request.user:
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('profile')
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
