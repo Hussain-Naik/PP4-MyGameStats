@@ -13,7 +13,7 @@
                         <p>Are you sure you want to delete "{{ object }}"?</p>
                         {{ form }}
                         <div class="btn-group">
-                            <a href="#" class="btn btn-outline-secondary">Back</a>
+                            <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
                             <button type="submit" class="btn btn-outline-danger">Submit</button>
                         </div>
                         
