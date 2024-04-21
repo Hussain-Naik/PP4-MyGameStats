@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import AccessMixin
+from django.db.models.query import QuerySet
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -117,3 +118,13 @@ class DeleteFriendRequestView(AccessMixin, DeleteView):
             return redirect('profile')
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
+
+class FriendRequestListView(ListView):
+    model = FriendRequest
+    template_name = 'profiles/requests.html'
+    context_object_name = 'list_object'
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = FriendRequest.objects.filter(Q(sender__user=self.request.user) | Q (receiver__user=self.request.user))
+        return queryset
