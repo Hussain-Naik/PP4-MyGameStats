@@ -41,8 +41,20 @@
                             {% endif %}
                         {% endif %}
                         {% endfor %}
-          
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        {% if not delete_link %}
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Cancel</a>
+                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                            
+                        </div>
+                        {% else %}
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a class="btn btn-outline-danger" href="{% url 'delete_request' delete_pk %}" role="button">Delete</a>
+                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Cancel</a>
+                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                            
+                        </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
