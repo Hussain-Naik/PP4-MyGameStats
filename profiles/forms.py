@@ -1,6 +1,5 @@
 from django.forms import Form, ModelForm
 from allauth.account.forms import LoginForm, SignupForm
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from .models import *
 
