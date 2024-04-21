@@ -1,8 +1,6 @@
 from django.contrib.auth.mixins import AccessMixin
-from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import *
@@ -142,3 +140,43 @@ class FriendRequestListView(ListView):
     def get_queryset(self):
         queryset = FriendRequest.objects.filter(Q(sender__user=self.request.user) | Q (receiver__user=self.request.user))
         return queryset
+
+class RemoveFriendView(AccessMixin, TemplateView, FormMixin):
+    template_name = 'home/delete.html'
+    success_url = reverse_lazy('profile')
+    form_class = FriendRequestForm
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user__id=self.request.user.id)
+        view_profile = Profile.objects.get(id=self.kwargs['pk'])
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if not profile in view_profile.get_friends():
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('profile')
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = Profile.objects.get(id=self.kwargs['pk'])
+        context['page'] = 'Remove'
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+    
+    def form_valid(self, form):
+        profile = Profile.objects.get(user__id=self.request.user.id)
+        view_profile = Profile.objects.get(id=self.kwargs['pk'])
+        profile.unfriend(view_profile)
+            
+
+        return super().form_valid(form)
