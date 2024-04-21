@@ -180,3 +180,14 @@ class RemoveFriendView(AccessMixin, TemplateView, FormMixin):
             
 
         return super().form_valid(form)
+
+
+class SessionRequestListView(ListView):
+    model = SessionInvite
+    template_name = 'profiles/session_invites.html'
+    context_object_name = 'list_object'
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = SessionInvite.objects.filter(Q(receiver__user=self.request.user))
+        return queryset
