@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import AccessMixin
 from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -77,9 +78,16 @@ class FriendSearchView(ListView):
 
 class UpdateFriendRequestView(AccessMixin, UpdateView):
     model = FriendRequest
-    form_class = UpdateFriendRequestForm
+    
     template_name = 'home/form.html'
     success_url = reverse_lazy('profile')
+
+    def get_form_class(self):
+        form_class = UpdateFriendRequestForm
+        if self.get_object().sender.user == self.request.user:
+            form_class = UpdateFriendRequestSentForm
+        
+        return form_class
 
     def dispatch(self, request, *args, **kwargs):
         profile = Profile.objects.get(user__id=self.request.user.id)
