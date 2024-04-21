@@ -191,3 +191,39 @@ class SessionRequestListView(ListView):
     def get_queryset(self):
         queryset = SessionInvite.objects.filter(Q(receiver__user=self.request.user))
         return queryset
+
+class UserSessionInviteView(AccessMixin, UpdateView):
+    model = SessionInvite
+    template_name = 'home/form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_form_class(self):
+        form_class = SessionInviteUpdateForm
+        if self.get_object().inbound == True:
+            form_class = SessionJoinForm
+        
+        return form_class
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user__id=self.request.user.id)
+        if not request.user.is_authenticated:
+            # This will redirect to the login view
+            return self.handle_no_permission()
+        if self.get_object().receiver != profile:
+            # Redirect the user to somewhere else - add your URL here
+            return redirect('profile')
+
+        # Checks pass, let http method handlers process the request
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        return get_object_or_404(SessionInvite, id=self.kwargs['pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'Update Session Invite'
+        if self.get_object().inbound == True:
+            context['delete_link'] = True
+            context['delete_pk'] = self.kwargs['pk']
+
+        return context

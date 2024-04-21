@@ -8,7 +8,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <a href="#">{{ obj.session }}</a>
+                    <a href="{% url 'update_invites' obj.id %}">{{ obj.session }}</a>
                 </div>
                 <div class="card-footer text-muted">
                     <small>{% if obj.inbound == True %}invite pending since {% else %}{{obj.session.admin}} awaiting response since{% endif %} {{obj.sent_on|timesince}} ago</small>

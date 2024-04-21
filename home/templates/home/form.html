@@ -49,7 +49,11 @@
                         </div>
                         {% else %}
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            {% if page == 'Update Friend Request'%}
                             <a class="btn btn-outline-danger" href="{% url 'delete_request' delete_pk %}" role="button">Delete</a>
+                            {% else %}
+                            <a class="btn btn-outline-danger" href="#" role="button">Delete</a>
+                            {% endif %}
                             <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Cancel</a>
                             <button type="submit" class="btn btn-outline-primary">Submit</button>
                             

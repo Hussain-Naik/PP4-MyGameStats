@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm
+from django.forms import Form, HiddenInput, ModelForm
 from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth.models import User
 from .models import *
@@ -116,3 +116,36 @@ class UpdateFriendRequestSentForm(ModelForm):
     class Meta:
         model = FriendRequest
         fields = ['sender', 'receiver']
+
+class SessionInviteUpdateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SessionInviteUpdateForm, self).__init__(*args, **kwargs)
+        for field in self.fields: 
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': 'floatingEmail'})
+
+    class Meta:
+        model = SessionInvite
+        fields = ['status']
+
+class SessionJoinForm(ModelForm):
+    readonly = ["session"]
+    def __init__(self, *args, **kwargs):
+        super(SessionJoinForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            form_id = 'floating' + field.capitalize()
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
+            self.fields[field].required = False
+            
+            for x in self.readonly:
+                self.fields[x].widget.attrs['disabled'] = True
+
+    
+    def clean(self):
+        data = super(SessionJoinForm, self).clean()
+        for x in self.readonly:
+            data[x] = getattr(self.instance, x)
+        return data
+    
+    class Meta:
+        model = SessionInvite
+        fields = ['session']
