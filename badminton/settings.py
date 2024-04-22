@@ -33,9 +33,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = development
 
 if development:
-    ALLOWED_HOSTS = ['127.0.0.1' , 'hosted site']
+    ALLOWED_HOSTS = ['127.0.0.1' , 'pp4-mygamestats.onrender.com', 'localhost']
 else:
-    ALLOWED_HOSTS = ['hosted site']
+    ALLOWED_HOSTS = ['pp4-mygamestats.onrender.com']
 
 
 # Application definition
