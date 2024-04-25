@@ -56,6 +56,9 @@ class Session(models.Model):
     def name(self):
         return self.location + ' ' + self.time
     
+    def get_group_id(self):
+        return self.group.id
+    
     def get_min_player_needed(self):
         return self.status * 2
     
@@ -187,6 +190,9 @@ class Game(models.Model):
             offset = Game.objects.filter(session=self.session).count()
         self.inc = offset + 1
         super().save(*args, **kwargs)
+    
+    def get_group_id(self):
+        return self.session.group.id
 
 class Matchup(models.Model):
     GAME_TYPE = ((1, 'Singles'),(2, 'Doubles'))
