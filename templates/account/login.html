@@ -8,9 +8,6 @@
             <div class="card">
                 <h5 class="card-header">Login</h5>
                 <div class="card-body">
-                    {% for message in messages %}
-                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                    {% endfor %}
                     {% if form.errors %}
                     <p>Your username and password didn't match. Please try again.</p>
                     {% endif %}
