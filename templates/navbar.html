@@ -15,11 +15,11 @@
             {% endif %}
             {% if request.user.is_authenticated %}
             <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md">
-                Logout <i class="bi bi-box-arrow-right fa-xl"></i>
+                Logout <i class="bi bi-box-arrow-right h6"></i>
             </a>
             {% else %}
             <a class="btn btn-dark btn-md" href="{% url 'account_login' %}">
-                Login <i class="bi bi-box-arrow-in-right fa-xl"></i>
+                Login <i class="bi bi-box-arrow-in-right h6"></i>
             </a>
             {% endif %}
             </div>
@@ -32,33 +32,33 @@
         <div class="container-fluid">
             <ul class="navbar-nav d-flex flex-row mx-auto gap-3">
                 <li class="nav-item me-3 me-lg-0" >
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Default tooltip"><i class="fa-solid fa-users-rectangle fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Default tooltip"><i class="bi bi-nintendo-switch h4"></i></a>
                 </li>
                 <li class="nav-item me-3 me-lg-0">
                     {% if '/events/session/' in request.path %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}"><i class="bi bi-calendar2 fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}"><i class="bi bi-calendar2 h4"></i></a>
                     {% else %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-calendar2 fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-calendar2 h4"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-3 me-lg-0">
                     {% if '/events/session/game/' in request.path %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'session' detail_object.session.id %}"><i class="bi bi-controller fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'session' detail_object.session.id %}"><i class="bi bi-controller h4"></i></a>
                     {% else %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-controller fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-controller h4"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'list_invites' %}"><i class="fa-regular fa-bell fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'list_invites' %}"><i class="bi bi-bell h4"></i></a>
                 </li>
                 <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link mx-1 link-light" href="{% url 'search_profile' %}"><i class="fa-solid fa-users-rectangle fa-xl"></i></a>
+                    <a class="nav-link mx-1 link-light" href="{% url 'search_profile' %}"><i class="bi bi-ubuntu h4"></i></a>
                 </li>
                 <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'list_request' %}"><i class="bi bi-person-exclamation fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'list_request' %}"><i class="bi bi-person-exclamation h4"></i></a>
                 </li>
                 <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'profile' %}"><i class="bi bi-clipboard-data fa-xl"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'profile' %}"><i class="bi bi-clipboard-data h4"></i></a>
                 </li>
             </ul>
         </div>
