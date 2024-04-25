@@ -14,38 +14,12 @@
             </form>
             {% endif %}
             {% if request.user.is_authenticated %}
-            <div class="dropdown-center">
-                <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
-                </a>
-                <div class="btn-group">
-                    <a class="btn btn-dark btn-md" href="{% url 'profile' %}">
-                        {{request.user.username}}
-                    </a>
-                    <button type="button" class="btn btn-md btn-dark dropdown-toggle dropdown-toggle-split ml-3" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu text-center">
-                        <li>
-                            <a href="{% url 'profile' %}" class="dropdown-item">
-                                <i class="bi bi-gear"></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a href="{% url 'account_logout' %}" class="dropdown-item">
-                                <i class="bi bi-box-arrow-right"></i>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md">
+                Logout <i class="bi bi-box-arrow-right fa-xl"></i>
+            </a>
             {% else %}
             <a class="btn btn-dark btn-md" href="{% url 'account_login' %}">
-                Login <i class="bi bi-box-arrow-in-right"></i>
+                Login <i class="bi bi-box-arrow-in-right fa-xl"></i>
             </a>
             {% endif %}
             </div>
@@ -63,11 +37,15 @@
                 <li class="nav-item me-3 me-lg-0">
                     {% if '/events/session/' in request.path %}
                     <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}"><i class="bi bi-calendar2 fa-xl"></i></a>
+                    {% else %}
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-calendar2 fa-xl"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-3 me-lg-0">
                     {% if '/events/session/game/' in request.path %}
                     <a class="nav-link mx-1 text-white" href="{% url 'session' detail_object.session.id %}"><i class="bi bi-controller fa-xl"></i></a>
+                    {% else %}
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}"><i class="bi bi-controller fa-xl"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-3 me-lg-0">
