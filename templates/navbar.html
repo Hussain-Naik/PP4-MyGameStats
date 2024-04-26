@@ -42,8 +42,8 @@
                     {% endif %}
                 </li>
                 <li class="nav-item me-1 me-lg-0">
-                    {% if '/events/session/game/' in request.path %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'session' detail_object.session.id %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
+                    {% if '/events/session' in request.path %}
+                    <a class="nav-link mx-1 text-white" href="{% url 'session' view.kwargs.pk %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% else %}
                     <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% endif %}
