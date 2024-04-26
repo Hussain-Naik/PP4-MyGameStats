@@ -5,13 +5,37 @@
     <div class="row justify-content-center">
         <div class="col-md-6 mb-3">
             <div class="card">
-                <h5 class="card-header d-flex justify-content-between align-items-center text-light">
-                  </h5>
+                <h5 class="card-header d-flex justify-content-between align-items-center">{{user_object.first_name}} {{user_object.last_name}}
+                    {% if request.user == user_object.user %}
+                        <a class="btn btn-sm btn-outline-dark " href="{% url 'update_profile' %}" role="button">Edit Profile <i class="bi bi-pencil-square"></i></a>
+                        {% else %}
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.profile not in user_object.get_friends %}
+                                    {% if not sendRequest %}
+                                    
+                                    <form class="form" method="POST">
+                                        {% csrf_token %}
+                                        
+                                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                                            <i class="bi bi-person-plus-fill h5"></i> Add Friend
+                                        </button>
+                                    </form>
+                                    {% else %}
+                                    <a class="link-light btn btn-sm btn-dark" role="button" href="#">
+                                        Status : {{sendRequest.status}}
+                                    </a>
+                                    {% endif %}
+                                {% else %}
+                                <a class="btn btn-sm btn-outline-dark" href="#" role="button"><i class="bi bi-person-dash-fill h5"></i> Remove Friend</a>
+                                {% endif %}
+                                
+                            {% endif %}
+                        {% endif %}
+                </h5>
                 <div class="card-body text-center">
                     <div class="mt-1 mb-1">
-                    
                     </div>
-                    <h4 class="mb-2">{{user_object.name}}</h4>
+
                     <p class="text-muted mb-2">@{{user_object.user.username}} 
                         {% if request.user == user_object.user %} 
                         <span class="mx-2">|</span>
@@ -53,33 +77,25 @@
         </div>
         {% if request.user == user_object.user %}
         <div class="col-md-3 col-lg-2 order-first mb-3">
-            <div class="card mb-3 position-relative">
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-                <h5 class="card-header d-flex justify-content-between align-items-center">
-                    Upcoming Games
-                  </h5>
-                <div class="card-body">
-                    
-                </div>
-                <div class="card-footer text-muted text-end">
-                    
-                </div>
-            </div>
             <div class="card position-relative">
+                {% if user_object.all_session_invites.count != 0 %}
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {% if user_object.all_session_invites.count > 99 %}
                     99+
+                    {% else %}
+                    {{user_object.all_session_invites.count}}
+                    {% endif %}
                     <span class="visually-hidden">unread messages</span>
                 </span>
+                {% endif %}
                 <h5 class="card-header d-flex justify-content-between align-items-center">
                     Session Invites
                   </h5>
-                <div class="card-body">
+                <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
                         {% for invite in user_object.get_session_invites %}
                             {% if invite.inbound == True %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.session}}
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">{{invite.session}}
                                 <span class="text-primary"><i class="bi bi-envelope-arrow-down-fill h5"></i></span></li>
                             {% else %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.session}}
@@ -91,7 +107,7 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted text-end">
-                    <small>{{user_object.all_session_invites.count}}</small>
+                    <small></small>
                 </div>
             </div>
         </div>
@@ -113,6 +129,16 @@
                 </div>
             </div>
             <div class="card position-relative">
+                {% if user_object.get_pending_requests.count != 0 %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {% if user_object.get_pending_requests.count > 99 %}
+                    99+
+                    {% else %}
+                    {{user_object.get_pending_requests.count}}
+                    {% endif %}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+                {% endif %}
                 <h5 class="card-header d-flex justify-content-between align-items-center">
                     Pending Invites
                   </h5>
@@ -132,7 +158,6 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted text-end">
-                    <small>{{user_object.all_pending_requests.count}}</small>
                 </div>
             </div>
         </div>
