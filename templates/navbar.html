@@ -29,35 +29,35 @@
     <!-- Navbar -->
     <nav class="navbar bg-dark border-bottom border-body py-0" data-bs-theme="dark">
         <!-- Container wrapper -->
-        <div class="container-fluid">
+        <div class="container-sm">
             <ul class="navbar-nav d-flex flex-row mx-auto gap-3">
-                <li class="nav-item me-3 me-lg-0" >
+                <li class="nav-item me-1 me-lg-0" >
                     <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Group Search"><i class="bi bi-nintendo-switch h4"></i></a>
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     {% if '/events/session/' in request.path %}
                     <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
                     {% else %}
                     <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
                     {% endif %}
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     {% if '/events/session/game/' in request.path %}
                     <a class="nav-link mx-1 text-white" href="{% url 'session' detail_object.session.id %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% else %}
                     <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% endif %}
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     <a class="nav-link mx-1 text-white" href="{% url 'list_invites' %}" data-bs-toggle="tooltip" data-bs-title="Session Invites"><i class="bi bi-bell h4"></i></a>
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     <a class="nav-link mx-1 link-light" href="{% url 'search_profile' %}" data-bs-toggle="tooltip" data-bs-title="Find Friends"><i class="bi bi-ubuntu h4"></i></a>
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     <a class="nav-link mx-1 text-white" href="{% url 'list_request' %}" data-bs-toggle="tooltip" data-bs-title="Pending Invites"><i class="bi bi-person-exclamation h4"></i></a>
                 </li>
-                <li class="nav-item me-3 me-lg-0">
+                <li class="nav-item me-1 me-lg-0">
                     <a class="nav-link mx-1 text-white" href="{% url 'profile' %}" data-bs-toggle="tooltip" data-bs-title="User Profile"><i class="bi bi-clipboard-data h4"></i></a>
                 </li>
             </ul>
