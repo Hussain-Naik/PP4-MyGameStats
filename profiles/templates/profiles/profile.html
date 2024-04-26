@@ -101,11 +101,13 @@
                     Friend List
                   </h5>
                 <div class="card-body">
-                    {% for friend in user_object.friends.all %}
-                    <a href="{% url 'user_profile' friend.id %}" class="link-offset-2 link-underline link-underline-opacity-0">
-                        <img src="{{friend.avatar.url}}" alt="avatar"
-                          class="img-fluid rounded-circle me-1 mb-1" width="35">{{friend}}</a>
-                    {% endfor %}
+                    <div class="d-flex flex-row flex-wrap">
+                        {% for friend in user_object.friends.all %}
+                            <span class="bg-secondary text-white overflow-hidden border border-white rounded-circle text-center" style="height:32px; width:32px; margin-left: -8px;">HN</span>
+                        {% endfor %}
+                        <span class="bg-secondary text-white overflow-hidden border border-white rounded-circle text-center align-middle" style="height:32px; width:32px;">+{{user_object.friends.all.count}}</span>
+                    </div>
+                    
                 </div>
                 <div class="card-footer text-muted text-end">
                     <small>more</small>
