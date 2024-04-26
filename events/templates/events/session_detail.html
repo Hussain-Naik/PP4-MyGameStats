@@ -23,16 +23,16 @@
               <div class="card-footer text-muted text-end">
                 {% if request.user == detail_object.admin %}
                 <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_invite' detail_object.id %}">
-                  <i class="bi bi-person-fill-add fa-xl"></i>
+                  <i class="bi bi-person-fill-add h4"></i>
                 </a>
                 <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update_admin' detail_object.id %}">
-                  <i class="bi bi-person-fill-gear fa-xl"></i>
+                  <i class="bi bi-person-fill-gear h4"></i>
                 </a>
                 <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update' detail_object.id %}">
-                  <i class="bi bi-sliders2 fa-xl"></i>
+                  <i class="bi bi-sliders2 h4"></i>
                 </a>
                 <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_delete' detail_object.id %}">
-                  <i class="bi bi-calendar2-x fa-xl"></i>
+                  <i class="bi bi-calendar2-x h4"></i>
                 </a>
                 {% endif %}
               </div>
