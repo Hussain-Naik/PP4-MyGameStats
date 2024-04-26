@@ -14,7 +14,12 @@ class Profile(models.Model):
     def __str__(self):
         """Profile model string representation"""
         return self.user.username
-    
+
+    def profile_avatar(self):
+        if self.first_name == None or self.last_name  == None:
+            return 'u' + self.user.username[0]
+        return self.first_name[0] + self.last_name[0]
+
     def get_friends(self):
         return self.friends.all()
     
