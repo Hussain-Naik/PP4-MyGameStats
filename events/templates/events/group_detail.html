@@ -15,17 +15,16 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold"><a class="list-group-item-light" href="{% url 'session' session.id %}">{{session.name}}</a></div>
-                                {% for player in session.players.all %}
-                                {% if player in session.get_winner%}
-                                <a href="#!" class="link-offset-2 link-underline link-underline-opacity-0">
-                                    <img src="{{player.avatar.url}}" alt="avatar"
-                                    class="img-fluid rounded-circle me-1 mb-1" width="45"></a>
-                                {% else %}
-                                <a href="#!" class="link-offset-2 link-underline link-underline-opacity-0">
-                                    <img src="{{player.avatar.url}}" alt="avatar"
-                                    class="img-fluid rounded-circle me-1 mb-1" width="35"></a>
-                                {% endif %}
-                              {% endfor %}
+                                <div class="d-flex flex-row flex-wrap">
+                                    {% for player in session.players.all %}
+                                    {% if player in session.get_winner%}
+                                        <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;">HN</a>
+                                    {% else %}
+                                        <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-warning" style="width: 32px; height: 32px;">HN</a>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{session.get_status_display}}</span>
                           </li>
