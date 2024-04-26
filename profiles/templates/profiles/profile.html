@@ -99,7 +99,7 @@
                                 <span class="text-primary"><i class="bi bi-envelope-arrow-down-fill h5"></i></span></li>
                             {% else %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.session}}
-                                <span class="text-success"><i class="bi bi-envelope-arrow-up-fill h5"></i></span></li></li>
+                                <span class="text-success"><i class="bi bi-envelope-arrow-up-fill h5"></i></span></li>
                             {% endif %}
                         {% empty %}
                         <small>No Invites</small>
@@ -146,11 +146,13 @@
                     <ul class="list-group list-group-flush">
                     {% for invite in user_object.get_pending_requests %}
                         {% if invite.sender == user_object %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.receiver}}
-                            <span class="text-primary"><i class="bi bi-envelope-arrow-down-fill h5"></i></span></li>
+                        <li class="list-group-item">
+                            <a class="link-dark d-flex justify-content-between" href="{% url 'update_request' invite.id %}">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
+                        </li>
                         {% else %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.sender}}
-                            <a class="" href="{% url 'update_request' invite.id %}"><span class="text-success"><i class="bi bi-envelope-arrow-up-fill h5"></i></span></a></li>
+                        <li class="list-group-item">
+                            <a class="link-dark d-flex justify-content-between" href="{% url 'update_request' invite.id %}">{{invite.sender}}<i class="bi bi-envelope-arrow-up-fill h5 text-success"></i></a>
+                        </li>
                         {% endif %}
                     {% empty %}
                     <small>No Invites</small>
