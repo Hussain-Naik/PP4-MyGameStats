@@ -93,6 +93,7 @@ class CreateSessionView(LoginRequiredMixin, CreateView):
 class UpdateSessionView(AccessMixin, UpdateView):
     form_class = SessionUpdateForm
     template_name = 'home/form.html'
+    context_object_name = 'detail_object'
 
     def dispatch(self, request, *args, **kwargs):
     
@@ -123,6 +124,7 @@ class UpdateSessionView(AccessMixin, UpdateView):
 class UpdateSessionAdminView(AccessMixin, UpdateView):
     form_class = SessionUpdateAdminForm
     template_name = 'home/form.html'
+    context_object_name = 'detail_object'
 
     def get_form_kwargs(self):
         """ Passes the request object to the form class.
@@ -341,6 +343,7 @@ class SessionInviteView(LoginRequiredMixin, ListView):
        
         context['session_pk'] = self.kwargs['pk']
         context['roster'] = Roster.objects.filter(session=self.kwargs['pk'])
+        context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
         context['page'] = 'Session Invites'
         return context
 
@@ -355,6 +358,7 @@ class CreateSessionInviteView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Session Invite Form'
+        context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
         return context
     
     def get_form_kwargs(self):
@@ -409,6 +413,7 @@ class DeleteSessionInvite(AccessMixin, DeleteView):
 class DeleteSession(AccessMixin, DeleteView):
     model = Session
     template_name = 'home/delete.html'
+    context_object_name = 'detail_object'
     
     def get_success_url(self):
         return reverse_lazy('group_detail',  kwargs={"pk": self.get_object().group.id})
