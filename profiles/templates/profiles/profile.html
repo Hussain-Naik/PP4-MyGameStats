@@ -32,43 +32,27 @@
                             {% endif %}
                         {% endif %}
                 </h5>
-                <div class="card-body text-center">
-                    <div class="mt-1 mb-1">
+                <div class="card-body d-flex flex-row">
+                    <div class="w-50 d-flex flex-column">
+                        <h6 class="text-center">Player Pairing</h6>
+                        {% for pairing in user_object.get_all_pairings %}
+                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
+                            <small class="text-light text-opacity-50">{{pairing}}</small>
+                            <p class="mb-0 text-light text-opacity-75"><span class="fw-bold text-white">{{pairing.get_all_games_won}}</span> W : <span class="fw-bold text-white">{{pairing.get_all_games_lost}}</span> L</p>
+                        </div>
+                        {% endfor %}
                     </div>
-
-                    <p class="text-muted mb-2">@{{user_object.user.username}} 
-                        {% if request.user == user_object.user %} 
-                        <span class="mx-2">|</span>
-                        <a class="link-secondary btn btn-sm btn-outline-none" role="button" href="{% url 'update_profile' %}">
-                            <i class="bi bi-pencil-square h4"></i>
-                        </a>
-                        {% else %}
-                            {% if request.user.is_authenticated %}
-                                {% if request.user.profile not in user_object.get_friends %}
-                                    {% if not sendRequest %}
-                                    
-                                    <form class="form" method="POST">
-                                        {% csrf_token %}
-                                        
-                                        <button type="submit" class="btn btn-outline-secondary">
-                                            <i class="bi bi-person-plus-fill h4"></i> Add Friend
-                                        </button>
-                                    </form>
-                                    {% else %}
-                                    <span class="mx-2">|</span>
-                                    <a class="link-light btn btn-sm btn-dark" role="button" href="#">
-                                        Status : {{sendRequest.status}}
-                                    </a>
-                                    {% endif %}
-                                {% else %}
-                                <button type="submit" class="btn btn-outline-secondary">
-                                    <i class="bi bi-person-plus-fill h4"></i> Remove Friend
-                                </button>
-                                {% endif %}
-                                
-                            {% endif %}
-                        {% endif %}
-                    </p>
+                    <div class="w-50 d-flex flex-column">
+                        <h6 class="text-center">User Stats</h6>
+                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
+                            <small class="text-light text-opacity-50">Win %</small>
+                            <p class="mb-0 text-white"><strong>{{user_object.get_game_win_percent}}%</strong></p>
+                        </div>
+                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
+                            <small class="text-light text-opacity-50">Total Games</small>
+                            <p class="my-0 text-white"><strong>{{user_object.get_all_games_played}}</strong></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer text-muted">
 
