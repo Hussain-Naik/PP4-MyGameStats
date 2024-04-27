@@ -60,6 +60,7 @@ class GroupDetailView(AccessMixin, DetailView):
 class UpdateGroupView(LoginRequiredMixin, UpdateView):
     form_class = GroupCreationForm
     template_name = 'home/form.html'
+    context_object_name = 'detail_object'
 
     def get_success_url(self):
         return reverse_lazy('group_detail',  kwargs={"pk": self.get_object().id})
@@ -80,6 +81,7 @@ class CreateSessionView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Session Creation Form'
+        context['detail_object'] = Group.objects.get(id=self.kwargs['pk'])
         return context
     
     def form_valid(self, form):
@@ -163,6 +165,7 @@ class UpdateSessionAdminView(AccessMixin, UpdateView):
 class UpdateGroupAdminView(AccessMixin, UpdateView):
     form_class = GroupUpdateAdminForm
     template_name = 'home/form.html'
+    context_object_name = 'detail_object'
 
     def get_form_kwargs(self):
         """ Passes the request object to the form class.
@@ -432,6 +435,7 @@ class DeleteSession(AccessMixin, DeleteView):
 class DeleteGroup(AccessMixin, DeleteView):
     model = Group
     template_name = 'home/delete.html'
+    context_object_name = 'detail_object'
     
     def get_success_url(self):
         return reverse_lazy('groups')

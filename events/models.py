@@ -15,6 +15,9 @@ class Group(models.Model):
     def __str__(self):
         """Events model string representation"""
         return self.name
+    
+    def get_group_id(self):
+        return self.id
 
     def get_all_participants(self):
         queryset = User.objects.filter(session__group=self).distinct()
