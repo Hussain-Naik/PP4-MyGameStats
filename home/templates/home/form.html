@@ -38,6 +38,14 @@
                                 <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
                                 {{field}}
                             </div>
+                            <div id='privateInfo' class='collapse'>
+                                <div class="alert alert-warning d-flex align-items-center p-1" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <div class="mx-1">
+                                        <small>Creating a Private Group will only be visible to invited users</small>
+                                    </div>
+                                </div>
+                            </div>
                             {% endif %}
                         {% endif %}
                         {% endfor %}

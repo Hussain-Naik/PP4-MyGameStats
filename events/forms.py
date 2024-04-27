@@ -14,7 +14,7 @@ class GroupCreationForm(ModelForm):
                 self.fields[field].widget.attrs.update({'class': 'form-control', 'placeholder': '', 'id': form_id})
             else:
                 form_id = field.capitalize()
-                self.fields[field].widget.attrs.update({'class': 'form-check-input float-end', 'role': 'switch','id': form_id})
+                self.fields[field].widget.attrs.update({'class': 'form-check-input float-end', 'role': 'switch', 'id': form_id, 'data-bs-toggle': 'collapse', 'data-bs-target': '#privateInfo'})
 
     class Meta:
         model = Group
