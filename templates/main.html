@@ -17,9 +17,10 @@
         <div class="row justify-content-center">
           {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show col-sm-12 " role="alert">
-              {{ message }} {{ message.tags }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            <div class="alert alert-{% if message.tags != 'success' %}warning{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show col-sm-12" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endfor %}
           {% endif %}
@@ -30,7 +31,21 @@
     {% endblock %}
     </main>
     <footer class="footer mt-2 py-3 bg-light">
-      <span class="text-muted">Place sticky footer content here.</span>
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-4 d-flex align-items-center">
+            <a href="{% url 'home' %}" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+          </div>
+      
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-secondary" href="https://github.com/Hussain-Naik" aria-label="Visit Hussain Naik Github page" target="_blank"><i class="bi bi-github h4"></i></a></li>
+            <li class="ms-3"><a class="text-secondary" href="https://uk.linkedin.com/in/hussain-naik-633b58273?trk=people-guest_people_search-card" aria-label="Visit Hussain Naik Linkedin page" target="_blank"><i class="bi bi-linkedin h4"></i></a></li>
+            <li class="ms-3"><a class="text-secondary" href="https://www.facebook.com/facebook/" aria-label="Go to fackbook" target="_blank"><i class="bi bi-facebook h4"></i></a></li>
+          </ul>
+        </footer>
+      </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
