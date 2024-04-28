@@ -150,11 +150,26 @@ class FriendRequestListView(ListView):
     model = FriendRequest
     template_name = 'profiles/requests.html'
     context_object_name = 'list_object'
-    paginate_by = 12
+    paginate_by = 1
 
     def get_queryset(self):
-        queryset = FriendRequest.objects.filter(Q(sender__user=self.request.user) | Q (receiver__user=self.request.user))
+        q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
+        queryset = FriendRequest.objects.filter(
+            Q(sender__user=self.request.user) | 
+            Q (receiver__user=self.request.user)
+            ).filter(
+                Q(sender__first_name__icontains=q) | 
+                Q(sender__last_name__icontains=q) | 
+                Q (receiver__first_name__icontains=q) |
+                Q (receiver__last_name__icontains=q) |
+                Q (receiver__user__username__icontains=q)
+            )
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = True
+        return context
 
 class RemoveFriendView(AccessMixin, TemplateView, FormMixin):
     template_name = 'home/delete.html'
