@@ -1,28 +1,29 @@
 {% load static %}
 <header>
     <nav class="navbar bg-light">
-        <div class="container-fluid">
-            <h1>
+        <div class="container-fluid gap-1">
+            <h1 class="order-sm-first">
                 <a class="navbar-brand" href="{% url 'home' %}">Badminton</a>
             </h1>
-            {% if is_paginated %}
-            <form class="d-flex" role="search" method="GET" action="">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-            <button class="btn btn-outline-success" type="submit">
-                <i class="bi bi-search"></i>
-            </button>
-            </form>
-            {% endif %}
             {% if request.user.is_authenticated %}
-            <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md">
+            <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md order-sm-last">
                 Logout <i class="bi bi-box-arrow-right h6"></i>
             </a>
             {% else %}
-            <a class="btn btn-dark btn-md" href="{% url 'account_login' %}">
+            <a class="btn btn-dark btn-md order-sm-last" href="{% url 'account_login' %}">
                 Login <i class="bi bi-box-arrow-in-right h6"></i>
             </a>
             {% endif %}
-            </div>
+            {% if is_paginated %}
+                <form class="order-sm-3 mx-auto" role="search" method="GET" action="">
+                    <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
     </nav>
     {% if request.user.is_authenticated %}

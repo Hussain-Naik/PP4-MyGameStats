@@ -73,7 +73,7 @@ class FriendSearchView(ListView):
     model = Profile
     template_name = 'profiles/profile_list.html'
     context_object_name = 'list_object'
-    paginate_by = 12
+    paginate_by = 1
 
 class UpdateFriendRequestView(AccessMixin, UpdateView):
     model = FriendRequest
