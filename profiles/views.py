@@ -150,7 +150,7 @@ class FriendRequestListView(ListView):
     model = FriendRequest
     template_name = 'profiles/requests.html'
     context_object_name = 'list_object'
-    paginate_by = 1
+    paginate_by = 12
 
     def get_queryset(self):
         q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
