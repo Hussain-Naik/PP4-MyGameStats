@@ -45,9 +45,18 @@
                     {% load model_method %}
                     <ul class="list-group list-group-flush">
                     {% for player in detail_object.get_all_participants %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <small>{{player}} : {{player|grp_session_wins:detail_object}} {{player|grp_game_wins:detail_object}}</small>
-                        <span class="badge text-bg-primary rounded-pill"></span>
+                        <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
+                            <div>
+                                {{player}}
+                            </div>
+                            <div>
+                                <div class="font-monospace" data-bs-toggle="tooltip" data-bs-title="Game Wins">
+                                    <small>{{player|grp_game_wins:detail_object}} G</small>
+                                </div>
+                                <div class="font-monospace" data-bs-toggle="tooltip" data-bs-title="Session Wins">
+                                    <small>{{player|grp_session_wins:detail_object}} S</small>
+                                </div>
+                            </div>
                         </li>
                     {% endfor %}
                     </ul>
