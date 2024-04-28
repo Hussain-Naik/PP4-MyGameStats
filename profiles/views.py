@@ -219,8 +219,20 @@ class SessionRequestListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        queryset = SessionInvite.objects.filter(Q(receiver__user=self.request.user))
+        q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
+        queryset = SessionInvite.objects.filter(
+            Q(receiver__user=self.request.user)
+            ).filter(
+                Q(session__location__icontains=q) |
+                Q(session__time__icontains=q) |
+                Q(session__admin__username__icontains=q)
+            )
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = True
+        return context
 
 class UserSessionInviteView(AccessMixin, UpdateView):
     model = SessionInvite
