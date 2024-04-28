@@ -21,6 +21,12 @@ class Profile(models.Model):
         return self.first_name[0] + self.last_name[0]
 
     def get_friends(self):
+        return self.friends.all()[:7]
+    
+    def remaining_friends_count(self):
+        return self.get_friends_count() - 7
+    
+    def get_friends_all(self):
         return self.friends.all()
     
     def get_friends_count(self):

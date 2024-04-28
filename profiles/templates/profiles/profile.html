@@ -124,10 +124,12 @@
                   </h5>
                 <div class="card-body">
                     <div class="d-flex flex-row flex-wrap">
-                        {% for friend in user_object.friends.all %}
-                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;">{{friend.profile_avatar|upper}}</a>
+                        {% for friend in user_object.get_friends %}
+                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
                         {% endfor %}
-                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" style="width: 32px; height: 32px; margin-left: -4px;">+9</a>
+                        {% if user_object.get_friends_count > 1 %}
+                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#exampleModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
+                        {% endif %}
                     </div>
                     
                 </div>
@@ -166,6 +168,28 @@
             </div>
         </div>
         {% endif %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">My Friends</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="list-group list-group-flush">
+                {% for friend in user_object.friends.all %}
+                <a class="btn btn-light m-1" href="{% url 'user_profile' friend.id %}"><span class="btn btn-dark p-1 rounded-circle btn-sm text-light me-4" style="width: 32px; height: 32px;">{{friend.profile_avatar|upper}}</span>{{friend.user.username}}</a>
+                {% endfor %}
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
     </div>
 </div>
 {% endblock content %}
