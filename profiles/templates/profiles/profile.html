@@ -34,23 +34,46 @@
                 </h5>
                 <div class="card-body d-flex flex-row">
                     <div class="w-50 d-flex flex-column">
-                        <h6 class="text-center">Player Pairing</h6>
+                        <h6 class="text-center">Pairing Stats</h6>
                         {% for pairing in user_object.get_all_pairings %}
-                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
-                            <small class="text-light text-opacity-50">{{pairing}}</small>
-                            <p class="mb-0 text-light text-opacity-75"><span class="fw-bold text-white">{{pairing.get_all_games_won}}</span> W : <span class="fw-bold text-white">{{pairing.get_all_games_lost}}</span> L</p>
+                        {% load model_method %}
+                        <div class="px-2 m-2 bg-light-subtle bg-gradient rounded shadow-sm">
+                            <small class="text-dark text-opacity-50">{{pairing|profile_pairing:user_object}}</small>
+                            <p class="mb-0 text-dark text-opacity-75"><span class="fw-bold text-black">{{pairing.get_all_games_won}}</span> W : <span class="fw-bold text-black">{{pairing.get_all_games_lost}}</span> L</p>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="w-50 d-flex flex-column">
                         <h6 class="text-center">User Stats</h6>
-                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
-                            <small class="text-light text-opacity-50">Win %</small>
-                            <p class="mb-0 text-white"><strong>{{user_object.get_game_win_percent}}%</strong></p>
+                        <div id="userStats" class="carousel slide">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <div class="px-2 m-2 bg-light bg-gradient rounded shadow-sm">
+                                    <small class="text-dark text-opacity-50">Win %</small>
+                                    <p class="mb-0 text-black"><strong>{{user_object.get_game_win_percent|floatformat:2}}%</strong></p>
+                                </div>
+                              </div>
+                              <div class="carousel-item">
+                                <div class="px-2 m-2 bg-light bg-gradient rounded shadow-sm">
+                                    <small class="text-dark text-opacity-50">Games Won</small>
+                                    <p class="mb-0 text-black"><strong>{{user_object.get_all_games_won}}</strong></p>
+                                </div>
+                              </div>
+                              <div class="carousel-item">
+                                <div class="px-2 m-2 bg-light bg-gradient rounded shadow-sm">
+                                    <small class="text-dark text-opacity-50">W/L Ratio</small>
+                                    <p class="mb-0 text-dark text-opacity-75"><span class="fw-bold text-black">{{user_object.get_all_games_won}}</span> W : <span class="fw-bold text-black">{{user_object.get_all_games_lost}}</span> L</p>
+                                </div>
+                              </div>
+                            </div>
+                            <button class="carousel-control-next" type="button" data-bs-target="#userStats" data-bs-slide="next">
+                                <i class="bi bi-three-dots-vertical text-black" aria-hidden="true"></i>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <div class="px-2 m-2 bg-dark bg-gradient rounded shadow">
-                            <small class="text-light text-opacity-50">Total Games</small>
-                            <p class="my-0 text-white"><strong>{{user_object.get_all_games_played}}</strong></p>
+                        <div class="px-2 m-2 bg-light bg-gradient rounded shadow-sm">
+                            <small class="text-dark text-opacity-50">Total Games</small>
+                            <p class="my-0 text-black"><strong>{{user_object.get_all_games_played}}</strong></p>
                         </div>
                     </div>
                 </div>

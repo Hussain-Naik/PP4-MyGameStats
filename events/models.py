@@ -132,6 +132,9 @@ class Team(models.Model):
     
     def get_all_games_lost(self):
         return Fixture.objects.filter(team=self, is_winner=False).count()
+    
+    def pairing(self, current):
+        return ", ".join(str(player.username) for player in self.team_players.all().exclude(id=current.user.id))
 
 class Fixture(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_fixture')
