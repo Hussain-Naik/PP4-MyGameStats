@@ -128,7 +128,7 @@
                             <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
                         {% endfor %}
                         {% if user_object.get_friends_count > 7 %}
-                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#exampleModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
+                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#myFriendListModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
                         {% endif %}
                     </div>
                     
@@ -172,11 +172,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myFriendListModal" tabindex="-1" aria-labelledby="myFriendList" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">My Friends</h1>
+          <h1 class="modal-title fs-5" id="myFriendList">My Friends</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
