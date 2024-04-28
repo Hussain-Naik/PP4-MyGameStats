@@ -1,9 +1,8 @@
 from django.views.generic.edit import CreateView, UpdateView, FormMixin, DeleteView
 from django.contrib.auth.mixins import AccessMixin
-from django.views.generic import TemplateView, DetailView, ListView
-from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .forms import *
 from .models import *
