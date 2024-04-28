@@ -9,9 +9,16 @@
                 Session Standing
               </h5>
             <div class="card-body">
-              {% for player in detail_object.session.players.all %}
-              <small>{{player}}</small>
-              {% endfor %}
+              <ul class="list-group list-group-flush">
+                {% for roster in detail_object.session.get_session_roster %}
+                  {% for score in roster.get_session_games_won %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Player {{roster.roster}}:{{roster.player.username}}
+                    <span class="badge text-bg-primary rounded-pill">{{score.games_won}}</span>
+                  </li>
+                  {% endfor %}
+                {% endfor %}
+              </ul>
             </div>
             <div class="card-footer text-muted text-end">
               <a class="link-secondary btn btn-sm btn-light disabled" role="button" href="#">
