@@ -34,17 +34,22 @@
                 </h5>
                 <div class="card-body d-flex flex-row">
                     <div class="w-50 d-flex flex-column">
-                        <h6 class="text-center">Pairing Stats</h6>
+                        <h6 class="text-center">Pairing Statistics</h6>
                         {% for pairing in user_object.get_all_pairings %}
                         {% load model_method %}
                         <div class="px-2 m-2 bg-light-subtle bg-gradient rounded shadow-sm">
                             <small class="text-dark text-opacity-50">{{pairing|profile_pairing:user_object}}</small>
                             <p class="mb-0 text-dark text-opacity-75"><span class="fw-bold text-black">{{pairing.get_all_games_won}}</span> W : <span class="fw-bold text-black">{{pairing.get_all_games_lost}}</span> L</p>
                         </div>
+                        {% empty %}
+                        <div class="px-2 m-2 bg-light-subtle bg-gradient rounded shadow-sm">
+                            <small class="text-dark text-opacity-50">Team Pairing</small>
+                            <p class="mb-0 text-dark text-opacity-75">Unavailable</p>
+                        </div>
                         {% endfor %}
                     </div>
                     <div class="w-50 d-flex flex-column">
-                        <h6 class="text-center">User Stats</h6>
+                        <h6 class="text-center">User Statistics</h6>
                         <div id="userStats" class="carousel slide">
                             <div class="carousel-inner">
                               <div class="carousel-item active">

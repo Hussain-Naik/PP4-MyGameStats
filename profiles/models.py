@@ -61,7 +61,10 @@ class Profile(models.Model):
         return Team.objects.filter(team_players=self.user)
     
     def get_game_win_percent(self):
-        return self.get_all_games_won() / self.get_all_games_played() * 100
+        if self.get_all_games_played() > 0:
+            return self.get_all_games_won() / self.get_all_games_played() * 100
+        else:
+            return 0
 
     def get_all_games_won(self):
         return Game.objects.filter(game_fixture__team__team_players=self.user.id, game_fixture__is_winner=True).count()
