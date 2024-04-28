@@ -101,13 +101,7 @@
                 <div class="card-body p-1">
                     <ul class="list-group list-group-flush">
                         {% for invite in user_object.get_session_invites %}
-                            {% if invite.inbound == True %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">{{invite.session}}
-                                <span class="text-primary"><i class="bi bi-envelope-arrow-down-fill h5"></i></span></li>
-                            {% else %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">{{invite.session}}
-                                <span class="text-success"><i class="bi bi-envelope-arrow-up-fill h5"></i></span></li>
-                            {% endif %}
+                        <a href="{% url 'update_invites' invite.id %}" class="list-group-item list-group-item-action d-flex gap-2 p-1">{% if invite.inbound == True %}<i class="bi bi-calendar4-event h5"></i> Awaiting Reply{% else %}<i class="bi bi-controller h5"></i> Invite Received{% endif %}</a>
                         {% empty %}
                         <small>No Invites</small>
                         {% endfor %}
@@ -153,13 +147,9 @@
                     <ul class="list-group list-group-flush">
                     {% for invite in user_object.get_pending_requests %}
                         {% if invite.sender == user_object %}
-                        <li class="list-group-item">
-                            <a class="link-dark d-flex justify-content-between" href="{% url 'update_request' invite.id %}">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
-                        </li>
+                        <a href="{% url 'update_request' invite.id %}" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
                         {% else %}
-                        <li class="list-group-item">
-                            <a class="link-dark d-flex justify-content-between" href="{% url 'update_request' invite.id %}">{{invite.sender}}<i class="bi bi-envelope-arrow-up-fill h5 text-success"></i></a>
-                        </li>
+                        <a href="{% url 'update_request' invite.id %}" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.sender}}<i class="bi bi-envelope-arrow-up-fill h5 text-success"></i></a>
                         {% endif %}
                     {% empty %}
                     <small>No Invites</small>

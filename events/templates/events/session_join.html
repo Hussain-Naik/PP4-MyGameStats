@@ -14,7 +14,7 @@
                         {% for field in form%}
                         <div class="">
                             {{field}}
-                            <label for="{{field.label}}">You wish to send a join request for {{session}}. {{session.admin}} will review your request shortly</label>
+                            <label for="{{field.label}}">You wish to send a join request for {{detail_object}}. {{detail_object.admin}} will review your request shortly</label>
                         </div>
                         {% endfor %}
           

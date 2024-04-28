@@ -501,7 +501,7 @@ class CreateSessionJoinView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Session Join Request'
-        context['session'] = Session.objects.get(id=self.kwargs['pk'])
+        context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
         return context
     
     def form_valid(self, form):
