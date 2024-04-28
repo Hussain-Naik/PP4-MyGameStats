@@ -14,13 +14,28 @@ class GroupListView(ListView):
     model = Group
     template_name = 'events/group_list.html'
     context_object_name = 'list_object'
+    paginate_by = 1
+
+    def get_queryset(self):
+        q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
+        if self.request.user.is_authenticated:
+            queryset = Group.objects.filter(
+                Q(sessions__session_roster__player=self.request.user) | 
+                Q(host=self.request.user.id) | 
+                Q(private=False)
+                ).distinct().filter(
+                    Q(name__icontains=q)
+                )
+        else:
+            queryset['list_object'] = Group.objects.filter(
+                Q(private=False) | 
+                Q(name__icontains=q)
+                )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context['list_object'] = Group.objects.filter(Q(sessions__session_roster__player=self.request.user) | Q(host=self.request.user.id) | Q(private=False)).distinct()
-        else:
-            context['list_object'] = Group.objects.filter(private=False)
+        context['search'] = True
         return context
 
 class CreateGroupView(LoginRequiredMixin, CreateView):
