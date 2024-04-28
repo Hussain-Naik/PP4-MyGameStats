@@ -14,7 +14,7 @@ class GroupListView(ListView):
     model = Group
     template_name = 'events/group_list.html'
     context_object_name = 'list_object'
-    paginate_by = 1
+    paginate_by = 12
 
     def get_queryset(self):
         q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
@@ -27,7 +27,7 @@ class GroupListView(ListView):
                     Q(name__icontains=q)
                 )
         else:
-            queryset['list_object'] = Group.objects.filter(
+            queryset = Group.objects.filter(
                 Q(private=False) | 
                 Q(name__icontains=q)
                 )

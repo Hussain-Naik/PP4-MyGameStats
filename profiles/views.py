@@ -73,7 +73,21 @@ class FriendSearchView(ListView):
     model = Profile
     template_name = 'profiles/profile_list.html'
     context_object_name = 'list_object'
-    paginate_by = 1
+    paginate_by = 12
+
+    def get_queryset(self):
+        q = self.request.GET.get('q') if self.request.GET.get('q') != None else ''
+        queryset = Profile.objects.filter(
+            Q(first_name__icontains=q) | 
+            Q(last_name__icontains=q) | 
+            Q(user__username__icontains=q)
+        )
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = True
+        return context
 
 class UpdateFriendRequestView(AccessMixin, UpdateView):
     model = FriendRequest
