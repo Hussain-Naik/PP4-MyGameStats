@@ -30,8 +30,8 @@ class Session(models.Model):
     (2, 'in progress'),
     (3, 'completed'),
     )
-    GAME_TYPE = ((1, 'Singles'),(2, 'Doubles'))
-    TEAM_TYPE = ((1, 'Random'),(2, 'User Defined'))
+    GAME_TYPE = ((1, 'Doubles'))
+    TEAM_TYPE = ((1, 'Random'))
     """Event session model"""
     location = models.CharField(max_length=30, blank=False)
     time = models.CharField(max_length=30, blank=False)
@@ -63,7 +63,7 @@ class Session(models.Model):
         return self.group.id
     
     def get_min_player_needed(self):
-        return self.status * 2
+        return self.status * 4
     
     def add_next_game(self):
         Game.objects.create(session=self)
@@ -201,11 +201,9 @@ class Game(models.Model):
         return self.session.group.id
 
 class Matchup(models.Model):
-    GAME_TYPE = ((1, 'Singles'),(2, 'Doubles'))
 
     player_count = models.IntegerField()
     game_index = models.IntegerField()
-    # game_type = models.IntegerField(choices=GAME_TYPE, default=1)
     team1_player1_index = models.IntegerField()
     team1_player2_index = models.IntegerField()
     team2_player1_index = models.IntegerField()
