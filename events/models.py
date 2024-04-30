@@ -30,8 +30,8 @@ class Session(models.Model):
     (2, 'in progress'),
     (3, 'completed'),
     )
-    GAME_TYPE = ((1, 'Doubles'))
-    TEAM_TYPE = ((1, 'Random'))
+    GAME_TYPE = [(1, 'Doubles'),]
+    TEAM_TYPE = [(1, 'Random'),]
     """Event session model"""
     location = models.CharField(max_length=30, blank=False)
     time = models.CharField(max_length=30, blank=False)
