@@ -1,10 +1,12 @@
+'''filter for bootstrap form validation css'''
 from django import template
 register = template.Library()
 
 
 @register.filter(name='add_attr')
 def add_attribute(field, css):
-    attrs = field.subwidgets[0].data['attrs']  # Accessing the already declared attributes
+    # Accessing the already declared attributes
+    attrs = field.subwidgets[0].data['attrs']
     definition = css.split(',')
 
     for d in definition:
