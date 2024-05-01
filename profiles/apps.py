@@ -1,3 +1,4 @@
+'''Apps for profile app'''
 from django.apps import AppConfig
 
 
