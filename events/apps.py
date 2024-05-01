@@ -1,3 +1,4 @@
+'''App for the Events app'''
 from django.apps import AppConfig
 
 
