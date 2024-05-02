@@ -80,7 +80,7 @@ class Session(models.Model):
         '''
         method to return minimum number of players required to start games
         '''
-        return self.status * 4
+        return self.game_type * 4
 
     def add_next_game(self):
         '''method to create next session game'''
