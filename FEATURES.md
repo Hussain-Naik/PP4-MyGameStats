@@ -343,4 +343,13 @@ A button on the right container which redirects to send session invite page
 
 The form contains a dropdown which is only populated with users that are not participating in session but are participating in the group or are friends with the session admin
 
+
+**Delete Session invite Page**
+
+  ![Delete Session invite Page](documentation/features/session_invite_delete.png)
+
+
+**Remove Session Player Page**
+
+  ![Remove Session Player Page](documentation/features/session_player_remove.png)
 ---
