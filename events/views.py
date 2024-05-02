@@ -625,6 +625,7 @@ class UpdateSessionInviteView(AccessMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Update Session Invite Form'
+        context['detail_object'] = Session.objects.get(id=self.get_object().session.id)
         return context
 
     def get_object(self):
