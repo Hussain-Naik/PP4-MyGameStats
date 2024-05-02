@@ -89,6 +89,7 @@ Developed for all levels of badminton player from beginners to professional, the
     + [Render](https://render.com/): the cloud platform used to host the website.
     + [ElephantSQL](https://www.elephantsql.com/): the cloud database used to store all the data.
     + [GitHub](https://github.com/): used to host the website's source code.
+    + [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects): used for planning and keeping track of issues.
     + [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
     + [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): was used to debug the website.
     + [W3C Validator](https://validator.w3.org/): was used to validate HTML5 code for the website.
