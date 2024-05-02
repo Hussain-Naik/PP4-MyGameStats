@@ -306,7 +306,7 @@ There is a button on the left container to invite more players which redirects t
 
   ![Session new game modal](documentation/features/new_game.png)
 
-If the number of players is greater than 4 the button will display create game and open a modal to select game to play if the user is the session admin
+If the number of players is greater than 4 the button will display create game and open a modal to select game to play if the user is the session admin. when selecting the option available or the empty option to play the next game sequence will start and redirected to update game page
 
   ![Session admin Page](documentation/features/session_admin.png)
 
@@ -358,4 +358,13 @@ The form contains a dropdown which is only populated with users that are not par
 **Remove Session Player Page**
 
   ![Remove Session Player Page](documentation/features/session_player_remove.png)
+
+**Update Game Page**
+
+  ![Update game Page](documentation/features/game_update.png)
+
+The layout is the same as session detail with the selected game to update expanded and the button changed to a badge stating the game in progress.
+
+the two fields are to record the scores for each team and a submit button on the bottom right
+
 ---
