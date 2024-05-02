@@ -307,6 +307,7 @@ There is a button on the left container to invite more players which redirects t
 If the number of players is greater than 4 the button will display create game and open a modal to select game to play if the user is the session admin
 
   ![Session admin Page](documentation/features/session_admin.png)
+
 if the user is the session admin the left container will contain four links
 
 admin links
@@ -314,5 +315,32 @@ admin links
 - update session
 - session invites
 - delete session
+
+**Session delete Page**
+
+  ![Session delete Page](documentation/features/session_delete.png)
+
+
+**Session update Page**
+
+  ![Session update Page](documentation/features/session_update.png)
+
+**Session update admin Page**
+
+  ![Session update admin Page](documentation/features/session_update_admin.png)
+
+**Session invites Page**
+
+  ![Session detail Page](documentation/features/session_invites.png)
+
+has two containers, the left all players in the session roster with a a link to remove player from roster. The right a list of invites sent and received to join current session with links to delete sent invites or approve request
+
+A button on the right container which redirects to send session invite page
+
+**Send Session invite Page**
+
+  ![Send Session invite Page](documentation/features/session_send_invite.png)
+
+The form contains a dropdown which is only populated with users that are not participating in session but are participating in the group or are friends with the session admin
 
 ---
