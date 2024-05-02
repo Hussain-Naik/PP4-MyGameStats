@@ -453,7 +453,6 @@ class CreateSessionInviteView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page'] = 'Session Invite Form'
         context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
         return context
 
@@ -485,6 +484,13 @@ class RosterPlayerRemoveView(AccessMixin, DeleteView):
             kwargs={"pk": self.get_object().session.id}
             )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['detail_object'] = Session.objects.get(
+                id=self.get_object().session.id
+                )
+        return context
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             # This will redirect to the login view
@@ -510,6 +516,12 @@ class DeleteSessionInvite(AccessMixin, DeleteView):
             'session_invite',
             kwargs={"pk": self.get_object().session.id}
             )
+
+    def get_context_data(self, **kwargs):
+        session_invite = SessionInvite.objects.get(id=self.kwargs['pk'])
+        context = super().get_context_data(**kwargs)
+        context['detail_object'] = session_invite.session
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
