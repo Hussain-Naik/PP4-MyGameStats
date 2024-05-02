@@ -281,4 +281,38 @@ The drop down will be populated with only users that are participating in the gr
   ![Group delete Page](documentation/features/group_delete.png)
 
 Disclaimer for group delete and two button to confirm deletion or go back
+
+**Group detail Page**
+
+  ![Group detail Page](documentation/features/group_detail.png)
+
+The left container will display all participating user in current group and the right contain wil contain a list of sessions in this group with user avatars participating in session.
+
+There is also a button which redirects to create new session in group
+
+**Session create Page**
+
+  ![Session create Page](documentation/features/session_create.png)
+
+**Session detail Page**
+
+  ![Session detail Page](documentation/features/session_detail.png)
+
+has two containers, the left display the users in the session and the right container display a list of games and their respective outcome.
+
+The left contain also contains the session current leader boards
+
+There is a button on the left container to invite more players which redirects to player invite page
+
+If the number of players is greater than 4 the button will display create game and open a modal to select game to play if the user is the session admin
+
+  ![Session admin Page](documentation/features/session_admin.png)
+if the user is the session admin the left container will contain four links
+
+admin links
+- update admin
+- update session
+- session invites
+- delete session
+
 ---
