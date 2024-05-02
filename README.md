@@ -99,6 +99,8 @@ Developed for all levels of badminton player from beginners to professional, the
 
 ### Stage 2: Development
 
+Github Kanban board was used to keep track of tasks and issues
+
 #### FEATURES
 
 Please refer to the [FEATURES.md](FEATURES.md) file for all features-related documentation.
