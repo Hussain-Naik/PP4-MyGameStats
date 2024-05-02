@@ -139,9 +139,8 @@ To generate this particular pattern, I used Contour Line Generator with white ba
 
 ##### Wireframes
 
-- [Desktop Wireframes](documentation/wireframes/pp4_desktop.pdf)
-- [Tablet Wireframes](documentation/wireframes/pp4_tablet.pdf)
-- [Mobile Wireframes](documentation/wireframes/pp4_mobile.pdf)
+- [Desktop Wireframes](documentation/desktop_wireframe.pdf)
+- [Mobile Wireframes](documentation/mobile_wireframe.pdf)
 
 ---
 
