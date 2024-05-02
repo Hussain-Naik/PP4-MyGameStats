@@ -63,7 +63,7 @@ The user navbar is made of icon with bootstrap tooltip on hover
 
 **Footer**
 
-![Footer](documentation/features/footer/footer.png)
+![Footer](documentation/features/footer.png)
 
 Footer has the following sections:
 
@@ -78,40 +78,10 @@ Footer has the following sections:
 
 **Home page**
 
-![Home page](documentation/features/home_page/home_page.png)
+![Home page](documentation/features/home_page.png)
 
-The Home page has a simple welcome message and a button "get started" which leads to the registration page, from which the user can be redirected to the login page.
+The Home page has single hero section which displays a little text about the app and an image of the profile statistics
 
-- ![Home page Hero section](documentation/features/home_page/home_page_logo_get_started.png)
-
-Under the hero section, there is a section, which describes the benefits of signing up.
-
-- ![Home page Benefits section](documentation/features/home_page/home_page_benefits.png)
-
-This section has 3 cards, each with a title, a description, and an image.
-
-On the mobile version, the cards are displayed in two rows.
-
-  ![Home page Benefits section mobile](documentation/features/home_page/home_page_benefits_mobile.png)
-
-After the cards, there are 3 subsections.
-
-1. The first subsection has a text incentive on the left side and an image on the right side.
-
-  ![Home page First subsection](documentation/features/home_page/home_page_incentive.png)
-
-2. The second subsection has a text describing the school's personnel on the right side and an image on the left side.
-
-  ![Home page Second subsection](documentation/features/home_page/home_page_personnel.png)
-
-3. The third subsection has a text describing the school's concern about children's health on the left side and an image on the right side.
-
-  ![Home page Third subsection](documentation/features/home_page/home_page_health.png)
-
-
-After the subsections, there is an immediate contact section that has an incentive to become a school member right now and a button "get started", which leads to the registration page. The user can be redirected to the login page.
-
-  ![Home page Contact section](documentation/features/home_page/home_page_contact_now.png)
 
 **Registration page**
 
