@@ -7,7 +7,7 @@ Repository: [GitHub Repo](https://github.com/Hussain-Naik/PP4-MyGameStats)
 
 The app is developed by [Hussain Naik](https://github.com/Hussain-Naik).
 
-![My Game Stats]()
+![My Game Stats](documentation/badminton.png)
 
 ## Agile Development
 The Agile framework is an iterative approach to software development. Instead of delivering a final working product at the end of the development lifecycle, teams work in small timeframes.
@@ -130,12 +130,6 @@ As the application is designed using Bootstrap 5 library entirely the decision t
 [Typography](https://getbootstrap.com/docs/5.2/content/typography/)
 
 ##### Imagery
-
-- The main background image was generated with the user of the [BGJar](https://www.bgjar.com/) tool. The image was generated with the following settings:
-
-  ![Background](documentation/design/background.svg)
-
-To generate this particular pattern, I used Contour Line Generator with white background and #93D3FD54 as the color of the lines. 
 
 - The main part is allocated to the use of icons from [Bootstrap](https://icons.getbootstrap.com/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
 
