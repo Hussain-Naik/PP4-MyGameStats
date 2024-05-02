@@ -304,6 +304,8 @@ The left contain also contains the session current leader boards
 
 There is a button on the left container to invite more players which redirects to player invite page
 
+  ![Session new game modal](documentation/features/new_game.png)
+
 If the number of players is greater than 4 the button will display create game and open a modal to select game to play if the user is the session admin
 
   ![Session admin Page](documentation/features/session_admin.png)
