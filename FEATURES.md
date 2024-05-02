@@ -1,4 +1,4 @@
-# Cool School
+# Badminton
 
 ## Features
 
