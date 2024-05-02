@@ -343,6 +343,10 @@ A button on the right container which redirects to send session invite page
 
 The form contains a dropdown which is only populated with users that are not participating in session but are participating in the group or are friends with the session admin
 
+**Approve Session Join Requests Page**
+
+  ![Approve Session Join Requests Page](documentation/features/session_update_join.png)
+
 
 **Delete Session invite Page**
 
