@@ -15,13 +15,13 @@
                         {% if field.errors %}
                         <div class="form-floating mb-3">
                             {{field|add_attr:'is-invalid'}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
+                            <label for="floating{{field.name}}">{{field.label}}</label>
                         </div>
                         <p>{{field.errors}}</p>
                         {% else %}
                         <div class="form-floating mb-3">
                             {{field}}
-                            <label for="floating{{field.label}}">{{field.label}}</label>
+                            <label for="floating{{field.name}}">{{field.label}}</label>
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-footer text-muted text-center">
                     <p>Already have an account?</p>
-                    <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
+                    <a href="{% url 'account_login' %}" aria-label="link to login page" class="btn btn-primary">Login</a>
                 </div>
             </div>
         </div>
