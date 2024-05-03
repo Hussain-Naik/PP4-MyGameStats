@@ -18,9 +18,9 @@
                                 <div class="d-flex flex-row flex-wrap mt-2">
                                     {% for player in session.players.all %}
                                     {% if player in session.get_winner%}
-                                        <a href="{% url 'user_profile' player.profile.id %}" aria-label="link to user profile" class="btn btn-dark p-1 rounded-circle btn-sm text-warning border border-warning order-last position-relative" style="width: 32px; height: 32px; margin-left: 4px;">{{player.profile.profile_avatar|upper}}<i class="bi bi-trophy-fill position-absolute top-0 start-100 translate-middle text-warning"></i></a>
+                                        <a href="{% url 'user_profile' player.profile.id %}" aria-label="link to user profile" class="btn btn-dark p-1 rounded-circle btn-sm text-warning border border-warning order-last position-relative font-monospace" style="width: 32px; height: 32px; margin-left: 4px;">{{player.profile.profile_avatar|upper}}<i class="bi bi-trophy-fill position-absolute top-0 start-100 translate-middle text-warning"></i></a>
                                     {% else %}
-                                        <a href="{% url 'user_profile' player.profile.id %}" aria-label="link to user profile" class="btn btn-secondary p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;">{{player.profile.profile_avatar|upper}}</a>
+                                        <a href="{% url 'user_profile' player.profile.id %}" aria-label="link to user profile" class="btn btn-secondary p-1 rounded-circle btn-sm text-light border border-white font-monospace" style="width: 32px; height: 32px; margin-left: -4px;">{{player.profile.profile_avatar|upper}}</a>
                                     {% endif %}
                                     {% endfor %}
                                 </div>
