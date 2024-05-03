@@ -16,10 +16,12 @@ class GroupCreationForm(ModelForm):
             if field != 'private':
                 field_id = 'floating' + field
                 self.fields[field].widget.attrs.update(
-                    {'class': 'form-control', 'id': field_id}
+                    {'class': 'form-control',
+                     'placeholder': field.capitalize(),
+                     'id': field_id}
                     )
             else:
-                form_id = field.capitalize()
+                field_id = field
                 self.fields[field].widget.attrs.update(
                     {'class': 'form-check-input float-end',
                      'role': 'switch', 'id': field_id,
@@ -40,10 +42,17 @@ class SessionCreationForm(ModelForm):
         super(SessionCreationForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             field_id = 'floating' + field
-            self.fields[field].widget.attrs.update(
-                {'class': 'form-control',
-                 'id': field_id}
-                )
+            if field == 'game_type' or field == 'team_selection':
+                self.fields[field].widget.attrs.update(
+                    {'class': 'form-control',
+                     'id': field_id}
+                    )
+            else:
+                self.fields[field].widget.attrs.update(
+                    {'class': 'form-control',
+                     'placeholder': field.capitalize(),
+                     'id': field_id}
+                    )
 
     class Meta:
         '''Meta class'''
@@ -58,15 +67,22 @@ class SessionUpdateForm(ModelForm):
         super(SessionUpdateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             field_id = 'floating' + field
-            self.fields[field].widget.attrs.update(
-                {'class': 'form-control',
-                 'id': field_id}
-                )
+            if field == 'game_type' or field == 'team_selection':
+                self.fields[field].widget.attrs.update(
+                    {'class': 'form-control',
+                     'id': field_id}
+                    )
+            else:
+                self.fields[field].widget.attrs.update(
+                    {'class': 'form-control',
+                     'placeholder': field.capitalize(),
+                     'id': field_id}
+                    )
 
     class Meta:
         '''Meta class'''
         model = Session
-        exclude = ['status', 'joinable', 'players', 'group']
+        exclude = ['status', 'joinable', 'players', 'group', 'admin']
 
 
 class SessionUpdateAdminForm(ModelForm):
@@ -167,11 +183,11 @@ class TeamScoreForm(Form):
             ).score
         self.fields["team1_score"].widget.attrs.update(
             {'class': 'form-control',
-             'id': 'floatingScore1'}
+             'id': 'team1_score'}
             )
         self.fields["team2_score"].widget.attrs.update(
             {'class': 'form-control',
-             'id': 'floatingScore2'}
+             'id': 'team2_score'}
             )
 
 

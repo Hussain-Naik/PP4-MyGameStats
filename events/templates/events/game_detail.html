@@ -43,7 +43,7 @@
                             {% for field in form%}
                             <!-- <label for="{{field.label}}">{{field.label}}</label> -->
                             <div class="col-md-6 mb-3 text-center">
-                              <label for="{{field.label}}">{% if field.label == 'Team1 score' %} {{fixture.team1.players}} {% else %} {{fixture.team2.players}} {% endif %}</label>
+                              <label for="{{field.name}}">{% if field.label == 'Team1 score' %} {{fixture.team1.players}} {% else %} {{fixture.team2.players}} {% endif %}</label>
                               {{field}}
                             </div>
                             {% endfor %}
