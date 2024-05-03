@@ -7,7 +7,7 @@
             <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">
                     {{page}}
-                    <a class="btn btn-sm btn-outline-dark " href="{% url 'send_invite' session_pk %}" role="button">Send Invite</a>
+                    <a class="btn btn-sm btn-outline-dark " href="{% url 'send_invite' session_pk %}" aria-label="link to send invite page" role="button">Send Invite</a>
                   </h5>
                 <div class="card-body">
                     <ol class="list-group">
@@ -17,9 +17,9 @@
                             </small>
                             
                             <span class="badge text-bg-transparent rounded-pill">{% if invites.inbound == True%}
-                                <a class="link-success link-offset-2" href="{% url 'update_session_invite' invites.id %}"><i class="bi bi-check h4"></i></a>
+                                <a class="link-success link-offset-2" href="{% url 'update_session_invite' invites.id %}" aria-label="link to update session join request"><i class="bi bi-check h4"></i></a>
                                 {% endif %}
-                                <a class="link-danger link-offset-2" href="{% url 'delete_session_invite' invites.id %}"><i class="bi bi-x h4"></i></a>
+                                <a class="link-danger link-offset-2" href="{% url 'delete_session_invite' invites.id %}" aria-label="link to delete sent session invite"><i class="bi bi-x h4"></i></a>
                             </span>
                         </li>
                         {% endfor %}
@@ -44,7 +44,7 @@
                             
                             {% endif %}
 
-                            <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ page_obj.number }}</a></li>
+                            <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}" aria-label="current page">{{ page_obj.number }}</a></li>
 
                             {% if page_obj.has_next %}
                             <li class="page-item">
@@ -78,7 +78,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <small>Player {{roster.roster}} : {{roster.player.username}}
                             </small>
-                            <span class="badge text-bg-transparent rounded-pill"><a class="link-danger link-offset-2" href="{% url 'remove_player' roster.id %}"><i class="bi bi-x h4"></i></a></span>
+                            <span class="badge text-bg-transparent rounded-pill"><a class="link-danger link-offset-2" href="{% url 'remove_player' roster.id %}" aria-label="link to remove player from session"><i class="bi bi-x h4"></i></a></span>
                         </li>
                         {% endfor %}
                     </ul>
