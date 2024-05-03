@@ -21,12 +21,6 @@
               </ul>
             </div>
             <div class="card-footer text-muted text-end">
-              <a class="link-secondary btn btn-sm btn-light disabled" role="button" href="#">
-                <i class="bi bi-person-fill-add h4"></i>
-              </a>
-              <a class="link-secondary btn btn-sm btn-light disabled" role="button" href="#">
-                <i class="bi bi-sliders2 h4"></i>
-              </a>
             </div>
         </div>
       </div>
@@ -74,27 +68,5 @@
           </div>
       </div>
   </div>
-</div>
-<h2></h2>
-
-<h3>{{fixture}}</h3>
-
-
-
-
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-    </span>
 </div>
 {% endblock %}
