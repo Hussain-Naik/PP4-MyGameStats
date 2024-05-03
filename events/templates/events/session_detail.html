@@ -22,16 +22,16 @@
               </div>
               <div class="card-footer text-muted text-end">
                 {% if request.user == detail_object.admin %}
-                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_invite' detail_object.id %}">
+                <a class="link-secondary btn btn-sm btn-light" role="button" aria-label="link to session invite page" href="{% url 'session_invite' detail_object.id %}">
                   <i class="bi bi-person-fill-add h4"></i>
                 </a>
-                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update_admin' detail_object.id %}">
+                <a class="link-secondary btn btn-sm btn-light" role="button" aria-label="link to change session admin page" href="{% url 'session_update_admin' detail_object.id %}">
                   <i class="bi bi-person-fill-gear h4"></i>
                 </a>
-                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_update' detail_object.id %}">
+                <a class="link-secondary btn btn-sm btn-light" role="button" aria-label="link to update session details page" href="{% url 'session_update' detail_object.id %}">
                   <i class="bi bi-sliders2 h4"></i>
                 </a>
-                <a class="link-secondary btn btn-sm btn-light" role="button" href="{% url 'session_delete' detail_object.id %}">
+                <a class="link-secondary btn btn-sm btn-light" role="button" aria-label="link to delete session page" href="{% url 'session_delete' detail_object.id %}">
                   <i class="bi bi-calendar2-x h4"></i>
                 </a>
                 {% endif %}
@@ -44,17 +44,17 @@
                     {{detail_object.name}}
                     {% if request.user == detail_object.admin %}
                       {% if detail_object.players.count >= detail_object.get_min_player_needed %}
-                      <button type="button" class="btn btn-md btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      <button type="button" aria-label="button to open new game modal" class="btn btn-md btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="bi bi-plus-square"></i> New Game
                       </button>
                       {% else %}
-                      <a href="{% url 'send_invite' detail_object.id %}" class="btn btn-md btn-outline-dark">
+                      <a href="{% url 'send_invite' detail_object.id %}" aria-label="link to send session invite page" class="btn btn-md btn-outline-dark">
                         <i class="bi bi-plus-square"></i> Invite Players
                       </a>
                       {% endif %}
                     {% else %}
                       {% if detail_object.status == 1 and request.user not in detail_object.players.all and request.user not in session_invites %}
-                      <a href="{% url 'session_join' detail_object.id %}" class="btn btn-md btn-outline-dark">
+                      <a href="{% url 'session_join' detail_object.id %}" aria-label="link to send session join request page" class="btn btn-md btn-outline-dark">
                         <i class="bi bi-send"></i> Join Session
                       </a>
                       {% endif %}
@@ -65,7 +65,7 @@
                     {% for fixture in detail_object.session_games.all %}
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
-                          <div class="fw-bold"><a class="list-group-item-light" href="{% url 'game' fixture.id %}">{{fixture}}</a></div>
+                          <div class="fw-bold"><a class="list-group-item-light" aria-label="link to update game score page" href="{% url 'game' fixture.id %}">{{fixture}}</a></div>
                           {{fixture.team1.players}} vs {{fixture.team2.players}}
                         </div>
                         <span class="badge text-bg-primary rounded-pill">{{fixture.winning_team.players}}</span>
