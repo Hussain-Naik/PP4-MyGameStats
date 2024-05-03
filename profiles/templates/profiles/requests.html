@@ -8,7 +8,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <a href="{% url 'update_request' obj.id %}">{% if obj.sender.user == request.user %}{{obj.receiver}}{% else %}{{obj.sender}}{% endif %}</a>
+                    <a href="{% url 'update_request' obj.id %}" aria-label="link to update friend request">{% if obj.sender.user == request.user %}{{obj.receiver}}{% else %}{{obj.sender}}{% endif %}</a>
                 </div>
                 <div class="card-footer text-muted">
                     <small>{% if obj.sender.user == request.user %}sent{% else %}received{% endif %} {{obj.sent_on|timesince}} ago</small>
