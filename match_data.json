@@ -1,0 +1,218 @@
+[
+{
+    "model": "events.matchup",
+    "pk": 1,
+    "fields": {
+        "player_count": 4,
+        "game_index": 1,
+        "team1_player1_index": 1,
+        "team1_player2_index": 2,
+        "team2_player1_index": 3,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 2,
+    "fields": {
+        "player_count": 4,
+        "game_index": 2,
+        "team1_player1_index": 1,
+        "team1_player2_index": 3,
+        "team2_player1_index": 2,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 3,
+    "fields": {
+        "player_count": 4,
+        "game_index": 3,
+        "team1_player1_index": 1,
+        "team1_player2_index": 4,
+        "team2_player1_index": 2,
+        "team2_player2_index": 3
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 4,
+    "fields": {
+        "player_count": 5,
+        "game_index": 1,
+        "team1_player1_index": 1,
+        "team1_player2_index": 2,
+        "team2_player1_index": 3,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 5,
+    "fields": {
+        "player_count": 5,
+        "game_index": 2,
+        "team1_player1_index": 1,
+        "team1_player2_index": 2,
+        "team2_player1_index": 3,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 6,
+    "fields": {
+        "player_count": 5,
+        "game_index": 3,
+        "team1_player1_index": 1,
+        "team1_player2_index": 2,
+        "team2_player1_index": 4,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 7,
+    "fields": {
+        "player_count": 5,
+        "game_index": 4,
+        "team1_player1_index": 1,
+        "team1_player2_index": 3,
+        "team2_player1_index": 4,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 8,
+    "fields": {
+        "player_count": 5,
+        "game_index": 5,
+        "team1_player1_index": 2,
+        "team1_player2_index": 3,
+        "team2_player1_index": 4,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 9,
+    "fields": {
+        "player_count": 5,
+        "game_index": 6,
+        "team1_player1_index": 1,
+        "team1_player2_index": 3,
+        "team2_player1_index": 2,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 10,
+    "fields": {
+        "player_count": 5,
+        "game_index": 7,
+        "team1_player1_index": 1,
+        "team1_player2_index": 3,
+        "team2_player1_index": 2,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 11,
+    "fields": {
+        "player_count": 5,
+        "game_index": 8,
+        "team1_player1_index": 1,
+        "team1_player2_index": 4,
+        "team2_player1_index": 2,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 12,
+    "fields": {
+        "player_count": 5,
+        "game_index": 9,
+        "team1_player1_index": 1,
+        "team1_player2_index": 4,
+        "team2_player1_index": 3,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 13,
+    "fields": {
+        "player_count": 5,
+        "game_index": 10,
+        "team1_player1_index": 2,
+        "team1_player2_index": 4,
+        "team2_player1_index": 3,
+        "team2_player2_index": 5
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 14,
+    "fields": {
+        "player_count": 5,
+        "game_index": 11,
+        "team1_player1_index": 1,
+        "team1_player2_index": 4,
+        "team2_player1_index": 2,
+        "team2_player2_index": 3
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 15,
+    "fields": {
+        "player_count": 5,
+        "game_index": 12,
+        "team1_player1_index": 1,
+        "team1_player2_index": 5,
+        "team2_player1_index": 2,
+        "team2_player2_index": 3
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 16,
+    "fields": {
+        "player_count": 5,
+        "game_index": 13,
+        "team1_player1_index": 1,
+        "team1_player2_index": 5,
+        "team2_player1_index": 2,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 17,
+    "fields": {
+        "player_count": 5,
+        "game_index": 14,
+        "team1_player1_index": 1,
+        "team1_player2_index": 5,
+        "team2_player1_index": 3,
+        "team2_player2_index": 4
+    }
+},
+{
+    "model": "events.matchup",
+    "pk": 18,
+    "fields": {
+        "player_count": 5,
+        "game_index": 15,
+        "team1_player1_index": 2,
+        "team1_player2_index": 5,
+        "team2_player1_index": 3,
+        "team2_player2_index": 4
+    }
+}
+]
