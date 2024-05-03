@@ -67,6 +67,9 @@ Create a local copy of the GitHub repository by following one of the two process
     - Enter your username and password (for the superuser that you have created before).
     - You will be redirected to the admin page.
 
+1. run the following command to import matchup data.
+    - `python3 manage.py loaddata match_data.json`
+
 ## Render Deployment
 
 ### Create Database on ElephantSQL
