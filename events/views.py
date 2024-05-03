@@ -500,7 +500,6 @@ class RosterPlayerRemoveView(AccessMixin, DeleteView):
                 session__id=self.get_object().session.id
                 ).exists():
             # Redirect the user to somewhere else - add your URL here
-            print('hello')
             return redirect('session', pk=self.get_object().session.id)
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)

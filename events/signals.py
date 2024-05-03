@@ -7,7 +7,6 @@ from .models import Game, Team, Matchup, Session
 @receiver(pre_save, sender=Session)
 def pre_save_session(sender, instance, **kwargs):
     '''signal to change joinable status for session'''
-    print(instance.status)
     if instance.status == 1:
         instance.joinable = True
     else:

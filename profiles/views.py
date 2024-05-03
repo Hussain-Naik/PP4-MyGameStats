@@ -56,7 +56,6 @@ class UserProfileView(FormMixin, DetailView):
     def form_valid(self, form):
         receiver_ = Profile.objects.get(id=self.kwargs['pk'])
         sender_ = Profile.objects.get(user__id=self.request.user.id)
-        print(sender_, receiver_)
         FriendRequest.objects.get_or_create(
             sender=sender_,
             receiver=receiver_,
