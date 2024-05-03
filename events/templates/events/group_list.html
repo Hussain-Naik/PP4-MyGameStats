@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-3">
-    <div class="text-end"><a class="btn btn-outline-dark mb-3" href="{% url 'group_create' %}" role="button">Create Group</a></div>
+    <div class="text-end"><a class="btn btn-outline-dark mb-3" aria-label="link to create group page" href="{% url 'group_create' %}" role="button">Create Group</a></div>
     
     <div class="row row-cols-2 row-cols-md-4 g-4">
         {% for group in list_object %}
@@ -10,7 +10,7 @@
             <div class="card">
                 <!-- <h5 class="card-header">Groups</h5> -->
                 <div class="card-body">
-                    <a href="{% url 'group_detail' group.id %}">{{group.name}}</a>
+                    <a href="{% url 'group_detail' group.id %}" aria-label="link to group detail page">{{group.name}}</a>
                 </div>
                 <div class="card-footer text-muted">
                     <small>Created by {{group.host.username}} {{group.created_on|timesince}}</small>
@@ -37,7 +37,7 @@
             
             {% endif %}
 
-            <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ page_obj.number }}</a></li>
+            <li class="page-item active"><a class="page-link" aria-label="current page" href="?page={{ forloop.counter }}">{{ page_obj.number }}</a></li>
 
             {% if page_obj.has_next %}
             <li class="page-item">
