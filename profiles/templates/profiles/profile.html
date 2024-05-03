@@ -104,13 +104,13 @@
                     Session Invites
                   </h5>
                 <div class="card-body p-1">
-                    <ul class="list-group list-group-flush">
+                    <div class="list-group list-group-flush">
                         {% for invite in user_object.get_session_invites %}
                         <a href="{% url 'update_invites' invite.id %}" aria-label="link to update session invites" class="list-group-item list-group-item-action d-flex gap-2 p-1">{% if invite.inbound == True %}<i class="bi bi-calendar4-event h5"></i> Awaiting Reply{% else %}<i class="bi bi-controller h5"></i> Invite Received{% endif %}</a>
                         {% empty %}
                         <small>No Invites</small>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
                 <div class="card-footer text-muted text-end">
                     <small></small>
@@ -151,7 +151,7 @@
                     Pending Invites
                   </h5>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
+                    <div class="list-group list-group-flush">
                     {% for invite in user_object.get_pending_requests %}
                         {% if invite.sender == user_object %}
                         <a href="{% url 'update_request' invite.id %}" aria-label="link to update friend request" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
@@ -161,7 +161,7 @@
                     {% empty %}
                     <small>No Invites</small>
                     {% endfor %}
-                    </ul>
+                    </div>
                 </div>
                 <div class="card-footer text-muted text-end">
                 </div>
@@ -176,7 +176,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="myFriendList">My Friends</h1>
+          <h2 class="modal-title fs-5" id="myFriendList">My Friends</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -12,7 +12,8 @@ class MyCustomLoginForm(LoginForm):
         super(MyCustomLoginForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             if field != 'remember':
-                form_id = 'floating' + field.capitalize()
+                print(field)
+                form_id = 'floating' + field
                 self.fields[field].widget.attrs.update(
                     {
                         'class': 'form-control',
@@ -21,7 +22,7 @@ class MyCustomLoginForm(LoginForm):
                     }
                     )
             else:
-                form_id = field.capitalize()
+                form_id = field
                 self.fields[field].widget.attrs.update({
                     'class': 'form-check-input float-end',
                     'role': 'switch',
@@ -38,7 +39,8 @@ class MyCustomSignupForm(SignupForm):
         '''Add bootstrap floating input field styling'''
         super(MyCustomSignupForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
+            print(field)
+            form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': '',
@@ -56,7 +58,7 @@ class CustomUserChangeForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
+            form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': '',
@@ -84,7 +86,7 @@ class UpdateFriendRequestForm(ModelForm):
         super(UpdateFriendRequestForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             if field != 'status':
-                form_id = 'floating' + field.capitalize()
+                form_id = 'floating' + field
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control',
                     'placeholder': '',
@@ -92,7 +94,7 @@ class UpdateFriendRequestForm(ModelForm):
                     })
                 self.fields[field].required = False
             else:
-                form_id = 'floating' + field.capitalize()
+                form_id = 'floating' + field
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control',
                     'placeholder': '',
@@ -124,7 +126,7 @@ class UpdateFriendRequestSentForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(UpdateFriendRequestSentForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
+            form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': '',
@@ -157,7 +159,7 @@ class SessionInviteUpdateForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(SessionInviteUpdateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
+            form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': '',
@@ -188,7 +190,7 @@ class SessionJoinForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(SessionJoinForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            form_id = 'floating' + field.capitalize()
+            form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': '',
