@@ -10,7 +10,7 @@ urlpatterns = [
     path(
         '<pk>/remove/',
         views.RemoveFriendView.as_view(),
-        name="remove_profile"
+        name="unfriend"
         ),
     path(
         'request/search/',

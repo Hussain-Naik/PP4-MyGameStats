@@ -7,7 +7,7 @@
             <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">{{user_object.first_name}} {{user_object.last_name}}
                     {% if request.user == user_object.user %}
-                        <a class="btn btn-sm btn-outline-dark " href="{% url 'update_profile' %}" role="button">Edit Profile <i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-sm btn-outline-dark" href="{% url 'update_profile' %}" aria-label="link to edit users profile" role="button">Edit Profile <i class="bi bi-pencil-square"></i></a>
                         {% else %}
                             {% if request.user.is_authenticated %}
                                 {% if request.user.profile not in user_object.get_friends %}
@@ -21,12 +21,12 @@
                                         </button>
                                     </form>
                                     {% else %}
-                                    <a class="link-light btn btn-sm btn-dark" role="button" href="#">
+                                    <a class="link-light btn btn-sm btn-dark" role="button" href="{% url 'update_request' sendRequest.id %}" aria-label="link to update friend request">
                                         Status : {{sendRequest.status}}
                                     </a>
                                     {% endif %}
                                 {% else %}
-                                <a class="btn btn-sm btn-outline-dark" href="#" role="button"><i class="bi bi-person-dash-fill h5"></i> Remove Friend</a>
+                                <a class="btn btn-sm btn-outline-dark" href="{% url 'unfriend' user_object.id %}" aria-label="link to remove friend" role="button"><i class="bi bi-person-dash-fill h5"></i> Remove Friend</a>
                                 {% endif %}
                                 
                             {% endif %}
@@ -71,7 +71,7 @@
                                 </div>
                               </div>
                             </div>
-                            <button class="carousel-control-next" type="button" data-bs-target="#userStats" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" aria-label="cycle user statistics" data-bs-target="#userStats" data-bs-slide="next">
                                 <i class="bi bi-three-dots-vertical text-black" aria-hidden="true"></i>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -106,7 +106,7 @@
                 <div class="card-body p-1">
                     <ul class="list-group list-group-flush">
                         {% for invite in user_object.get_session_invites %}
-                        <a href="{% url 'update_invites' invite.id %}" class="list-group-item list-group-item-action d-flex gap-2 p-1">{% if invite.inbound == True %}<i class="bi bi-calendar4-event h5"></i> Awaiting Reply{% else %}<i class="bi bi-controller h5"></i> Invite Received{% endif %}</a>
+                        <a href="{% url 'update_invites' invite.id %}" aria-label="link to update session invites" class="list-group-item list-group-item-action d-flex gap-2 p-1">{% if invite.inbound == True %}<i class="bi bi-calendar4-event h5"></i> Awaiting Reply{% else %}<i class="bi bi-controller h5"></i> Invite Received{% endif %}</a>
                         {% empty %}
                         <small>No Invites</small>
                         {% endfor %}
@@ -125,10 +125,10 @@
                 <div class="card-body">
                     <div class="d-flex flex-row flex-wrap">
                         {% for friend in user_object.get_friends %}
-                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
+                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" aria-label="link to user profile" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
                         {% endfor %}
                         {% if user_object.get_friends_count > 7 %}
-                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#myFriendListModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
+                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" aria-label="link to open all friends modal" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#myFriendListModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
                         {% endif %}
                     </div>
                     
@@ -154,9 +154,9 @@
                     <ul class="list-group list-group-flush">
                     {% for invite in user_object.get_pending_requests %}
                         {% if invite.sender == user_object %}
-                        <a href="{% url 'update_request' invite.id %}" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
+                        <a href="{% url 'update_request' invite.id %}" aria-label="link to update friend request" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.receiver}}<i class="bi bi-envelope-arrow-down-fill h5 text-primary"></i></a>
                         {% else %}
-                        <a href="{% url 'update_request' invite.id %}" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.sender}}<i class="bi bi-envelope-arrow-up-fill h5 text-success"></i></a>
+                        <a href="{% url 'update_request' invite.id %}" aria-label="link to update friend request" class="list-group-item list-group-item-action d-flex justify-content-between p-1">{{invite.sender}}<i class="bi bi-envelope-arrow-up-fill h5 text-success"></i></a>
                         {% endif %}
                     {% empty %}
                     <small>No Invites</small>
@@ -182,7 +182,7 @@
         <div class="modal-body">
             <div class="list-group list-group-flush">
                 {% for friend in user_object.friends.all %}
-                <a class="btn btn-light m-1" href="{% url 'user_profile' friend.id %}"><span class="btn btn-dark p-1 rounded-circle btn-sm text-light me-4" style="width: 32px; height: 32px;">{{friend.profile_avatar|upper}}</span>{{friend.user.username}}</a>
+                <a class="btn btn-light m-1" href="{% url 'user_profile' friend.id %}" aria-label="link to users profile"><span class="btn btn-dark p-1 rounded-circle btn-sm text-light me-4" style="width: 32px; height: 32px;">{{friend.profile_avatar|upper}}</span>{{friend.user.username}}</a>
                 {% endfor %}
             </div>
             
