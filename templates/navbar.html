@@ -3,14 +3,14 @@
     <nav class="navbar bg-light">
         <div class="container-fluid gap-1">
             <h1 class="order-sm-first">
-                <a class="navbar-brand" href="{% url 'home' %}">Badminton</a>
+                <a class="navbar-brand" href="{% url 'home' %}" aria-label="logo link to homepage">Badminton</a>
             </h1>
             {% if request.user.is_authenticated %}
-            <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md order-sm-last">
+            <a href="{% url 'account_logout' %}" class="btn btn-dark btn-md order-sm-last" aria-label="button to logout">
                 Logout <i class="bi bi-box-arrow-right h6"></i>
             </a>
             {% else %}
-            <a class="btn btn-dark btn-md order-sm-last" href="{% url 'account_login' %}">
+            <a class="btn btn-dark btn-md order-sm-last" href="{% url 'account_login' %}" aria-label="button to open login page">
                 Login <i class="bi bi-box-arrow-in-right h6"></i>
             </a>
             {% endif %}
@@ -33,33 +33,33 @@
         <div class="container-sm">
             <ul class="navbar-nav d-flex flex-row mx-auto gap-3">
                 <li class="nav-item me-1 me-lg-0" >
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Group Search"><i class="bi bi-nintendo-switch h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Group Search" aria-label="link to display all available groups"><i class="bi bi-nintendo-switch h4"></i></a>
                 </li>
                 <li class="nav-item me-1 me-lg-0">
                     {% if '/events/' in request.path and view.kwargs.pk is not None %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'group_detail' detail_object.get_group_id %}" aria-label="link to specific group page" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
                     {% else %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" aria-label="link to display all available groups" data-bs-toggle="tooltip" data-bs-title="Group Detail"><i class="bi bi-calendar2 h4"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-1 me-lg-0">
                     {% if '/events/session' in request.path %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'session' view.kwargs.pk %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'session' view.kwargs.pk %}" aria-label="link to specific session page" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% else %}
-                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'groups' %}" aria-label="link to group list page" data-bs-toggle="tooltip" data-bs-title="Session Detail"><i class="bi bi-controller h4"></i></a>
                     {% endif %}
                 </li>
                 <li class="nav-item me-1 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'list_invites' %}" data-bs-toggle="tooltip" data-bs-title="Session Invites"><i class="bi bi-bell h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'list_invites' %}" aria-label="link to display all user session invites" data-bs-toggle="tooltip" data-bs-title="Session Invites"><i class="bi bi-bell h4"></i></a>
                 </li>
                 <li class="nav-item me-1 me-lg-0">
-                    <a class="nav-link mx-1 link-light" href="{% url 'search_profile' %}" data-bs-toggle="tooltip" data-bs-title="Find Friends"><i class="bi bi-ubuntu h4"></i></a>
+                    <a class="nav-link mx-1 link-light" href="{% url 'search_profile' %}" aria-label="link to display all users" data-bs-toggle="tooltip" data-bs-title="Find Friends"><i class="bi bi-ubuntu h4"></i></a>
                 </li>
                 <li class="nav-item me-1 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'list_request' %}" data-bs-toggle="tooltip" data-bs-title="Pending Invites"><i class="bi bi-person-exclamation h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'list_request' %}" aria-label="link to display all pending friend requests" data-bs-toggle="tooltip" data-bs-title="Pending Invites"><i class="bi bi-person-exclamation h4"></i></a>
                 </li>
                 <li class="nav-item me-1 me-lg-0">
-                    <a class="nav-link mx-1 text-white" href="{% url 'profile' %}" data-bs-toggle="tooltip" data-bs-title="User Profile"><i class="bi bi-clipboard-data h4"></i></a>
+                    <a class="nav-link mx-1 text-white" href="{% url 'profile' %}" aria-label="link to display user profile" data-bs-toggle="tooltip" data-bs-title="User Profile"><i class="bi bi-clipboard-data h4"></i></a>
                 </li>
             </ul>
         </div>
