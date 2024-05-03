@@ -40,7 +40,7 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 3           |  Click "friend avatar" in friend section | redirects to users profile | Y |   |
 | 4           |  Click "invite" link in session invite section | redirects to session invites page | Y |  |
 | 5           |  Click "user name" link in the pending section | redirects to pending friend request page | Y | Sent and received invites are different color |
-| 6           |  Click '+' avatar in friends sectipn  | display modal with all friends | Y | displayed when more than 7 friends |
+| 6           |  Click '+' avatar in friends section  | display modal with all friends | Y | displayed when more than 7 friends |
 | Edit Profile |            |                  |      |             |
 | 1           |  Change the form data for the first name, last name | Date in the form will be updated | Y | Available only when the user opens his/her own profile  |
 | 2           |  Click "cancel" button | Redirect back to user profile | Y |  Available only when the user opens his/her own profile |
