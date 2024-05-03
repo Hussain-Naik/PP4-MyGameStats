@@ -453,6 +453,7 @@ class CreateSessionInviteView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['page'] = 'Send Session Invite'
         context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
         return context
 
