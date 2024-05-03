@@ -11,7 +11,7 @@
                     {% if form.errors %}
                     <p>Your username and password didn't match. Please try again.</p>
                     {% endif %}
-                    <form class="form text-center" action="" method="POST">
+                    <form class="form text-center" method="POST">
                         {% csrf_token %}
                         {% load add_attr %}
                         {% for field in form%}
@@ -19,11 +19,11 @@
                             {% if field.label != 'Remember Me' %}
                             <div class="form-floating mb-3">
                                 {{field|add_attr:'is-invalid'}}
-                                <label for="floating{{field.label}}">{{field.label}}</label>
+                                <label for="floating{{field.name}}">{{field.label}}</label>
                             </div>
                             {% else %}
                             <div class="form-check form-switch border border-dark p-2 mb-2 border-opacity-25 rounded">
-                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                <label class="form-check-label" for="{{field.name}}">{{field.label}}</label>
                                 {{field}}
                             </div>
                             {% endif %}
@@ -31,11 +31,11 @@
                             {% if field.label != 'Remember Me' %}
                             <div class="form-floating mb-3">
                                 {{field}}
-                                <label for="floating{{field.label}}">{{field.label}}</label>
+                                <label for="floating{{field.name}}">{{field.label}}</label>
                             </div>
                             {% else %}
                             <div class="form-check form-switch border border-dark p-2 mb-2 border-opacity-25 rounded">
-                                <label class="form-check-label" for="{{field.label}}">{{field.label}}</label>
+                                <label class="form-check-label" for="{{field.name}}">{{field.label}}</label>
                                 {{field}}
                             </div>
                             {% endif %}
@@ -47,7 +47,7 @@
                 </div>
                 <div class="card-footer text-muted text-center">
                     <p>Haven't signed up yet?</p>
-                    <a href="{% url 'account_signup' %}" class="btn btn-primary">Sign Up</a>
+                    <a href="{% url 'account_signup' %}" aria-label="link to signup page" class="btn btn-primary">Sign Up</a>
                 </div>
             </div>
         </div>
