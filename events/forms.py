@@ -14,15 +14,15 @@ class GroupCreationForm(ModelForm):
         super(GroupCreationForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             if field != 'private':
-                form_id = 'floating' + field.capitalize()
+                field_id = 'floating' + field
                 self.fields[field].widget.attrs.update(
-                    {'class': 'form-control', 'placeholder': '', 'id': form_id}
+                    {'class': 'form-control', 'id': field_id}
                     )
             else:
                 form_id = field.capitalize()
                 self.fields[field].widget.attrs.update(
                     {'class': 'form-check-input float-end',
-                     'role': 'switch', 'id': form_id,
+                     'role': 'switch', 'id': field_id,
                      'data-bs-toggle': 'collapse',
                      'data-bs-target': '#privateInfo'}
                     )
@@ -39,10 +39,10 @@ class SessionCreationForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(SessionCreationForm, self).__init__(*args, **kwargs)
         for field in self.fields:
+            field_id = 'floating' + field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:
@@ -57,10 +57,10 @@ class SessionUpdateForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(SessionUpdateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
+            field_id = 'floating' + field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:
@@ -82,10 +82,10 @@ class SessionUpdateAdminForm(ModelForm):
             id__in=session.players.all()
         )
         for field in self.fields:
+            field_id = 'floating' + field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:
@@ -107,10 +107,10 @@ class GroupUpdateAdminForm(ModelForm):
             id__in=group.get_all_participants()
             )
         for field in self.fields:
+            field_id = 'floating' + field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:
@@ -141,7 +141,6 @@ class GameCreationForm(Form):
         self.fields['choice'].required = False
         self.fields['choice'].widget.attrs.update(
             {'class': 'form-select',
-             'placeholder': '',
              'id': 'floatingChoice'}
             )
 
@@ -168,12 +167,10 @@ class TeamScoreForm(Form):
             ).score
         self.fields["team1_score"].widget.attrs.update(
             {'class': 'form-control',
-             'placeholder': '',
              'id': 'floatingScore1'}
             )
         self.fields["team2_score"].widget.attrs.update(
             {'class': 'form-control',
-             'placeholder': '',
              'id': 'floatingScore2'}
             )
 
@@ -201,10 +198,10 @@ class SessionInviteForm(ModelForm):
                 Q(id__in=session_invited)
                 )
         for field in self.fields:
+            field_id = 'floating' + field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:
@@ -219,10 +216,10 @@ class SessionInviteUpdateForm(ModelForm):
         '''Add bootstrap floating input field styling'''
         super(SessionInviteUpdateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
+            field_id = field
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control',
-                 'placeholder': '',
-                 'id': 'floatingEmail'}
+                 'id': field_id}
                 )
 
     class Meta:

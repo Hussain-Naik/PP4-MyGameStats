@@ -12,7 +12,6 @@ class MyCustomLoginForm(LoginForm):
         super(MyCustomLoginForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             if field != 'remember':
-                print(field)
                 form_id = 'floating' + field
                 self.fields[field].widget.attrs.update(
                     {
@@ -38,7 +37,6 @@ class MyCustomSignupForm(SignupForm):
         '''Add bootstrap floating input field styling'''
         super(MyCustomSignupForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            print(field)
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
