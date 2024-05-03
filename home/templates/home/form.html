@@ -51,18 +51,18 @@
                         {% endfor %}
                         {% if not delete_link %}
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Cancel</a>
+                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" aria-label="link to cancel and return to previous page" role="button">Cancel</a>
                             <button type="submit" class="btn btn-outline-primary">Submit</button>
                             
                         </div>
                         {% else %}
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                             {% if page == 'Update Friend Request'%}
-                            <a class="btn btn-outline-danger" href="{% url 'delete_request' delete_pk %}" role="button">Delete</a>
+                            <a class="btn btn-outline-danger" href="{% url 'delete_request' delete_pk %}" aria-label="link to delete user sent friend request" role="button">Delete</a>
                             {% else %}
-                            <a class="btn btn-outline-danger" href="{% url 'delete_invites' delete_pk %}" role="button">Delete</a>
+                            <a class="btn btn-outline-danger" href="{% url 'delete_invites' delete_pk %}" aria-label="link to delete user received friend request" role="button">Delete</a>
                             {% endif %}
-                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Cancel</a>
+                            <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}" aria-label="link to cancel and return to previous page" role="button">Cancel</a>
                             <button type="submit" class="btn btn-outline-primary">Submit</button>
                             
                         </div>
