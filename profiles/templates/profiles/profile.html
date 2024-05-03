@@ -125,10 +125,10 @@
                 <div class="card-body">
                     <div class="d-flex flex-row flex-wrap">
                         {% for friend in user_object.get_friends %}
-                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white" aria-label="link to user profile" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
+                            <a class="btn btn-dark p-1 rounded-circle btn-sm text-light border border-white font-monospace" aria-label="link to user profile" style="width: 32px; height: 32px; margin-left: -4px;" href="{% url 'user_profile' friend.id %}">{{friend.profile_avatar|upper}}</a>
                         {% endfor %}
                         {% if user_object.get_friends_count > 7 %}
-                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white" aria-label="link to open all friends modal" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#myFriendListModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
+                        <a class="btn btn-secondary p-1 rounded-circle btn-sm text-dark border border-white font-monospace" aria-label="link to open all friends modal" style="width: 32px; height: 32px; margin-left: -4px;" data-bs-toggle="modal" data-bs-target="#myFriendListModal">{% if user_object.remaining_friends_count > 9 %}9+{% else %}+{{user_object.remaining_friends_count}}{% endif %}</a>
                         {% endif %}
                     </div>
                     
