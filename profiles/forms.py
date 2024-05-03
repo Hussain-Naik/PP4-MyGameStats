@@ -17,7 +17,6 @@ class MyCustomLoginForm(LoginForm):
                 self.fields[field].widget.attrs.update(
                     {
                         'class': 'form-control',
-                        'placeholder': '',
                         'id': form_id
                     }
                     )
@@ -43,7 +42,6 @@ class MyCustomSignupForm(SignupForm):
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
-                'placeholder': '',
                 'id': form_id
             })
 
@@ -61,7 +59,6 @@ class CustomUserChangeForm(ModelForm):
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
-                'placeholder': '',
                 'id': form_id
             })
 
@@ -89,7 +86,6 @@ class UpdateFriendRequestForm(ModelForm):
                 form_id = 'floating' + field
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control',
-                    'placeholder': '',
                     'id': form_id
                     })
                 self.fields[field].required = False
@@ -97,7 +93,6 @@ class UpdateFriendRequestForm(ModelForm):
                 form_id = 'floating' + field
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control',
-                    'placeholder': '',
                     'id': form_id
                 })
 
@@ -129,7 +124,6 @@ class UpdateFriendRequestSentForm(ModelForm):
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
-                'placeholder': '',
                 'id': form_id
             })
             self.fields[field].required = False
@@ -162,7 +156,6 @@ class SessionInviteUpdateForm(ModelForm):
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
-                'placeholder': '',
                 'id': form_id
             })
             self.fields[field].required = False
@@ -193,7 +186,6 @@ class SessionJoinForm(ModelForm):
             form_id = 'floating' + field
             self.fields[field].widget.attrs.update({
                 'class': 'form-control',
-                'placeholder': '',
                 'id': form_id
             })
             self.fields[field].required = False
