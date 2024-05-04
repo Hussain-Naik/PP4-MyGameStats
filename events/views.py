@@ -76,13 +76,9 @@ class GroupDetailView(AccessMixin, DetailView):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        if not User.objects.filter(
-                session__group=group.id,
-                id=self.request.user.id
-                ).exists() | group.host.id == self.request.user.id:
+        if self.request.user not in group.get_all_participants():
             # Redirect the user to somewhere else - add your URL here
-            if group.private:
-                return redirect('groups')
+            return redirect('groups')
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
@@ -625,7 +621,9 @@ class UpdateSessionInviteView(AccessMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'Update Session Invite Form'
-        context['detail_object'] = Session.objects.get(id=self.get_object().session.id)
+        context['detail_object'] = Session.objects.get(
+                                    id=self.get_object().session.id
+                                    )
         return context
 
     def get_object(self):
