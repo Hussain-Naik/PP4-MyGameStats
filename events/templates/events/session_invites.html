@@ -22,6 +22,8 @@
                                 <a class="link-danger link-offset-2" href="{% url 'delete_session_invite' invites.id %}" aria-label="link to delete sent session invite"><i class="bi bi-x h4"></i></a>
                             </span>
                         </li>
+                        {% empty %}
+                        <small>No Invites</small>
                         {% endfor %}
                     </ol>
                 </div>
