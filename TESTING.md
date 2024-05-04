@@ -147,6 +147,13 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1                | click cancel button | redirects to user profile page | Y |  |
 | 2                | click submit button | updates database and adds each user to respective friend list | Y | redirect back to user profile |
 | 3                | Select accept option | Adds both users to each others respective friends list | Y |  |
+| Pagination |     |      |     |    |
+| 1                | click next button | redirects to next page in view | Y |  |
+| 2                | click next page number | redirects to next page in view | Y |  |
+| 3                | click previous button | redirects to previous page in view | Y |  |
+| 4                | click previous page number | redirects to previous page in view | Y |  |
+| List View Search |     |      |     |    |
+| 1                | enter parameter to search | Displayed list reduced to match search parameter | Y |  |
 
 ---
 
