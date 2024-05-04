@@ -78,7 +78,8 @@ class GroupDetailView(AccessMixin, DetailView):
             return self.handle_no_permission()
         if self.request.user not in group.get_all_participants():
             # Redirect the user to somewhere else - add your URL here
-            return redirect('groups')
+            if self.request.user != group.host:
+                return redirect('groups')
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
