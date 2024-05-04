@@ -161,21 +161,28 @@ Usability was tested with the below user acceptance testing, sent to new users t
 
 | First Time Visitor Goals | Requirement met | Image |
 | ------------------------- | --------------- | ----- |
-| As a First Time Visitor, I want to be able to easily understand the main purpose of the app, so that I can learn more about this app. | Welcome text on the top of the homepage explaining the main purpose of the website and describing the the services offered | ![Home page](documentation/features/home_page/home_page.png) |
-| As a First Time Visitor, I want to be able to easily navigate through the app, so that I can find the content. | The website for the fist time visitors made out of one page. The user can read all benefits of the school and learn briefly about its services. The page has also several buttons, which lead to the registration page. At the end of the page, the user may find additional contact information and location of the school. | ![Menu](documentation/features/navbar/menu_admin_view.png) |
-| As a First Time Visitor, I want to be able to register my account, so that I can learn the benefits of the app as a user. | Top navigation GET STARTED button + GET STARTED button in the hero section | ![Navbar Logout](documentation/features/navbar/navbar_logout.png) |
-| As a First Time Visitor, I want to be able to find the app useful, so that I can use it according to my needs. | The website cover benefits of becoming a member and engages new visitors to become a member of a school | go to features section in the [README.md](README.md) |
+| As a ""user"" I can ""create an account"" so that ""i can use the application"". | Y | ![Sign Up](documentation/signup.png) |
+| As a ""User"" I can ""login"" so that ""I can view my profile"". | Y | ![Login](documentation/login.png) |
+| As a ""User"" I can ""Add my friends"" so that ""we can organize events to play"". | Y | ![Add Friend](documentation/friend.png) |
 
 
 | Frequent Visitor Goals    | Requirement met | Image |
 | ------------------------- | --------------- | ----- |
-| As a Frequent User, I want to be able to log in to my account, so that I can have a personal account. | Log in from the top right navigation | ![Get Started Button](documentation/features/navbar/get_started_button.png) |
-| As a Frequent User, I want to be able to easily log in and log out, so that I can access my personal account information. | Logout button in the main menu in the top of navbar | ![Navbar limited access](documentation/features/navbar/navbar_limited_access.png) |
-| As a Frequent User, I want to be able to easily recover my password in case I forget it, so that I can recover access to my account. | Available on login page | ![Login](documentation/features/login_page/login_page.png) |
-| As a Frequent User, I can be able to change my password, so that I can be sure that nobody else can access my account. | Available in user’s profile | ![Profile. Admin view](documentation/features/profile_page/profile_page_admin_box.png) |
-
-
-
+| As a ""User"" I can ""invite friends to group"" so that ""we can play together"". | Y | ![Group List](documentation/group.png) |
+| As a ""User"" I can ""create a game session"" so that ""available players can play"". | Y | ![Session](documentation/session.png) |
+| As a ""User"" I can ""accept session invitation"" so that ""i can join the session"". | Y | ![Session Invite](documentation/session_invite.png) |
+| As a ""User"" I can ""view my previous session"" so that ""i can compare my progress"". | Y | ![Profile](documentation/profile.png) |
+| As a ""User"" I can ""View group leaderboards"" so that ""i can improve my rank"". | Y | ![Group Leader Boards](documentation/leaderboard.png) |
+| As a ""Session Admin"" I can ""appoint game admin"" so that ""they can enter team results"". | Y | ![Session Admin](documentation/session_admin.png) |
+| As a ""Session Admin"" I can ""generate all game fixtures"" so that ""we know which games to play"". | Y | ![Game Match Ups](documentation/game.png) |
+| As a ""Game Admin"" I can ""Enter game score results"" so that ""we know who won"". | Y | ![Game Score](documentation/features/game_score.png) |
+| As a ""Session Admin"" I can ""assign teams manually"" so that ""the match can start"". | Y | new game select field displays all available teams |
+| As a ""Session Admin"" I can ""invite more players from group"" so that ""we can play more match ups"". | Y | ![Session Send Invite](documentation/features/send_invite.png) |
+| As a ""Group User"" I can ""join open sessions"" so that ""I can play"". | Y | ![Join Session](documentation/join_session.png) |
+| As a ""User"" I can ""Change my user details"" so that ""i reflect most recent changes"". | Y | ![Edit Profile](documentation/update_profile.png) |
+| As a ""Group Host"" I can ""Change group name and details"" so that ""it reflects the current changes"". | Y | ![Group Host](documentation/group_update.png) |
+| As a ""User participating in a session"" I can ""see all groups"" so that ""i can join future session"". | Y | ![Group](documentation/join_session.png) |
+| As a ""Session Admin"" I can ""update session details"" so that ""player know of date changes"". | Y | ![Session Update](documentation/session_update.png) |
 
 
 ---
