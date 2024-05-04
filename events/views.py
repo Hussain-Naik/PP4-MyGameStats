@@ -76,10 +76,11 @@ class GroupDetailView(AccessMixin, DetailView):
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        if self.request.user not in group.get_all_participants():
-            # Redirect the user to somewhere else - add your URL here
-            if self.request.user != group.host:
-                return redirect('groups')
+        if group.private is True:
+            if self.request.user not in group.get_all_participants():
+                # Redirect the user to somewhere else - add your URL here
+                if self.request.user != group.host:
+                    return redirect('groups')
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
@@ -269,19 +270,13 @@ class SessionDetailView(AccessMixin, FormMixin, DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-
+        group = self.get_object().group
         if not request.user.is_authenticated:
             # This will redirect to the login view
             return self.handle_no_permission()
-        if User.objects.filter(
-                session__group=self.get_object().group.id,
-                id=self.request.user.id
-                ).exists() is not True:
-            if self.get_object().admin.id != self.request.user.id:
-                # Redirect the user to somewhere else - add your URL here
+        if group.private is True:
+            if self.request.user not in group.get_all_participants():
                 return redirect('group_detail', pk=self.get_object().group.id)
-            else:
-                pass
 
         # Checks pass, let http method handlers process the request
         return super().dispatch(request, *args, **kwargs)
