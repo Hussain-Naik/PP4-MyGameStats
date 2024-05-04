@@ -204,6 +204,7 @@ One of the bugs was due to a zero division as the win percentage to be calculate
 
 Due to changes to fontawesome mid way the project the application stopped displaying the icons or the fontawesome icon resizing which was used. Viewing the application with chrome dev tools it identified the broken link and i changed the fontawesome icons to bootstrap 5 native icons.
 
+Bug after group creation would not allow host user view as code would check for participating members in group which are part of a session and since new group do not have session objects would not allow host to view group. Fixed by adding additional check to see if user is group host.
 
 ---
 
