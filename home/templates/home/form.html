@@ -8,6 +8,13 @@
             <div class="card mx-auto">
                 <h5 class="card-header">{{page}}</h5>
                 <div class="card-body">
+                    {% if option_count == 0 %}
+                    <small>No available users to invite</small>
+                    <div class="btn-group float-end">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary" aria-label="link to previous page">Back</a>
+                        <a href="{% url 'search_profile' %}" class="btn btn-outline-secondary" aria-label="link to previous page">Add Friends</a>
+                    </div>
+                    {% else %}
                     <form class="form" method="POST">
                         {% csrf_token %}
                         {% load add_attr %}
@@ -68,6 +75,7 @@
                         </div>
                         {% endif %}
                     </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

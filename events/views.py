@@ -449,9 +449,21 @@ class CreateSessionInviteView(LoginRequiredMixin, CreateView):
         return reverse_lazy('session_invite', kwargs={"pk": self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
+        session = Session.objects.get(id=self.kwargs['pk'])
+        user = Profile.objects.get(user_id=self.request.user.id)
+        session_invited = Profile.objects.filter(
+            session_invite_receiver__session=session.id
+            )
         context = super().get_context_data(**kwargs)
         context['page'] = 'Send Session Invite'
-        context['detail_object'] = Session.objects.get(id=self.kwargs['pk'])
+        context['detail_object'] = session
+        context['option_count'] = Profile.objects.filter(
+            Q(user__id__in=session.group.get_all_participants()) |
+            Q(id__in=user.friends.all())
+            ).exclude(
+                Q(user__id__in=session.players.all()) |
+                Q(id__in=session_invited)
+                ).count()
         return context
 
     def get_form_kwargs(self):
