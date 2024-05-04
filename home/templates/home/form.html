@@ -38,7 +38,7 @@
                                 <label class="form-check-label" for="{{field.name}}">{{field.label}}</label>
                                 {{field}}
                             </div>
-                            <div id='privateInfo' class='collapse'>
+                            <div id='privateInfo' class='collapse {% if field.value is True %}show{% endif %}'>
                                 <div class="alert alert-warning d-flex align-items-center gap-2 p-1" role="alert">
                                     <i class="bi bi-exclamation-triangle-fill"></i>
                                     <div class="mx-1">
