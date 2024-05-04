@@ -175,9 +175,9 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | As a ""User"" I can ""View group leaderboards"" so that ""i can improve my rank"". | Y | ![Group Leader Boards](documentation/leaderboard.png) |
 | As a ""Session Admin"" I can ""appoint game admin"" so that ""they can enter team results"". | Y | ![Session Admin](documentation/session_admin.png) |
 | As a ""Session Admin"" I can ""generate all game fixtures"" so that ""we know which games to play"". | Y | ![Game Match Ups](documentation/game.png) |
-| As a ""Game Admin"" I can ""Enter game score results"" so that ""we know who won"". | Y | ![Game Score](documentation/features/game_score.png) |
+| As a ""Game Admin"" I can ""Enter game score results"" so that ""we know who won"". | Y | ![Game Score](documentation/game_score.png) |
 | As a ""Session Admin"" I can ""assign teams manually"" so that ""the match can start"". | Y | new game select field displays all available teams |
-| As a ""Session Admin"" I can ""invite more players from group"" so that ""we can play more match ups"". | Y | ![Session Send Invite](documentation/features/send_invite.png) |
+| As a ""Session Admin"" I can ""invite more players from group"" so that ""we can play more match ups"". | Y | ![Session Send Invite](documentation/send_invite.png) |
 | As a ""Group User"" I can ""join open sessions"" so that ""I can play"". | Y | ![Join Session](documentation/join_session.png) |
 | As a ""User"" I can ""Change my user details"" so that ""i reflect most recent changes"". | Y | ![Edit Profile](documentation/update_profile.png) |
 | As a ""Group Host"" I can ""Change group name and details"" so that ""it reflects the current changes"". | Y | ![Group Host](documentation/group_update.png) |
