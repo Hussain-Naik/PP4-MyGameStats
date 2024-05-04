@@ -230,6 +230,7 @@ Testing was conducted on the following browsers;
 - Chrome;
 - Firefox;
 
+- [Compatibility Report](documentation/responsive_report.pdf)
 
 ---
 
