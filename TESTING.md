@@ -50,13 +50,86 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 2                | pagination "next" | Redirect to the next page of groups | Y | Available when groups more than 12 |
 | 3                | pagination "previous" | Redirect to the previous page of groups | Y | Available when groups more than 12 |
 | 4                | Form Search | filters group list to match groups containing form input | Y |  |
+| 5                | click group link | redirects to group detail page | Y |  |
+| Group Detail |     |      |     |    |
+| 1                | click button to create session | redirects to create session page | Y |  |
+| 2                | click button to delete group | redirects to delete group page | Y |  |
+| 3                | click button to edit group | redirect edit group page | Y |  |
+| 4                | click button to edit group host | redirects to update group host page | Y |  |
+| 5                | click session link | redirect session detail page | Y |  |
+| 6                | click session users avatar | redirects to users profile | Y |  |
 | Create Group |     |      |     |    |
 | 1                | Enter valid details in form | Field will only accept unique input | Y |  |
 | 2                | Select private option | notification stating group will only be visible to invited users | Y |  |
 | 3                | click cancel button | redirect to previous page | Y |  |
 | 4                | click submit button | Creates group with selected parameters and redirect to group search | Y |  |
-
-
+| Group Delete |     |      |     |    |
+| 1                | click cancel button | redirects to group detail page | Y |  |
+| 2                | click submit button | Deleted from database and redirects to group list page | Y |  |
+| Group Host Update |     |      |     |    |
+| 1                | click cancel button | redirects to group detail page | Y |  |
+| 2                | click submit button | updates host and redirects to group detail | Y |  |
+| 3                | form select field | list of users participating in group as option | Y | required field can not be left blank  |
+| Group Update |     |      |     |    |
+| 1                | click cancel button | redirects to group detail page | Y |  |
+| 2                | click submit button | updates table and redirects to group detail | Y |  |
+| 3                | Enter valid name | name field required to be unique | Y |  |
+| 4                | Private uncheck slider | Remove private info when unselected | Y |  |
+| 5                | Private check slider | Displays private info when unselected | Y |  |
+| Session Detail |     |      |     |    |
+| 1                | click new game button | modal opens to create new game | Y | only displayed when minimum players are met |
+| 2                | click invite button | redirects to send invite page | Y | changed to new game button when minimum players met |
+| 3                | click edit session button | redirect edit session page | Y |  |
+| 4                | click edit session admin button | redirects to update session admin page | Y |  |
+| 5                | click invite players button | redirect session invite page | Y |  |
+| 6                | click delete session button | redirects delete session page | Y |  |
+| 7                | click game link | redirects to update game score | Y |  |
+| Session Delete |     |      |     |    |
+| 1                | click cancel button | redirects to session detail page | Y |  |
+| 2                | click submit button | Deleted from database and redirects to group detail page | Y |  |
+| Session admin Update |     |      |     |    |
+| 1                | click cancel button | redirects to session detail page | Y |  |
+| 2                | click submit button | updates host and redirects to session detail | Y |  |
+| 3                | form select field | list of users participating in session as options | Y | required field can not be left blank  |
+| Session Update |     |      |     |    |
+| 1                | click cancel button | redirects to session detail page | Y |  |
+| 2                | click submit button | updates table and redirects to session detail | Y |  |
+| 3                | Enter valid location | required field is not unique | Y |  |
+| 4                | Enter valid Time | required field is not unique | Y |  |
+| 5                | Select Game type option | only doubles option available | Y |  |
+| 6                | Select Team type option | only random option available | Y |  |
+| Session Invite |     |      |     |    |
+| 1                | click Send invite button | redirects to send session invite page | Y |  |
+| 2                | click remove player button | redirects to remove player page | Y | the x after the player name in current roster |
+| 3                | click delete invite button | redirects to delete session invite page | Y | the x after the session invite element |
+| 4                | click approve invite button | redirects to update session invite page | Y | the tick after the session invite element |
+| Session Join Request |     |      |     |    |
+| 1                | click cancel button | redirects to session detail page | Y |  |
+| 2                | click submit button | Sends join request for session admin to review and redirects to session details page | Y |  |
+| Send Session Invite |     |      |     |    |
+| 1                | click cancel button | redirects to session invite page | Y |  |
+| 2                | click submit button | Sends invite to user selected | Y |  |
+| 3                | Select user option | required fields | Y | will only provide option for users that are not already invited and are participating in group or admins friend |
+| Remove Player |     |      |     |    |
+| 1                | click cancel button | redirects to session invite page | Y |  |
+| 2                | click submit button | removed player from roster and redirects to session invite page | Y |  |
+| Delete session invite |     |      |     |    |
+| 1                | click cancel button | redirects to session invite page | Y |  |
+| 2                | click submit button | removed invite and redirects to session invite page | Y |  |
+| Approve session invite |     |      |     |    |
+| 1                | click cancel button | redirects to session invite page | Y |  |
+| 2                | click submit button | Adds player to roster and redirects to session invite page | Y |  |
+| 3                | Select field option | required field | Y |  |
+| Game Detail |     |      |     |    |
+| 1                | enter team 1 score | can be left blank or 0 | Y |  |
+| 2                | enter team 2 score | can be left blank or 0 | Y |  |
+| 3                | click submit button | save the score for each team redirects to session detail page | Y | winner is displayed on session detail page |
+| User Session invites list |     |      |     |    |
+| 1                | click invite link | redirects to update user session invite | Y |  |
+| Update User Session invites |     |      |     |    |
+| 1                | click cancel button | redirects to user session invite list page | Y |  |
+| 2                | click submit button | Adds player to roster and redirects to profile page | Y |  |
+| 3                | Select approved field option | need to manually select | Y |  |
 
 ---
 
