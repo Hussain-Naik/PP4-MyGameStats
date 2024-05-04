@@ -130,6 +130,23 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1                | click cancel button | redirects to user session invite list page | Y |  |
 | 2                | click submit button | Adds player to roster and redirects to profile page | Y |  |
 | 3                | Select approved field option | need to manually select | Y |  |
+| User Profiles list |     |      |     |    |
+| 1                | click user profile | redirects to users profile | Y |  |
+| Other User Profile |     |      |     |    |
+| 1                | click button to add friend | refreshes user profile | Y | add friend button changed to friend request status |
+| 2                | click status button | redirects to update friend request page | Y |  |
+| 3                | click remove friend button | redirects to unfriend page  | Y | Displayed once user accepts friend request |
+| Unfriend |     |      |     |    |
+| 1                | click cancel button | redirects to users profile page | Y |  |
+| 2                | click submit button | unfriends both users and redirect to user profile page | Y |  |
+| Update Sent Friend request |     |      |     |    |
+| 1                | click cancel button | redirects to user profile page | Y |  |
+| 2                | click submit button | updates database and adds each user to respective friend list | Y | redirect back to user profile |
+| 3                | click delete button | delete friend request from database | Y | request no longer visible on recipient profile |
+| Update Received Friend request |     |      |     |    |
+| 1                | click cancel button | redirects to user profile page | Y |  |
+| 2                | click submit button | updates database and adds each user to respective friend list | Y | redirect back to user profile |
+| 3                | Select accept option | Adds both users to each others respective friends list | Y |  |
 
 ---
 
