@@ -202,11 +202,11 @@ Due to changes to fontawesome mid way the project the application stopped displa
 
 ### CSS Validation:
 
-- Not applicable, as all application CSS using Bootstrap 5 library
+- All application CSS using Bootstrap 5 library, no other external CSS used
 
 ### JS Validation:
 
-- Not applicable, as all application JavaScript using Bootstrap 5 library
+- All application JavaScript using Bootstrap 5 library, no other Javascript code used
 
 ### Python Validation:
 
@@ -226,7 +226,7 @@ Due to changes to fontawesome mid way the project the application stopped displa
 
 Testing was conducted on the following browsers;
 
-- Brave;
+- Safari;
 - Chrome;
 - Firefox;
 
@@ -239,5 +239,5 @@ The responsiveness was checked manually by using devtools (Chrome) throughout th
 
 Bootstrap 5 library used to handle responsive mobile first approach.
 
-
+- [Responsive Report](documentation/responsive_report.pdf)
 ---

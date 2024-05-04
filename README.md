@@ -76,11 +76,12 @@ Developed for all levels of badminton player from beginners to professional, the
 - ##### Databases:
 
     + [SQLite](https://www.sqlite.org/): was used as a development database.
-    + [PostgreSQL](https://www.postgresql.org/): the database used to store all the data.
+    + [ElephantSQL](https://www.elephantsql.com/): the database used to store all the data.
 
 - ##### Other tools:
 
     + [Git](https://git-scm.com/): the version control system used to manage the code.
+    + [Figma](https://www.figma.com/): to create the wireframes.
     + [Pip3](https://pypi.org/project/pip/): the package manager used to install the dependencies.
     + [Gunicorn](https://gunicorn.org/): the webserver used to run the website.
     + [Psycopg2](https://www.python.org/dev/peps/pep-0249/): the database driver used to connect to the database.
@@ -101,6 +102,7 @@ Developed for all levels of badminton player from beginners to professional, the
 ### Stage 2: Development
 
 Github Kanban board was used to keep track of tasks and issues
+- [Github Projects](documentation/github_projects.png)
 
 #### FEATURES
 
