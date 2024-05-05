@@ -82,6 +82,7 @@ Developed for all levels of badminton player from beginners to professional, the
 
     + [Git](https://git-scm.com/): the version control system used to manage the code.
     + [Figma](https://www.figma.com/): to create the wireframes.
+    + [Canva](https://www.canva.com/en_gb/): to create the badminton favicon image.
     + [Pip3](https://pypi.org/project/pip/): the package manager used to install the dependencies.
     + [Gunicorn](https://gunicorn.org/): the webserver used to run the website.
     + [Psycopg2](https://www.python.org/dev/peps/pep-0249/): the database driver used to connect to the database.
