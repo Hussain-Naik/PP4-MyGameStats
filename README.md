@@ -76,7 +76,7 @@ Developed for all levels of badminton player from beginners to professional, the
 - ##### Databases:
 
     + [SQLite](https://www.sqlite.org/): was used as a development database.
-    + [ElephantSQL](https://www.elephantsql.com/): the database used to store all the data.
+    + [PostgreSQL](https://www.postgresql.org/): the database used to store all the data.
 
 - ##### Other tools:
 
