@@ -373,8 +373,8 @@ In the future I would like to add user setting to display preferred location or 
 - [Django](https://www.djangoproject.com/) for the framework.
 - [Render](https://render.com/): for the free hosting of the website.
 - [ElephantSQL](https://www.elephantsql.com/): for the free hosting of the database.
-- [Bootstrap 5](https://fontawesome.com/): for the a free HTML, CSS, and JavaScript framework for creating responsive, mobile-first websites
-- [Postgresql](https://www.postgresql.org/): for providing a free database.
+- [Bootstrap 5](https://getbootstrap.com/): for the a free HTML, CSS, and JavaScript framework for creating responsive, mobile-first websites
+- [Stack Overflow](https://stackoverflow.com/): for providing the add_attr templatetags code.
 - [w3schools.com](https://www.w3schools.com/): for providing a free learning material
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
 - [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
