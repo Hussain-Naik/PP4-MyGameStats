@@ -387,7 +387,7 @@ In the future I would like to add user setting to display preferred location or 
 ## Acknowledgments
 
 - First and foremost Alhamdulillah which is acknowledgement and thankful to Allah for guiding me with understanding and knowledge, while keeping me sane and calm during the project. 
-- [Kieron From Student Care](https://codeinstitute.net/blog/meet-our-support-teams/?nab=1&utm_referrer=https%3A%2F%2Fwww.google.com%2F), was a great help and advised support during my difficult circumstance due to the changes introduced by the government for ILR application
+- [Alexandre From Student Care](https://codeinstitute.net/blog/meet-our-support-teams/?nab=1&utm_referrer=https%3A%2F%2Fwww.google.com%2F), was a great help and advised support during my difficult circumstance due to the changes introduced by the government for ILR application
 - [Aleksei Konovalov](https://github.com/lexach91), my mentor, who guided me and advised to undertake this project.
 - [Iuliia Konovalova](https://github.com/IuliiaKonovalova), my mentor, who guided me through the development of the project with his advice.
 - My current workplace for providing me with the support and motivation to work on the application.
