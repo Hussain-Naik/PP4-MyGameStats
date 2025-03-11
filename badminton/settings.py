@@ -24,7 +24,7 @@ else:
     DEBUG = True
 
 if development:
-    ALLOWED_HOSTS = ['127.0.0.1', 'pp4-mygamestats.onrender.com', 'localhost']
+    ALLOWED_HOSTS = ['127.0.0.1', 'pp4-mygamestats.onrender.com', 'badmintonpp4-grcpe2btadduazf6.germanywestcentral-01.azurewebsites.net', 'localhost']
 else:
     ALLOWED_HOSTS = ['pp4-mygamestats.onrender.com']
 
